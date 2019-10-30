@@ -38,7 +38,7 @@
                             <button class="btn btn-primary btn-sm" type="submit"><i class="fa fa-search"></i> Search</button>
                             <button type="button" @click="searchReset()" class="btn btn-default btn-sm"><i class="fa fa-undo"></i> Reset</button>
                             <button v-if="withExport && searchId" type="button" @click="searchExport()" class="btn btn-default btn-sm"><i class="fa fa-download"></i> Export</button>
-                            <div v-if="withSets" class="btn-group btn-group-sm">
+                            <div v-if="withSets && searchId && !disableBatch" class="btn-group btn-group-sm">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-plus"></i> Add to set <span class="caret"></span>
                                 </button>
@@ -401,7 +401,7 @@ export default {
             }).catch(error => console.log(error))
         },
         setsAddTo(setId) {
-            if (! this.withSets) {
+            if (!this.withSets || !this.searchId || this.disableBatch) {
                 return
             }
 
