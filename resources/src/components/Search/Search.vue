@@ -405,21 +405,19 @@ export default {
                 return
             }
 
-            this.$store.dispatch('search/savedSearchExport').then(() => {
-                const id = this.$store.state.search.exportId
-
-                if ('' === id) {
-                    return
-                }
-
-                return axios({
-                    method: 'put',
-                    url: '/sets/assign-search',
-                    data: { id: setId, record_id: id },
-                }).then(response => {
-                    console.log(response)
-                }).catch(error => console.log(error))
-            })
+            axios({
+                method: 'put',
+                url: '/sets/assign-search',
+                data: { id: setId, record_id: this.searchId },
+            }).then(response => {
+                this.$notify({
+                  'group': 'SearchNotification',
+                  'type': response.data.success ? 'success' : 'error',
+                  'text': response.data.success ?
+                    'The records have been successfully added to the set' :
+                    response.data.error
+                })
+            }).catch(error => console.log(error))
         },
         searchExport() {
             if (!this.withExport || !this.searchId) {
