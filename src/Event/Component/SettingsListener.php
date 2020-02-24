@@ -55,7 +55,6 @@ class SettingsListener implements EventListenerInterface
 
         $locale = Configure::read('App.defaultLocale');
         I18n::setLocale($locale);
-
     }
 
     /**
