@@ -205,5 +205,24 @@ return [
                 ],
             ],
         ],
+        'System Locale' => [
+            'Language' => [
+                'Locale' => [
+                    'Locale' => [
+                        'alias' => 'App.defaultLocale',
+                        'type' => 'list',
+                        'selectOptions' => [
+                            'en_US' => 'English',
+                            'it_IT' => 'Italian',
+                        ],
+                        'help' => 'Choose default locale',
+                        'scope' => [
+                            'user',
+                            'app',
+                        ],
+                    ],
+                ],
+            ],
+        ],
     ],
 ];
