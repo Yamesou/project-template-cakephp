@@ -27,7 +27,7 @@ foreach ((array)$savedSearch->get('fields') as $item) {
         $key = array_search($item, array_column($filters, 'field'), true);
         $label = false !== $key ? $filters[$key]['label'] : $item;
     }
-    $headers[] = ['value' => $item, 'text' => $label];
+    $headers[] = ['value' => $item, 'text' => __($label)];
 }
 $disableBatch = '' !== (string)$savedSearch->get('group_by') || $hasAggregate;
 
@@ -45,7 +45,7 @@ echo $this->fetch('pre_element');
 <section class="content-header">
     <div class="row">
         <div class="col-xs-12 col-md-6">
-            <h4><?= __("{0}", $title) ?></h4>
+            <h4><?= __($title) ?></h4>
         </div>
         <div class="col-xs-12 col-md-6">
             <div class="pull-right">
