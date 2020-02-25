@@ -189,14 +189,16 @@ return [
                     ],
                 ],
             ],
-        ],
-        'Menu Order' => [
-            'Menu' => [
-                'Main Menu' => [
-                    'Dashboard Menu Order Value' => [
-                        'alias' => 'dashboard_menu_order_value',
-                        'type' => 'string',
-                        'help' => '',
+            'Language' => [
+                'Locale' => [
+                    'Locale' => [
+                        'alias' => 'App.defaultLocale',
+                        'type' => 'list',
+                        'selectOptions' => [
+                            'en_US' => 'English (US)',
+                            'it_IT' => 'Italian',
+                        ],
+                        'help' => 'Choose default locale',
                         'scope' => [
                             'user',
                             'app',
@@ -205,17 +207,13 @@ return [
                 ],
             ],
         ],
-        'System Locale' => [
-            'Language' => [
-                'Locale' => [
-                    'Locale' => [
-                        'alias' => 'App.defaultLocale',
-                        'type' => 'list',
-                        'selectOptions' => [
-                            'en_US' => 'English',
-                            'it_IT' => 'Italian',
-                        ],
-                        'help' => 'Choose default locale',
+        'Menu Order' => [
+            'Menu' => [
+                'Main Menu' => [
+                    'Dashboard Menu Order Value' => [
+                        'alias' => 'dashboard_menu_order_value',
+                        'type' => 'string',
+                        'help' => '',
                         'scope' => [
                             'user',
                             'app',
