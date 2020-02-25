@@ -143,29 +143,6 @@ final class Manager
     }
 
     /**
-     * Method that formats search result-set.
-     *
-     * @param \Cake\Datasource\ResultSetInterface $entities Search result-set
-     * @param \Cake\ORM\Table $table Table instance
-     * @param bool $withPermissions Whether to include access permissions
-     * @return mixed[]
-     */
-    public static function formatEntities(ResultSetInterface $entities, Table $table, bool $withPermissions = false): array
-    {
-        deprecationWarning(
-            'Manager::formatEntities() method is deprecated. ' .
-            'Use \App\ORM\PrettyFormatter class instead.'
-        );
-
-        $result = [];
-        foreach ($entities as $entity) {
-            $result[] = self::formatEntity($entity, $table, $withPermissions);
-        }
-
-        return $result;
-    }
-
-    /**
      * Method that formats search result-set entity.
      *
      * @param \Cake\Datasource\EntityInterface $entity Entity instance
