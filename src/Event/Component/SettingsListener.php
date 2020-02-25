@@ -8,6 +8,7 @@ use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\Event\EventListenerInterface;
+use Cake\I18n\I18n;
 use Cake\ORM\TableRegistry;
 use Webmozart\Assert\Assert;
 
@@ -51,6 +52,9 @@ class SettingsListener implements EventListenerInterface
         }
 
         $this->loadUserDbConfig($userId);
+
+        $locale = Configure::read('App.defaultLocale');
+        I18n::setLocale($locale);
     }
 
     /**
