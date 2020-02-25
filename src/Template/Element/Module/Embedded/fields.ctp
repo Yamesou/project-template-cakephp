@@ -58,7 +58,7 @@ foreach ($fields as $field) {
 
     echo $this->element('Module/View/fields', [
         'table' => $relatedTable,
-        'panelPrefix' => Hash::get($config, 'table.alias', Inflector::singularize(Inflector::humanize($relatedModule))) . ': ',
+        'panelPrefix' => Hash::get($config, 'table.alias', __(Inflector::singularize(Inflector::humanize($relatedModule)))) . ': ',
         'options' => [
             'entity' => $relatedEntity,
             'fields' => Field::getCsvView($relatedTable, 'view', true, true)

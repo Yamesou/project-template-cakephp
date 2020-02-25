@@ -19,7 +19,9 @@ $embeddedFields = [];
 foreach ($options['fields'] as $panelName => $panelFields) : ?>
     <?php
     if ($this->request->getQuery('embedded')) {
-        $panelName = Inflector::singularize(Inflector::humanize($this->name)) . ': ' . $panelName;
+        $panelName = __(Inflector::singularize(Inflector::humanize($this->name))) . ': ' . __($panelName);
+    } else {
+        $panelName = __($panelName);
     }
     ?>
     <div class="box box-primary">
