@@ -3,8 +3,6 @@ use Cake\Core\Configure;
 use Cake\Error\Debugger;
 use Cake\Routing\Router;
 
-$this->layout = 'error';
-
 if (Configure::read('debug')) :
     $this->layout = 'dev_error';
 
@@ -37,6 +35,10 @@ if (Configure::read('debug')) :
     $this->end();
 endif;
 ?>
+<section class="content-header">
+    <h4>&nbsp;</h4>
+</section>
+<div class="content">
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
         <div class="box box-danger box-solid">
@@ -54,4 +56,5 @@ endif;
             </div>
         </div>
     </div>
+</div>
 </div>
