@@ -73,12 +73,11 @@ echo $this->Html->scriptBlock(
                     <div class="form-group">
                         <?= $this->Form->label($userImage ? __('Replace image') : __('Upload image')) ?>
                         <?= $this->Form->file('Users.image') ?>
+                        <hr>
+                        <?= $this->Form->button(__('Upload'), ['class' => 'btn btn-primary']) ?>
                     </div>
+                    <?= $this->Form->end() ?>
                 </div>
-                <div class="box-footer">
-                    <?= $this->Form->button(__('Upload'), ['class' => 'btn btn-primary']) ?>
-                </div>
-                <?= $this->Form->end() ?>
                 <!-- /.box-body -->
             </div>
         </div>
