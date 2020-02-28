@@ -35,7 +35,7 @@ $fieldName = '';
 
             $modalBody = $this->element('Module/Embedded/form', [
                 'model' => $association->className(),
-                'field' => $association->getForeignKey(),
+                'field' => $association->getName(),
                 'associationName' => $association->getName(),
                 'relatedModel' => Inflector::delimit($this->request->getParam('controller'), '-'),
                 'relatedId' => $this->request->getParam('pass.0')
