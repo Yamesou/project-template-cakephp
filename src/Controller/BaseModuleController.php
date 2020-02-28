@@ -415,7 +415,7 @@ class BaseModuleController extends AppController
             return $this->redirect($this->referer());
         }
 
-        $this->Flash->success((string)__('({0}) records have been linked.', count($ids)));
+        $this->Flash->success((string)__('{0} record(s) have been linked.', count($ids)));
 
         return $this->redirect($this->referer());
     }
