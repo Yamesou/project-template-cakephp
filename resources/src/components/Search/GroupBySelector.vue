@@ -2,16 +2,35 @@
   <div>
     <div class="col-xs-4">
       <div class="form-group">
-        <select v-model="model" class="form-control input-sm">
-          <option v-for="item in models" :value="item">{{ item }}</option>
+        <select
+          v-model="model"
+          class="form-control input-sm"
+        >
+          <option
+            v-for="item in models"
+            :value="item"
+          >
+            {{ item }}
+          </option>
         </select>
       </div>
     </div>
     <div class="col-xs-8">
       <div class="form-group">
-        <select v-model="groupBy" class="form-control input-sm">
-          <option value="">-- Group by --</option>
-          <option v-for="item in fieldsList" v-if="item.group === model" :value="item.field">{{ item.label }}</option>
+        <select
+          v-model="groupBy"
+          class="form-control input-sm"
+        >
+          <option value="">
+            -- Group by --
+          </option>
+          <option
+            v-for="item in fieldsList"
+            v-if="item.group === model"
+            :value="item.field"
+          >
+            {{ item.label }}
+          </option>
         </select>
       </div>
     </div>
@@ -23,7 +42,7 @@ import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'GroupBySelector',
-  data() {
+  data () {
     return {
       model: this.$store.state.search.model
     }
