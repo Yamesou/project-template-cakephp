@@ -246,7 +246,7 @@ export default {
       required: true
     },
     filters: {
-      type: String,
+      type: Array,
       required: true
     },
     model: {
@@ -375,7 +375,7 @@ export default {
       }
     },  { deep: true })
 
-    this.$store.commit('search/filters', JSON.parse(this.filters))
+    this.$store.commit('search/filters', this.filters)
     this.$store.commit('search/defaultFields', this.displayFields)
     this.$store.commit('search/savedSearchModel', this.model)
     this.$store.commit('search/savedSearchUserId', this.userId)
