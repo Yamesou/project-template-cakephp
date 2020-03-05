@@ -121,7 +121,7 @@ class CsvViewComponent extends Component
      */
     protected function filterBatchFields(Event $event): void
     {
-        $config = new ModuleConfig(ConfigType::MIGRATION(), $this->getAction());
+        $config = new ModuleConfig(ConfigType::MIGRATION(), $this->request->getParam('controller'));
         $config = json_encode($config->parse());
         $fields = false === $config ? [] : json_decode($config, true);
 
