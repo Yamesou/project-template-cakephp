@@ -61,7 +61,7 @@ final class Search
 
         $cacheKey = 'search_filters_' . md5($tableName);
         $cached = Cache::read($cacheKey);
-        if (false !== $cached) {
+        if (false !== $cached && [] !== $cached) {
             return $cached;
         }
 
