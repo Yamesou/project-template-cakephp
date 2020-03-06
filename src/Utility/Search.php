@@ -61,7 +61,7 @@ final class Search
 
         $cacheKey = 'search_filters_' . md5($tableName);
         $cached = Cache::read($cacheKey);
-        if (false !== $cached && [] !== $cached) {
+        if (false !== $cached) {
             return $cached;
         }
 
@@ -80,7 +80,10 @@ final class Search
 
         $result = array_values($result);
 
-        Cache::write($cacheKey, $result);
+        // useful when user with limited access initiates the request and result is empty
+        if ([] !== $result) {
+            Cache::write($cacheKey, $result);
+        }
 
         static::$filters[$tableName] = $result;
 
