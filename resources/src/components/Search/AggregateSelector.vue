@@ -1,32 +1,78 @@
 <template>
   <div>
-    <select v-model="aggregate" class="form-control input-sm form-group">
-      <option value="">-- Aggregate --</option>
-      <option v-for="item in aggregates" :value="item.value">{{ item.text }}</option>
+    <select
+      v-model="aggregate"
+      class="form-control input-sm form-group"
+    >
+      <option value="">
+        -- Aggregate --
+      </option>
+      <option
+        v-for="item in aggregates"
+        :value="item.value"
+      >
+        {{ item.text }}
+      </option>
     </select>
-    <div class="row form-group" v-if="aggregate">
+    <div
+      v-if="aggregate"
+      class="row form-group"
+    >
       <div class="col-xs-4">
-        <select v-model="model" class="form-control input-sm">
-          <option v-for="item in models">{{ item }}</option>
+        <select
+          v-model="model"
+          class="form-control input-sm"
+        >
+          <option v-for="item in models">
+            {{ item }}
+          </option>
         </select>
       </div>
       <div class="col-xs-8">
-        <select v-model="field" class="form-control input-sm">
-          <option value="">-- Aggregate field --</option>
-          <option v-for="item in fieldsList" v-if="item.group === model" :value="item.field">{{ item.label }}</option>
+        <select
+          v-model="field"
+          class="form-control input-sm"
+        >
+          <option value="">
+            -- Aggregate field --
+          </option>
+          <option
+            v-for="item in fieldsList"
+            v-if="item.group === model"
+            :value="item.field"
+          >
+            {{ item.label }}
+          </option>
         </select>
       </div>
     </div>
-    <div class="row" v-if="aggregate && field">
+    <div
+      v-if="aggregate && field"
+      class="row"
+    >
       <div class="col-xs-4 form-group">
-        <select v-model="filter" class="form-control input-sm">
-          <option value=""></option>
-          <option v-for="item in filters" :value="item.value">{{ item.text }}</option>
+        <select
+          v-model="filter"
+          class="form-control input-sm"
+        >
+          <option value="" />
+          <option
+            v-for="item in filters"
+            :value="item.value"
+          >
+            {{ item.text }}
+          </option>
         </select>
       </div>
       <div class="col-xs-8">
         <div class="form-group">
-            <input type="number" v-model="value" step="any" max="99999999999" class="form-control input-sm" />
+          <input
+            v-model="value"
+            type="number"
+            step="any"
+            max="99999999999"
+            class="form-control input-sm"
+          >
         </div>
       </div>
     </div>
@@ -40,18 +86,7 @@ import { uuid } from 'vue-uuid'
 
 export default {
   name: 'AggregateSelector',
-  computed: {
-    ...mapGetters({
-      models: 'search/displayableModels'
-    }),
-    ...mapState({
-      criteria: state => state.search.criteria,
-      fields: state => state.search.fields,
-      fieldsList: state => state.search.filters,
-      groupBy: state => state.search.group_by
-    }),
-  },
-  data() {
+  data () {
     return {
       aggregate: '',
       aggregates: AGGREGATES,
@@ -62,6 +97,17 @@ export default {
       model: this.$store.state.search.model,
       value: ''
     }
+  },
+  computed: {
+    ...mapGetters({
+      models: 'search/displayableModels'
+    }),
+    ...mapState({
+      criteria: state => state.search.criteria,
+      fields: state => state.search.fields,
+      fieldsList: state => state.search.filters,
+      groupBy: state => state.search.group_by
+    }),
   },
   watch: {
     criteria(value) {

@@ -2,49 +2,98 @@
   <div class="row">
     <div class="col-md-5">
       <label for="available-columns">Available Columns</label>
-      <select v-model="selected.available" class="form-control input-sm" multiple size="7" :disabled="disableSelection">
-        <option v-for="item in availableList" :value="item.field">{{ item.label }}</option>
+      <select
+        v-model="selected.available"
+        class="form-control input-sm"
+        multiple
+        size="7"
+        :disabled="disableSelection"
+      >
+        <option
+          v-for="item in availableList"
+          :value="item.field"
+        >
+          {{ item.label }}
+        </option>
       </select>
-      <select v-model="selected.model" class="form-control input-sm" :disabled="disableSelection">
-        <option v-for="item in models" :value="item">{{ item }}</option>
+      <select
+        v-model="selected.model"
+        class="form-control input-sm"
+        :disabled="disableSelection"
+      >
+        <option
+          v-for="item in models"
+          :value="item"
+        >
+          {{ item }}
+        </option>
       </select>
     </div>
     <div class="col-md-2">
       <label>&nbsp;</label>
       <div class="row">
         <div class="col-xs-6 col-md-12">
-            <button type="button" @click="add" class="btn btn-block btn-sm" :disabled="disableAdd">
-              <span class="visible-md visible-lg"><i class="fa fa-angle-right"></i></span>
-              <span class="visible-xs visible-sm"><i class="fa fa-angle-down"></i></span>
-            </button>
+          <button
+            type="button"
+            class="btn btn-block btn-sm"
+            :disabled="disableAdd"
+            @click="add"
+          >
+            <span class="visible-md visible-lg"><i class="fa fa-angle-right" /></span>
+            <span class="visible-xs visible-sm"><i class="fa fa-angle-down" /></span>
+          </button>
         </div>
         <span class="visible-md visible-lg">&nbsp;</span>
         <div class="col-xs-6 col-md-12">
-            <button type="button" @click="remove" class="btn btn-block btn-sm" :disabled="disableRemove">
-              <span class="visible-md visible-lg"><i class="fa fa-angle-left"></i></span>
-              <span class="visible-xs visible-sm"><i class="fa fa-angle-up"></i></span>
-            </button>
+          <button
+            type="button"
+            class="btn btn-block btn-sm"
+            :disabled="disableRemove"
+            @click="remove"
+          >
+            <span class="visible-md visible-lg"><i class="fa fa-angle-left" /></span>
+            <span class="visible-xs visible-sm"><i class="fa fa-angle-up" /></span>
+          </button>
         </div>
       </div>
     </div>
     <div class="col-md-5">
       <span class="visible-xs visible-sm">&nbsp;</span>
       <label for="display-columns">Display Columns</label>
-      <select v-model="selected.display" class="form-control input-sm" multiple size="7" :disabled="disableSelection">
-        <option v-for="item in displayList" :value="item.field">
-          {{ item.label }} <template v-if="item.group !== model">- {{ item.group }}</template>
+      <select
+        v-model="selected.display"
+        class="form-control input-sm"
+        multiple
+        size="7"
+        :disabled="disableSelection"
+      >
+        <option
+          v-for="item in displayList"
+          :value="item.field"
+        >
+          {{ item.label }} <template v-if="item.group !== model"> - {{ item.group }} </template>
         </option>
       </select>
       <div class="row">
         <div class="col-xs-6">
-            <button type="button" @click="moveUp" :disabled="disableSorting" class="btn btn-block btn-sm">
-                <i class="fa fa-angle-up"></i>
-            </button>
+          <button
+            type="button"
+            class="btn btn-block btn-sm"
+            :disabled="disableSorting"
+            @click="moveUp"
+          >
+            <i class="fa fa-angle-up" />
+          </button>
         </div>
         <div class="col-xs-6">
-            <button type="button" @click="moveDown" :disabled="disableSorting" class="btn btn-block btn-sm">
-                <i class="fa fa-angle-down"></i>
-            </button>
+          <button
+            type="button"
+            class="btn btn-block btn-sm"
+            :disabled="disableSorting"
+            @click="moveDown"
+          >
+            <i class="fa fa-angle-down" />
+          </button>
         </div>
       </div>
     </div>
@@ -56,6 +105,15 @@ import Aggregate from '@/utils/aggregate'
 
 export default {
   name: 'FieldsSelector',
+  data () {
+    return {
+      selected: {
+        available: [],
+        display: [],
+        model: this.$store.state.search.model
+      }
+    }
+  },
   computed: {
     ...mapGetters({
       models: 'search/displayableModels'
@@ -66,22 +124,22 @@ export default {
       groupBy: state => state.search.group_by,
       model: state => state.search.model
     }),
-    availableList() {
+    availableList () {
       return this.filters.filter(item => -1 === this.fields.indexOf(item.field) && item.group === this.selected.model)
     },
-    disableAdd() {
+    disableAdd () {
       return Aggregate.hasAggregate(this.fields) || '' !== this.groupBy || !this.selected.available.length
     },
-    disableRemove() {
+    disableRemove () {
       return Aggregate.hasAggregate(this.fields) || '' !== this.groupBy || !this.selected.display.length || !this.fields.length
     },
-    disableSelection() {
+    disableSelection () {
       return Aggregate.hasAggregate(this.fields) || '' !== this.groupBy
     },
-    disableSorting() {
+    disableSorting () {
       return Aggregate.hasAggregate(this.fields) || '' !== this.groupBy || !this.selected.display.length || !this.fields.length
     },
-    displayList() {
+    displayList () {
       const result = this.fields.map((field) => {
         if (Aggregate.isAggregate(field)) {
           const aggregateField = this.filters.find(filter => filter.field === Aggregate.extractAggregateField(field))
@@ -101,15 +159,6 @@ export default {
       })
 
       return result
-    }
-  },
-  data() {
-    return {
-      selected: {
-        available: [],
-        display: [],
-        model: this.$store.state.search.model
-      }
     }
   },
   methods: {

@@ -1,7 +1,15 @@
 <template>
   <div>
-    <select v-model="conjunction" class="form-control input-sm">
-      <option v-for="item in conjunctions" :value="item.value">{{ item.text }}</option>
+    <select
+      v-model="conjunction"
+      class="form-control input-sm"
+    >
+      <option
+        v-for="item in conjunctions"
+        :value="item.value"
+      >
+        {{ item.text }}
+      </option>
     </select>
   </div>
 </template>
@@ -10,6 +18,11 @@ import { CONJUNCTIONS } from '@/utils/search'
 
 export default {
   name: 'ConjunctionSelector',
+  data () {
+    return {
+      conjunctions: CONJUNCTIONS
+    }
+  },
   computed: {
     conjunction: {
       get() {
@@ -20,10 +33,5 @@ export default {
       }
     }
   },
-  data() {
-    return {
-      conjunctions: CONJUNCTIONS
-    }
-  }
 }
 </script>
