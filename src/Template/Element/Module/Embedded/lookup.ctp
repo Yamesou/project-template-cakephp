@@ -20,7 +20,7 @@ $factory = new FieldHandlerFactory($this);
 $dataTarget = Inflector::underscore($association->className() . '_' . $association->getForeignKey());
 $modalBody = $this->element('Module/Embedded/form', [
     'model' => $association->className(),
-    'field' => $association->getForeignKey(),
+    'field' => $association->getName(),
     'associationName' => $association->getName(),
     'relatedModel' => Inflector::delimit($this->request->getParam('controller'), '-'),
     'relatedId' => $this->request->getParam('pass.0')
@@ -59,7 +59,7 @@ $modalBody = $this->element('Module/Embedded/form', [
             $tableName = $this->plugin . '.' . $tableName;
         }
 
-        echo $factory->renderInput($tableName, $association->getForeignKey(), null, $handlerOptions);
+        echo $factory->renderInput($tableName, $association->getName(), null, $handlerOptions);
 
         echo $this->Form->end();
         ?>

@@ -37,7 +37,7 @@ $attributes = isset($attributes) ? $attributes : [];
 
 $attributes += [
     'label' => false,
-    'id' => $association->className(),
+    'id' => $association->getName(),
     'type' => $type,
     'options' => $options,
     'value' => $value,
