@@ -1,21 +1,42 @@
 <template>
   <div>
-    <template v-for="(field_criteria, field) in criteria" v-if="!isAggregate(field)">
-      <div v-for="(info, guid) in field_criteria" class="form-group">
+    <template
+      v-for="(field_criteria, field) in criteria"
+      v-if="!isAggregate(field)"
+    >
+      <div
+        v-for="(info, guid) in field_criteria"
+        class="form-group"
+      >
         <div class="row">
           <div class="col-xs-12 col-md-4 col-lg-3">
             <label>{{ filters[field].label }}
-              <template v-if="filters[field].group !== model"><i class="fa fa-info-circle" :title="filters[field].group"></i></template>
+              <template v-if="filters[field].group !== model">
+                <i
+                  class="fa fa-info-circle"
+                  :title="filters[field].group"
+                />
+              </template>
             </label>
           </div>
           <div class="col-xs-4 col-md-2 col-lg-2">
-            <select v-model="filtersList[guid]" class="form-control input-sm" @change="filterUpdated(field, guid, $event.target.value)">
-              <option v-for="item in getFiltersByField(field)" :value="item.value">{{ item.text }}</option>
+            <select
+              v-model="filtersList[guid]"
+              class="form-control input-sm"
+              @change="filterUpdated(field, guid, $event.target.value)"
+            >
+              <option
+                v-for="item in getFiltersByField(field)"
+                :value="item.value"
+              >
+                {{ item.text }}
+              </option>
             </select>
           </div>
           <div class="col-xs-6 col-md-5">
             <component
               :is="info.type + 'Input'"
+              :key="guid"
               :guid="guid"
               :field="field"
               :value="info.value"
@@ -24,11 +45,19 @@
               :display-field="filters[field].display_field"
               :multiple="true"
               @input-value-updated="valueUpdated"
-              :key="guid"
             />
           </div>
           <div class="col-sm-2 col-md-1">
-            <button type="button" @click="remove(guid)" class="btn btn-default btn-xs"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            <button
+              type="button"
+              class="btn btn-default btn-xs"
+              @click="remove(guid)"
+            >
+              <i
+                class="fa fa-trash"
+                aria-hidden="true"
+              />
+            </button>
           </div>
         </div>
       </div>

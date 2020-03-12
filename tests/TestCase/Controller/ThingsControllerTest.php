@@ -51,9 +51,11 @@ class ThingsControllerTest extends IntegrationTestCase
 
         $this->session(['Auth' => '']);
 
+        $id = '00000000-0000-0000-0000-000000000001';
+
         // No session data set.
-        $this->get('/things/view/00000000-0000-0000-0000-000000000001');
-        $this->assertRedirectContains('/login');
+        $this->get('/things/view/' . $id);
+        $this->assertRedirectContains('/login?redirect=%2Fthings%2Fview%2F' . $id);
     }
 
     public function testView(): void

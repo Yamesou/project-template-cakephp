@@ -1,12 +1,33 @@
 <template>
   <div class="form-group">
-    <label class="control-label" for="save-search">Save Search</label>
+    <label
+      class="control-label"
+      for="save-search"
+    >
+      Save Search
+    </label>
     <div class="input-group">
       <div class="form-group input text required">
-        <input type="text" v-model="name" class="form-control input-sm" placeholder="Saved search name" required="required">
+        <input
+          v-model="name"
+          type="text"
+          class="form-control input-sm"
+          placeholder="Saved search name"
+          required="required"
+        >
       </div>
       <span class="input-group-btn">
-        <button type="button" @click="save()" :disabled="!name" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+        <button
+          type="button"
+          class="btn btn-sm btn-primary"
+          :disabled="!name"
+          @click="save()"
+        >
+          <i
+            class="fa fa-floppy-o"
+            aria-hidden="true"
+          />
+        </button>
       </span>
     </div>
   </div>

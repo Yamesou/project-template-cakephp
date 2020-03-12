@@ -143,7 +143,7 @@ class AppController extends Controller
      * Callack method.
      *
      * @param  \Cake\Event\Event $event Event object
-     * @return \Cake\Http\Response|void|null
+     * @return \Cake\Http\Response|void|null|string
      */
     public function beforeFilter(Event $event)
     {
@@ -168,7 +168,7 @@ class AppController extends Controller
             if (empty($this->Auth->user()) && ! $this->getRequest()->is('json')) {
                 $this->Auth->setConfig('authError', false);
 
-                return $this->redirect('/login');
+                return $this->Auth->redirectUrl();
             } else {
                 // send empty response for embedded forms
                 if ($this->request->getQuery('embedded')) {

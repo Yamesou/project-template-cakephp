@@ -2,16 +2,36 @@
   <div>
     <div class="col-xs-4">
       <div class="form-group">
-        <select v-model="model" class="form-control input-sm">
-          <option v-for="item in models" :value="item">{{ item }}</option>
+        <select
+          v-model="model"
+          class="form-control input-sm"
+        >
+          <option
+            v-for="item in models"
+            :value="item"
+          >
+            {{ item }}
+          </option>
         </select>
       </div>
     </div>
     <div class="col-xs-8">
       <div class="form-group">
-        <select v-model="field" class="form-control input-sm" @change="create()">
-          <option value="">-- Add filter --</option>
-          <option v-for="item in fields" v-if="item.group === model" :value="item.field">{{ item.label }}</option>
+        <select
+          v-model="field"
+          class="form-control input-sm"
+          @change="create()"
+        >
+          <option value="">
+            -- Add filter --
+          </option>
+          <option
+            v-for="item in fields"
+            v-if="item.group === model"
+            :value="item.field"
+          >
+            {{ item.label }}
+          </option>
         </select>
       </div>
     </div>
@@ -26,6 +46,12 @@ import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'FilterSelector',
+  data () {
+    return {
+      field: '',
+      model: this.$store.state.search.model
+    }
+  },
   computed: {
     ...mapGetters({
       models: 'search/filterModels'
@@ -33,12 +59,6 @@ export default {
     ...mapState({
       fields: state => state.search.filters
     })
-  },
-  data() {
-    return {
-      field: '',
-      model: this.$store.state.search.model
-    }
   },
   methods: {
     create() {

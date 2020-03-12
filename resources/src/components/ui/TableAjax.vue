@@ -263,7 +263,10 @@ export default {
 
           // normal field
           if (data[index][header]) {
-            value.push(data[index][header])
+            value.push(typeof data[index][header] === 'number' ?
+              data[index][header].toLocaleString() :
+              data[index][header]
+            )
           }
 
           // combined field

@@ -1,20 +1,50 @@
 <template>
   <div class="form-group">
-    <label class="control-label" for="saved-searches">Saved Searches</label>
+    <label
+      class="control-label"
+      for="saved-searches"
+    >
+      Saved Searches
+    </label>
     <div class="input-group">
-      <select v-model="selected" class="form-control input-sm">
-        <option value="">-- Please choose --</option>
-        <option v-for="item in savedSearches" :value="item.id">{{ item.name }}</option>
+      <select
+        v-model="selected"
+        class="form-control input-sm"
+      >
+        <option value="">
+          -- Please choose --
+        </option>
+        <option
+          v-for="item in savedSearches"
+          :value="item.id"
+        >
+          {{ item.name }}
+        </option>
       </select>
       <span class="input-group-btn">
-        <button type="button" @click="get()" :disabled="!selected" class="btn btn-default btn-sm">
-          <i class="fa fa-eye"></i>
+        <button
+          type="button"
+          class="btn btn-default btn-sm"
+          :disabled="!selected"
+          @click="get()"
+        >
+          <i class="fa fa-eye" />
         </button>
-        <button type="button" @click="copy()" :disabled="!selected" class="btn btn-default btn-sm">
-          <i class="fa fa-clone"></i>
+        <button
+          type="button"
+          :disabled="!selected"
+          class="btn btn-default btn-sm"
+          @click="copy()"
+        >
+          <i class="fa fa-clone" />
         </button>
-        <button type="button" @click="remove()" :disabled="!selected || selected === searchId" class="btn btn-danger btn-sm">
-          <i class="fa fa-trash"></i>
+        <button
+          type="button"
+          class="btn btn-danger btn-sm"
+          :disabled="!selected || selected === searchId"
+          @click="remove()"
+        >
+          <i class="fa fa-trash" />
         </button>
       </span>
     </div>
@@ -25,17 +55,17 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'SavedSearchSelector',
+  data () {
+    return {
+      selected: ''
+    }
+  },
   computed: {
     ...mapState({
       savedSearches: state => state.search.savedSearches,
       searchId: state => state.search.id,
       userId: state => state.search.user_id
     })
-  },
-  data() {
-    return {
-      selected: ''
-    }
   },
   created() {
     this.$store.dispatch('search/savedSearchesGet')
