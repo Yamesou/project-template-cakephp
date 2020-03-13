@@ -58,7 +58,7 @@ class MyHtmlHelper extends HtmlHelper
 
         $templater = $this->templater();
 
-        if ($rawUrl === '#') {
+        if (!is_array($rawUrl) && (filter_var($rawUrl, FILTER_VALIDATE_URL) || strpos((string)$rawUrl, '#') === 0)) {
             $rawUrl = [
                 'controller' => '',
                 'action' => '',
