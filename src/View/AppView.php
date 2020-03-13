@@ -46,6 +46,7 @@ class AppView extends View
         parent::initialize();
         $this->loadHelper('Menu.Menu');
         $this->loadHelper('Form', ['className' => 'AdminLTE.Form']);
+        $this->loadHelper('Html', ['className' => 'MyHtml']);
         $this->loadHelper('HtmlEmail');
         $this->loadHelper('Search');
         $this->loadHelper('SystemInfo');

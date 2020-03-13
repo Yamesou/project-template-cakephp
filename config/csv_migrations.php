@@ -1,10 +1,12 @@
 <?php
 
+use App\View\AppView;
 use Cake\Core\Configure;
 
 // CsvMigrations plugin configuration
 return [
     'CsvMigrations' => [
+        'appView' => AppView::class,
         'tableValidation' => false,
         // Configuration options for the ValidateShell
         'ValidateShell' => [
