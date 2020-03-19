@@ -10,7 +10,7 @@ return [
             'validator' => true,
             'api_selector' => true,
             'route' => '/swagger/',
-            'schemes' => ['http', 'https'],
+            'schemes' => [$_SERVER['SERVER_PORT'] !== '443' ? 'http' : 'https'],
         ],
         'docs' => [
             'crawl' => (bool)Configure::read('debug') || (bool)Configure::read('Swagger.crawl'),
