@@ -153,6 +153,90 @@ class Annotation
                 )
             )
 
+            @SWG\Get(
+                path="/api/{{module_url}}/lookup.json",
+                summary="Retrieve a list of records {{module_human_singular}} by name",
+                tags={"{{module_human_plural}}"},
+                produces={"application/json"},
+                @SWG\Parameter(
+                    name="query",
+                    description="{{module_human_singular}} Name",
+                    in="query",
+                    required=false,
+                    type="string",
+                    default=""
+                ),
+                @SWG\Parameter(
+                    name="limit",
+                    description="Limit results",
+                    in="query",
+                    required=false,
+                    type="integer",
+                    default=""
+                ),
+                @SWG\Parameter(
+                    name="page",
+                    description="Page Number",
+                    in="query",
+                    required=false,
+                    type="integer",
+                    default=""
+                ),
+                @SWG\Response(
+                    response="200",
+                    description="Successful operation",
+                    @SWG\Schema(
+                        title="Response",
+                        @SWG\Property(
+                            type="boolean",
+                            property="success"
+                        ),
+                        @SWG\Property(
+                            type="object",
+                            property="data",
+                            example={"808D613A-3990-408E-947B-B63D188D6B07":"lion", "E45A34F6-F124-4154-B2AA-E32D77468685":"ion"}
+                        ),
+                        @SWG\Property(
+                            title="pagination",
+                            property="pagination",
+                            @SWG\Property(
+                                property="page_count",
+                                type="integer",
+                                example=1
+                            ),
+                            @SWG\Property(
+                                property="current_page",
+                                type="integer",
+                                example=1
+                            ),
+                            @SWG\Property(
+                                property="has_next_page",
+                                type="boolean",
+                                example=true
+                            ),
+                            @SWG\Property(
+                                property="has_prev_page",
+                                type="boolean",
+                                example=false
+                            ),
+                            @SWG\Property(
+                                property="count",
+                                type="integer",
+                                example=2
+                            ),
+                            @SWG\Property(
+                                property="limit",
+                                type="integer",
+                                example=4
+                            )
+                        ),
+                    )
+                ),
+                @SWG\Response(
+                    response="500",
+                    description="Unsuccessful operation"
+                )
+            )
             @SWG\Post(
                 path="/api/{{module_url}}/add",
                 summary="Add new {{module_human_singular}}",
