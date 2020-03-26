@@ -68,7 +68,7 @@ class App extends AbstractCommand
         }
 
         if (isset($env['CRON_ENABLED']) && $env['CRON_ENABLED']) {
-            $this->installCron($env);
+            $this->updateCron($env);
         }
 
         return ($this->setPathPermissions($env) && $this->postInstall());
@@ -562,6 +562,25 @@ class App extends AbstractCommand
         if (!is_dir("$projectPath/logs")) {
             $this->taskExec('mkdir ' . $projectPath . '/logs')->run();
         }
+        $redirectPath = ((bool)$env['CRON_LOG_ENABLED']) ? $projectPath . '/logs/cron.log' : '/dev/null';
+        $this->taskExec('echo "* * * * * root ' . $projectPath . '/bin/cron.sh >> ' . $redirectPath . ' 2>&1" > /etc/cron.d/' . $env['NGINX_SITE_MAIN'])->run();
+        $this->taskExec('service crond reload')->run();
+    }
+
+    /**
+     * Update system cron job for the project
+     *
+     * @param array $env Environment
+     * @return void
+     */
+    protected function updateCron($env)
+    {
+        $projectPath = "{$env['NGINX_ROOT_PREFIX']}/{$env['NGINX_SITE_MAIN']}";
+
+        if (! file_exists("$projectPath/bin/cron.sh") || ! file_exists("/etc/cron.d/{$env['NGINX_SITE_MAIN']}")) {
+            return;
+        }
+
         $redirectPath = ((bool)$env['CRON_LOG_ENABLED']) ? $projectPath . '/logs/cron.log' : '/dev/null';
         $this->taskExec('echo "* * * * * root ' . $projectPath . '/bin/cron.sh >> ' . $redirectPath . ' 2>&1" > /etc/cron.d/' . $env['NGINX_SITE_MAIN'])->run();
         $this->taskExec('service crond reload')->run();
