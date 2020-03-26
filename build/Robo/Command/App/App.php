@@ -555,7 +555,7 @@ class App extends AbstractCommand
     {
         $projectPath = "{$env['NGINX_ROOT_PREFIX']}/{$env['NGINX_SITE_MAIN']}";
 
-        if (!file_exists("$projectPath/bin/cron.sh") || file_exists("/etc/cron.d/{$env['NGINX_SITE_MAIN']}")) {
+        if (! self::cronShellExists($env) || self::cronFileExists($env)) {
             return;
         }
 
@@ -577,7 +577,7 @@ class App extends AbstractCommand
     {
         $projectPath = "{$env['NGINX_ROOT_PREFIX']}/{$env['NGINX_SITE_MAIN']}";
 
-        if (! file_exists("$projectPath/bin/cron.sh") || ! file_exists("/etc/cron.d/{$env['NGINX_SITE_MAIN']}")) {
+        if (! self::cronShellExists($env) || ! self::cronFileExists($env)) {
             return;
         }
 
@@ -594,10 +594,32 @@ class App extends AbstractCommand
      */
     protected function uninstallCron($env)
     {
-        if (!file_exists("/etc/cron.d/{$env['NGINX_SITE_MAIN']}")) {
+        if (! self::cronFileExists($env)) {
             return;
         }
         $this->taskExec("rm -f '/etc/cron.d/{$env['NGINX_SITE_MAIN']}'")->run();
+    }
+
+    /**
+     * Verifies that cron file exists.
+     *
+     * @param array $env Environment
+     * @return bool
+     */
+    private static function cronFileExists($env): bool
+    {
+        return file_exists("/etc/cron.d/{$env['NGINX_SITE_MAIN']}");
+    }
+
+    /**
+     * Verifies that cron shell exists.
+     *
+     * @param array $env Environment
+     * @return bool
+     */
+    private static function cronShellExists($env): bool
+    {
+        return file_exists("$projectPath/bin/cron.sh");
     }
 
     /**
