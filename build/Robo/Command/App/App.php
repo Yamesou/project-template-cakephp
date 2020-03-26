@@ -13,7 +13,7 @@ class App extends AbstractCommand
      */
     protected $defaultEnv = [
         'CHMOD_FILE_MODE' => '0664',
-        'CHMOD_DIR_MODE' => '02775'
+        'CHMOD_DIR_MODE' => '02775',
     ];
 
     /**
@@ -243,7 +243,7 @@ class App extends AbstractCommand
             'capability assign',
             'menu import',
             'validate', // run after dblists are populated
-            'settings'
+            'settings',
         ];
 
         foreach ($shellScripts as $script) {
@@ -379,7 +379,7 @@ class App extends AbstractCommand
             'capability assign',
             'menu import',
             'validate', // run after dblists are populated
-            'settings'
+            'settings',
         ];
 
         foreach ($shellScripts as $script) {
