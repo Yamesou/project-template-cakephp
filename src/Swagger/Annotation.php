@@ -306,7 +306,7 @@ class Annotation
                                         type="string",
                                         description="Operator",
                                         example="contains",
-                                        enum={"contains", "not_contains", "is", "is_not", "equal", "less", "greater"},
+                                        enum={"contains", "not_contains", "is", "is_not", "less", "greater"},
                                     ),
                                     @SWG\Property(
                                         property="value",
