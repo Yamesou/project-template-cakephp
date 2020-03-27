@@ -23,7 +23,7 @@
 
 <script>
 import axios from 'axios'
-import lodash from 'lodash'
+import debounce from 'lodash.debounce'
 import vSelect from 'vue-select'
 import { MAGIC_VALUE_WRAPPER } from '@/utils/constants.js'
 import UuidMixin from '@/mixins/uuid.js'
@@ -131,7 +131,7 @@ export default {
             this.options = []
             this.search(search, loading, this)
         },
-        search: _.debounce((search, loading, vm, page = 1) => {
+        search: debounce((search, loading, vm, page = 1) => {
             axios({
                 method: 'get',
                 url: encodeURI('/api/' + vm.source + '/lookup?query=' + search + '&limit=100&page=' + page),

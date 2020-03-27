@@ -60,6 +60,7 @@
     "flag-icon-css": "^3.4.6",
     "icheck": "^1.0.2",
     "inflected": "^2.0.4",
+    "lodash.debounce": "^4.0.8",
     "node-sass": "^4.13.1",
     "rrule": "^2.6.4",
     "sass-loader": "^7.3.1",
