@@ -91,8 +91,31 @@ class Annotation
                 path="/api/{{module_url}}",
                 summary="Retrieve a list of {{module_human_plural}}",
                 tags={"{{module_human_plural}}"},
-                consumes={"application/json"},
                 produces={"application/json"},
+                @SWG\Parameter(
+                    name="conditions[id][]",
+                    description="Conditions",
+                    in="query",
+                    required=false,
+                    type="string",
+                    default={{random_uuid}}
+                ),
+                @SWG\Parameter(
+                    name="conditions[name][]",
+                    description="Conditions",
+                    in="query",
+                    required=false,
+                    type="string",
+                    default={{random_name2}}
+                ),
+                @SWG\Parameter(
+                    name="conditions[name][]",
+                    description="Conditions",
+                    in="query",
+                    required=false,
+                    type="string",
+                    default={{random_name}}
+                ),
                 @SWG\Parameter(
                     name="limit",
                     description="Results limit",
@@ -117,12 +140,69 @@ class Annotation
                     type="string",
                     enum={"asc", "desc"}
                 ),
+                @SWG\Parameter(
+                    name="format",
+                    description="Prettify response values",
+                    in="query",
+                    required=false,
+                    type="string",
+                    enum={"pretty"}
+                ),
                 @SWG\Response(
                     response="200",
                     description="Successful operation",
                     @SWG\Schema(
-                        ref="#/definitions/{{module_singular}}"
+                        title="Response",
+                        @SWG\Property(
+                            type="boolean",
+                            property="success"
+                        ),
+                        @SWG\Property(
+                            property="data",
+                            type="array",
+                            @SWG\Items(
+                                ref="#/definitions/{{module_singular}}"
+                            ),
+                        ),
+                        @SWG\Property(
+                            title="pagination",
+                            property="pagination",
+                            @SWG\Property(
+                                property="page_count",
+                                type="integer",
+                                example=1
+                            ),
+                            @SWG\Property(
+                                property="current_page",
+                                type="integer",
+                                example=1
+                            ),
+                            @SWG\Property(
+                                property="has_next_page",
+                                type="boolean",
+                                example=true
+                            ),
+                            @SWG\Property(
+                                property="has_prev_page",
+                                type="boolean",
+                                example=false
+                            ),
+                            @SWG\Property(
+                                property="count",
+                                type="integer",
+                                example=2
+                            ),
+                            @SWG\Property(
+                                property="limit",
+                                type="integer",
+                                example=4
+                            )
+                        ),
                     )
+                ),
+                @SWG\Response(
+                    response="500",
+                    description="Unsuccessful operation"
                 )
             )
 
@@ -194,7 +274,7 @@ class Annotation
                         @SWG\Property(
                             type="object",
                             property="data",
-                            example={"808D613A-3990-408E-947B-B63D188D6B07":"lion", "E45A34F6-F124-4154-B2AA-E32D77468685":"ion"}
+                            example={{{random_uuid}}:{{random_name}}, {{random_uuid}}:{{random_name}}}
                         ),
                         @SWG\Property(
                             title="pagination",
@@ -898,6 +978,7 @@ class Annotation
             '{{sort_fields}}' => '"' . implode('", "', $fields) . '"',
             '{{random_uuid}}' => '"' . Text::uuid() . '"',
             '{{random_name}}' => '"' . self::randomName() . '"',
+            '{{random_name2}}' => '"' . self::randomName() . '"',
             '{{search_fields}}' => self::getSearchFieldsObjectAsString(),
         ];
 
