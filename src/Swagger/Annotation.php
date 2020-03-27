@@ -154,7 +154,7 @@ class Annotation
             )
 
             @SWG\Get(
-                path="/api/{{module_url}}/lookup.json",
+                path="/api/{{module_url}}/lookup",
                 summary="Retrieve a list of records {{module_human_singular}} by name",
                 tags={"{{module_human_plural}}"},
                 produces={"application/json"},
