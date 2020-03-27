@@ -17,7 +17,7 @@ class MyHtmlHelper extends HtmlHelper
      */
     public function help(string $message): string
     {
-        return '&nbsp;&nbsp;<span data-toggle="tooltip" title="" class="badge bg-yellow" data-placement="auto right" data-original-title="' . __($message) . '">?</span>';
+        return '&nbsp;&nbsp;<span data-toggle="tooltip" title="" class="badge bg-blue" data-placement="auto right" data-original-title="' . __($message) . '">?</span>';
     }
 
     /**
