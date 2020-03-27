@@ -10,6 +10,17 @@ use RolesCapabilities\Access\AccessFactory;
 class MyHtmlHelper extends HtmlHelper
 {
     /**
+     * Template for help tooltip
+     *
+     * @param string $message Help message
+     * @return string
+     */
+    public function help(string $message): string
+    {
+        return '&nbsp;&nbsp;<span data-toggle="tooltip" title="" class="badge bg-yellow" data-placement="auto right" data-original-title="' . __($message) . '">?</span>';
+    }
+
+    /**
      * Creates an HTML link or a block, depending on user permissions.
      *
      * @param string|array $title The content to be wrapped by `<a>` tags.

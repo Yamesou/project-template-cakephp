@@ -3,6 +3,7 @@
 namespace App\View\Helper;
 
 use AdminLTE\View\Helper\FormHelper;
+use App\View\Helper\MyHtmlHelper;
 use Cake\View\View;
 
 class MyFormHelper extends FormHelper
@@ -12,10 +13,12 @@ class MyFormHelper extends FormHelper
      */
     public function control($fieldName, array $options = [])
     {
+        $helper = new MyHtmlHelper(new View());
+
         if (!empty($options['help'])) {
             $options['templates'] = [
-                'label' => '<label class="control-label" {{attrs}}>{{text}}</label>
-                    <span class="help-tip"><p>' . $options['help'] . '</p></span>',
+                'label' => '<label class="control-label" {{attrs}}>{{text}}</label>' .
+                $helper->help($options['help']),
             ];
             unset($options['help']);
         }

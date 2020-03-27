@@ -3,7 +3,7 @@
         "label" : "label name",
         "personal" : true,
         "placeholder" : "The name",
-        "help" : "LONG TEST Help - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras cursus congue mi vitae semper. Proin vitae eros quis ipsum ornare sagittis efficitur ac odio. Vivamus iaculis, turpis in tempor hendrerit, neque mi dapibus sem, sed vulputate arcu nisi sed nibh. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla tempor condimentum quam. Quisque iaculis dui ac ipsum tempus semper. Vivamus interdum auctor dolor, sit amet pharetra est porta ac. Donec sit amet elit quam. Suspendisse imperdiet ullamcorper lacus, id convallis risus egestas vitae. Vestibulum aliquet tellus ut quam dapibus feugiat."
+        "help" : "LONG TEST Help - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras cursus congue mi vitae semper. Proin vitae eros quis ipsum ornare sagittis efficitur ac odio. Vivamus iaculis, turpis in tempor hendrerit, neque mi dapibus sem, sed vulputate arcu nisi sed nibh. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla tempor condimentum quam. Quisque iaculis dui ac ipsum tempus semper. Vivamus interdum auctor dolor, sit amet pharetra est porta ac. Donec sit amet elit quam."
     },
     "description" : {
         "label" : "label description",
