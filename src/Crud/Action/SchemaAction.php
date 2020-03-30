@@ -69,10 +69,10 @@ class SchemaAction extends BaseAction
             $data = [
                 'name' => $csvField->getName(),
                 'type' => $csvField->getType(),
+                'required' => $csvField->getRequired(),
             ];
             // Check if exist a label, or required, non_searchable, unique are set as true.
             !empty($fieldJson[$csvField->getName()]['label']) ? $data['label'] = $fieldJson[$csvField->getName()]['label'] : '';
-            $csvField->getRequired() ? $data['required'] = true : '';
             $csvField->getNonSearchable() ? $data['non_searchable'] = true : '';
             $csvField->getUnique() ? $data['unique'] = true : '';
 
