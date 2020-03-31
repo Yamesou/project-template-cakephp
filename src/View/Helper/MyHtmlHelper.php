@@ -17,7 +17,11 @@ class MyHtmlHelper extends HtmlHelper
      */
     public function help(string $message): string
     {
-        return '&nbsp;&nbsp;<span data-toggle="tooltip" title="" class="badge bg-blue" data-placement="auto right" data-original-title="' . __($message) . '">?</span>';
+        $dataToggle = Configure::read("CsvMigrations.HelperConfig.dataToggle");
+        $classCss = Configure::read("CsvMigrations.HelperConfig.classCss");
+        $dataPlacement = Configure::read("CsvMigrations.HelperConfig.dataPlacement");
+
+        return '&nbsp;&nbsp;<span data-toggle="' . $dataToggle . '" class="' . $classCss . '" data-placement="' . $dataPlacement . '" data-original-title="' . __($message) . '">?</span>';
     }
 
     /**
