@@ -367,30 +367,39 @@ class Annotation
                             property="criteria",
                             description="Criteria field",
                             @SWG\Property(
-                                type="object",
                                 property="{{module_human_plural}}.name",
+                                type="object",
+                                description="Criteria",
                                 @SWG\Property(
                                     property={{random_uuid}},
                                     description="Criteria field",
                                     @SWG\Property(
                                         property="type",
-                                        type="object",
+                                        type="string",
                                         description="Field type",
-                                        example="string"
+                                        example="string",
+                                        enum={"string", "boolean", "list", "related", "integer"},
+
                                     ),
                                     @SWG\Property(
                                         property="operator",
-                                        type="object",
+                                        type="string",
                                         description="Operator",
-                                        example="contains"
+                                        example="contains",
+                                        enum={"contains", "not_contains", "is", "is_not", "less", "greater"},
                                     ),
                                     @SWG\Property(
                                         property="value",
-                                        type="object",
+                                        type="array",
+                                        items= {
+                                            "type": "string",
+                                            "type": "integer"
+                                        },
                                         description="Search value",
-                                        example={{random_name}}
                                     ),
+                                    example={{search_criteria_example}},
                                 ),
+                                example={{search_criteria_example}},
                             )
                         ),
                         @SWG\Property(
@@ -403,7 +412,7 @@ class Annotation
                             property="conjunction",
                             type="string",
                             description="Conjunction field",
-                            example="AND"
+                            enum={"AND","OR"}
                         )
 
                     ),
@@ -980,6 +989,7 @@ class Annotation
             '{{random_name}}' => '"' . self::randomName() . '"',
             '{{random_name2}}' => '"' . self::randomName() . '"',
             '{{search_fields}}' => self::getSearchFieldsObjectAsString(),
+            '{{search_criteria_example}}' => self::getSearchExampleObjectAsString(),
         ];
 
         return str_replace(
@@ -1006,6 +1016,62 @@ class Annotation
         }
 
         return (string)json_encode($result, JSON_FORCE_OBJECT);
+    }
+
+    /**
+     * Return search examples for Search endpoint
+     * @return string
+     */
+    protected function getSearchExampleObjectAsString(): string
+    {
+        $examples = [];
+
+        $examples[] = [
+            (string)Text::uuid() => ["type" => "boolean", "operator" => "is", "value" => 1],
+            (string)Text::uuid() => ["type" => "boolean", "operator" => "is_not", "value" => 8],
+        ];
+
+        $examples[] = [
+            (string)Text::uuid() => ["type" => "string", "operator" => "contains", "value" => 1],
+        ];
+        $examples[] = [
+            (string)Text::uuid() => ["type" => "string", "operator" => "not_contains", "value" => 1],
+        ];
+
+        // //List Examples
+        $examples[] = [
+            (string)Text::uuid() => ["type" => "list", "operator" => "is", "value" => [self::randomName()]],
+        ];
+        $examples[] = [
+            (string)Text::uuid() => ["type" => "list", "operator" => "is", "value" => [self::randomName(), self::randomName()]],
+        ];
+
+        // //Related Examples
+        $examples[] = [
+            (string)Text::uuid() => ["type" => "related", "operator" => "is", "value" => [(string)Text::uuid()]],
+        ];
+        $examples[] = [
+            (string)Text::uuid() => ["type" => "related", "operator" => "is", "value" => [(string)Text::uuid(), (string)Text::uuid()]],
+        ];
+
+        // //Integer Examples
+        $examples[] = [
+            (string)Text::uuid() => ["type" => "integer", "operator" => "greater", "value" => "1"],
+            (string)Text::uuid() => ["type" => "integer", "operator" => "less", "value" => "5"],
+        ];
+        $examples[] = [
+            (string)Text::uuid() => ["type" => "integer", "operator" => "less", "value" => "5"],
+        ];
+        $examples[] = [
+            (string)Text::uuid() => ["type" => "integer", "operator" => "is", "value" => "6"],
+        ];
+        $examples[] = [
+            (string)Text::uuid() => ["type" => "integer", "operator" => "is_not", "value" => "7"],
+        ];
+
+        $randomNumber = random_int(0, count($examples) - 1);
+
+        return (string)json_encode($examples[$randomNumber], JSON_FORCE_OBJECT);
     }
 
     /**
@@ -1067,8 +1133,8 @@ class Annotation
             'Barbra',
         ];
 
-        $randomNumber = random_int(0, count($names));
+        $randomNumber = random_int(0, count($names) - 1);
 
-        return $names[$randomNumber];
+        return (string)$names[$randomNumber];
     }
 }
