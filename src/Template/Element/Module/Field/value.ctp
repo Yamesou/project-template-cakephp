@@ -1,6 +1,9 @@
 <?php
 use Cake\ORM\TableRegistry;
 use CsvMigrations\FieldHandlers\CsvField;
+use Cake\Utility\Hash;
+use Qobo\Utils\ModuleConfig\ConfigType;
+use Qobo\Utils\ModuleConfig\ModuleConfig;
 
 $tableName = $field['model'];
 if ($field['plugin']) {
@@ -10,6 +13,9 @@ if ($field['plugin']) {
 $renderOptions = ['entity' => $options['entity']];
 
 $label = $factory->renderName($tableName, $field['name'], $renderOptions);
+
+$config = (new ModuleConfig(ConfigType::MODULE(), $this->name))->parseToArray();
+$labels = Hash::get($config, 'associationLabels', []);
 
 if ('' !== trim($field['name'])) {
     // association field detection
@@ -23,7 +29,12 @@ if ('' !== trim($field['name'])) {
             $association = $table->getAssociation($field['name']);
             $renderOptions['association'] = $association;
             $renderOptions['fieldDefinitions']['type'] = 'belongsToMany(' . $association->className() .  ')';
-            $label = $association->className();
+
+            if (array_key_exists($association->getAlias(), $labels)) {
+                $label = __($labels[$association->getAlias()]);
+            } else {
+                $label = __($association->className());
+            }
         }
     }
 }

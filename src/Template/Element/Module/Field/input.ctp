@@ -12,6 +12,12 @@
 
 use CsvMigrations\FieldHandlers\CsvField;
 use Cake\ORM\TableRegistry;
+use Cake\Utility\Hash;
+use Qobo\Utils\ModuleConfig\ConfigType;
+use Qobo\Utils\ModuleConfig\ModuleConfig;
+
+$config = (new ModuleConfig(ConfigType::MODULE(), $this->name))->parseToArray();
+$labels = Hash::get($config, 'associationLabels', []);
 
 $value = '&nbsp;';
 if ('' !== trim($field['name'])) {
@@ -33,6 +39,9 @@ if ('' !== trim($field['name'])) {
             $association = $table->getAssociation($field['name']);
             $handlerOptions['association'] = $association;
             $handlerOptions['fieldDefinitions']['type'] = 'belongsToMany(' . $association->className() .  ')';
+            if (array_key_exists($association->getAlias(), $labels)) {
+                $handlerOptions['label'] = __($labels[$association->getAlias()]);
+            }
         }
     }
 
