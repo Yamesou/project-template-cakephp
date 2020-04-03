@@ -164,6 +164,10 @@ class GenerateLanguageFilesShell extends BaseShell
             if (isset($fieldLabel['label'])) {
                 $ctpLines .= $this->generateLine($fieldLabel['label']) . "\n\n";
             }
+
+            if (isset($fieldLabel['help'])) {
+                $ctpLines .= $this->generateLine($fieldLabel['help']) . "\n\n";
+            }
         }
 
         return $ctpLines;
