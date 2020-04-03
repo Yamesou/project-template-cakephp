@@ -134,3 +134,7 @@ hr.separator {
     background: #00a65a;
     border-color: #008d4c;
 }
+
+.tooltip-inner {
+    text-align: left;
+}

@@ -1,10 +1,91 @@
 {
     "name" : {
         "label" : "label name",
-        "personal" : true
+        "personal" : true,
+        "placeholder" : "The name",
+        "help" : "LONG TEST Help - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras cursus congue mi vitae semper. Proin vitae eros quis ipsum ornare sagittis efficitur ac odio. Vivamus iaculis, turpis in tempor hendrerit, neque mi dapibus sem, sed vulputate arcu nisi sed nibh. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla tempor condimentum quam. Quisque iaculis dui ac ipsum tempus semper. Vivamus interdum auctor dolor, sit amet pharetra est porta ac. Donec sit amet elit quam."
     },
     "description" : {
         "label" : "label description",
-        "translatable": true
+        "translatable": true,
+        "help" : "Help Description"
+    },
+    "appointment" : {
+        "help" : "Help Appointment"
+    },
+    "area" : {
+        "help" : "Help Area"
+    },
+    "assigned_to" : {
+        "help" : "Help Assigned To"
+    },
+    "bio" : {
+        "help" : "Help Bio"
+    },
+    "country" : {
+        "help" : "Help Country"
+    },
+    "currency" : {
+        "help" : "Help Currency"
+    },
+    "date_of_birth" : {
+        "help" : "Help Date Of Birth"
+    },
+    "email" : {
+        "help" : "Help Email"
+    },
+    "file" : {
+        "help" : "Help File"
+    },
+    "gender" : {
+        "help" : "Help Gender"
+    },
+    "language" : {
+        "help" : "Help Language"
+    },
+    "level" : {
+        "help" : "Help Level"
+    },
+    "non_searchable" : {
+        "help" : "Help Non Searchable"
+    },
+    "phone" : {
+        "help" : "Help Phone"
+    },
+    "photos" : {
+        "help" : "Help Photos"
+    },
+    "primary_thing" : {
+        "help" : "Help Primary Thing"
+    },
+    "rate" : {
+        "help" : "Help Rate"
+    },
+    "salary" : {
+        "help" : "Help Salary"
+    },
+    "sample_date" : {
+        "help" : "Help Sample Date"
+    },
+    "test_list" : {
+        "help" : "Help Test List"
+    },
+    "testmetric" : {
+        "help" : "Help Testmetric"
+    },
+    "testmoney" : {
+        "help" : "Help Testmoney"
+    },
+    "title" : {
+        "help" : "Help Title"
+    },
+    "vip" : {
+        "help" : "Help Vip"
+    },
+    "website" : {
+        "help" : "Help Website"
+    },
+    "work_start" : {
+        "help" : "Help Work Start"
     }
 }

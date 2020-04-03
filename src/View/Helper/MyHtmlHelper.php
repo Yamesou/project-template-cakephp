@@ -10,6 +10,21 @@ use RolesCapabilities\Access\AccessFactory;
 class MyHtmlHelper extends HtmlHelper
 {
     /**
+     * Template for help tooltip
+     *
+     * @param string $message Help message
+     * @return string
+     */
+    public function help(string $message): string
+    {
+        $dataToggle = Configure::read("CsvMigrations.HelperConfig.dataToggle");
+        $classCss = Configure::read("CsvMigrations.HelperConfig.classCss");
+        $dataPlacement = Configure::read("CsvMigrations.HelperConfig.dataPlacement");
+
+        return '&nbsp;&nbsp;<span data-toggle="' . $dataToggle . '" class="' . $classCss . '" data-placement="' . $dataPlacement . '" data-original-title="' . __($message) . '">?</span>';
+    }
+
+    /**
      * Creates an HTML link or a block, depending on user permissions.
      *
      * @param string|array $title The content to be wrapped by `<a>` tags.
