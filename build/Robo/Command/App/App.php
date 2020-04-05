@@ -555,7 +555,7 @@ class App extends AbstractCommand
     {
         $projectPath = "{$env['NGINX_ROOT_PREFIX']}/{$env['NGINX_SITE_MAIN']}";
 
-        if (! self::cronShellExists($env) || self::cronFileExists($env)) {
+        if (! self::cronShellExists($projectPath) || self::cronFileExists($env)) {
             return;
         }
 
@@ -577,7 +577,7 @@ class App extends AbstractCommand
     {
         $projectPath = "{$env['NGINX_ROOT_PREFIX']}/{$env['NGINX_SITE_MAIN']}";
 
-        if (! self::cronShellExists($env) || ! self::cronFileExists($env)) {
+         if (! self::cronShellExists($projectPath) || ! self::cronFileExists($env)) {
             return;
         }
 
@@ -614,10 +614,10 @@ class App extends AbstractCommand
     /**
      * Verifies that cron shell exists.
      *
-     * @param array $env Environment
+     * @param string $projectPath Project path
      * @return bool
      */
-    private static function cronShellExists($env): bool
+    private static function cronShellExists($projectPath): bool
     {
         return file_exists("$projectPath/bin/cron.sh");
     }
