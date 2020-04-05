@@ -11,17 +11,6 @@ use App\Controller\BaseModuleController;
 class ScheduledJobsController extends BaseModuleController
 {
     /**
-     * Index method
-     *
-     * Returns a a list of scheduled jobs
-     *
-     * @return \Cake\Http\Response|void|null
-     */
-    public function index()
-    {
-    }
-
-    /**
      * Add Scheduled Job instance
      *
      * Saving executing Scheduled Job with RRule params

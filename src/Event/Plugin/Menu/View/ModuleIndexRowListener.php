@@ -60,6 +60,8 @@ class ModuleIndexRowListener implements EventListenerInterface
             return;
         }
 
+        deprecationWarning('ModuleIndexRowListener is deprecated.');
+
         $menu->addMenuItem($this->getViewMenuItem($entity, $request));
         $editMenuItem = $this->getEditMenuItem($entity, $request);
         $editMenuItem->disableIf(function () use ($request) {
@@ -68,9 +70,6 @@ class ModuleIndexRowListener implements EventListenerInterface
         $menu->addMenuItem($editMenuItem);
 
         $deleteMenuItem = $this->getDeleteMenuItem($entity, $request, true);
-        $deleteMenuItem->setViewElement('Plugin/Menu/view-actions-delete', [
-            'menuItem' => $deleteMenuItem,
-        ]);
         $deleteMenuItem->disableIf(function () use ($request) {
             return 'Logs' === $request->getParam('controller');
         });
