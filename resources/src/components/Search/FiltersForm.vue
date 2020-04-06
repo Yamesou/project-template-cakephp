@@ -44,6 +44,7 @@
               :source="filters[field].source"
               :display-field="filters[field].display_field"
               :multiple="true"
+              size="input-sm"
               @input-value-updated="valueUpdated"
             />
           </div>
