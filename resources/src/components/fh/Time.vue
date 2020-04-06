@@ -1,14 +1,19 @@
 <template>
-    <div>
-        <div class="form-group">
-            <div class="input-group input-group-sm bootstrap-timepicker timepicker">
-                <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                </div>
-                <input type="text" v-model="val" autocomplete="off" class="form-control" />
-            </div>
+  <div>
+    <div class="form-group">
+      <div class="input-group input-group-sm bootstrap-timepicker timepicker">
+        <div class="input-group-addon">
+          <i class="fa fa-clock-o" />
         </div>
+        <input
+          v-model="val"
+          type="text"
+          autocomplete="off"
+          class="form-control"
+        >
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -17,46 +22,41 @@ import * as $ from 'jquery'
 import timepicker from 'bootstrap-timepicker'
 
 export default {
-
-    props: {
-        field: {
-            type: String,
-            required: true
-        },
-        guid: {
-            type: String,
-            required: true
-        },
-        value: {
-            type: String,
-            default: ''
-        }
+  props: {
+    field: {
+      type: String,
+      required: true
     },
-
-    data: function () {
-        return {
-            val: this.value
-        }
+    guid: {
+      type: String,
+      required: true
     },
-
-    watch: {
-        val () {
-            this.$emit('input-value-updated', this.field, this.guid, this.val)
-        }
-    },
-
-    mounted: function () {
-        const self = this
-
-        $(this.$el).find('input').timepicker({
-            showMeridian: false,
-            minuteStep: 5,
-            defaultTime: false
-        }).on('changeTime.timepicker', function (e) {
-            self.val = e.time.value
-        })
+    value: {
+      type: String,
+      default: ''
     }
+  },
+  data () {
+    return {
+      val: this.value
+    }
+  },
+  watch: {
+    val () {
+      this.$emit('input-value-updated', this.field, this.guid, this.val)
+    }
+  },
+  mounted () {
+    const self = this
 
+    $(this.$el).find('input').timepicker({
+      showMeridian: false,
+      minuteStep: 5,
+      defaultTime: false
+    }).on('changeTime.timepicker', function (e) {
+      self.val = e.time.value
+    })
+  }
 }
 </script>
 <style>
