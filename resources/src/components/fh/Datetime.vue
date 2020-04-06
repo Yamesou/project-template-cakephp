@@ -1,16 +1,14 @@
 <template>
-  <div>
-    <div class="form-group">
-      <div class="input-group input-group-sm">
-        <div class="input-group-addon">
-          <i class="fa fa-calendar" />
-        </div>
-        <input
-          type="text"
-          autocomplete="off"
-          class="form-control"
-        >
+  <div class="form-group">
+    <div class="input-group input-group-sm">
+      <div class="input-group-addon">
+        <i class="fa fa-calendar" />
       </div>
+      <input
+        type="text"
+        autocomplete="off"
+        class="form-control"
+      >
     </div>
   </div>
 </template>

@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <div class="form-group">
-      <input
-        v-model="val"
-        type="tel"
-        class="form-control input-sm"
-      >
-    </div>
+  <div class="form-group">
+    <input
+      v-model="val"
+      type="tel"
+      class="form-control input-sm"
+    >
   </div>
 </template>
 

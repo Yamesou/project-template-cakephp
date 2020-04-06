@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <div class="form-group">
-      <input
-        v-model="val"
-        type="checkbox"
-        class="square"
-      >
-    </div>
+  <div class="form-group">
+    <input
+      v-model="val"
+      type="checkbox"
+      class="square"
+    >
   </div>
 </template>
 

@@ -1,27 +1,25 @@
 <template>
-  <div>
-    <div class="form-group">
-      <v-select
-        v-model="val"
-        placeholder="-- Please choose --"
-        :options="options"
-        label="label"
-        :multiple="multiple"
+  <div class="form-group">
+    <v-select
+      v-model="val"
+      placeholder="-- Please choose --"
+      :options="options"
+      label="label"
+      :multiple="multiple"
+    >
+      <template
+        slot="option"
+        slot-scope="option"
       >
-        <template
-          slot="option"
-          slot-scope="option"
-        >
-          <div v-html="option.label"></div>
-        </template>
-        <template
-          slot="selected-option"
-          scope="option"
-        >
-          <div v-html="option.label"></div>
-        </template>
-      </v-select>
-    </div>
+        <div v-html="option.label"></div>
+      </template>
+      <template
+        slot="selected-option"
+        scope="option"
+      >
+        <div v-html="option.label"></div>
+      </template>
+    </v-select>
   </div>
 </template>
 

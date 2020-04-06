@@ -1,17 +1,15 @@
 <template>
-  <div>
-    <div class="form-group">
-      <div class="input-group input-group-sm bootstrap-timepicker timepicker">
-        <div class="input-group-addon">
-          <i class="fa fa-clock-o" />
-        </div>
-        <input
-          v-model="val"
-          type="text"
-          autocomplete="off"
-          class="form-control"
-        >
+  <div class="form-group">
+    <div class="input-group input-group-sm bootstrap-timepicker timepicker">
+      <div class="input-group-addon">
+        <i class="fa fa-clock-o" />
       </div>
+      <input
+        v-model="val"
+        type="text"
+        autocomplete="off"
+        class="form-control"
+      >
     </div>
   </div>
 </template>

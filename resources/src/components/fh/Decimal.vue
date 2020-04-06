@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <div class="form-group">
-      <input
-        v-model="val"
-        type="number"
-        step="any"
-        max="99999999999"
-        class="form-control input-sm"
-      >
-    </div>
+  <div class="form-group">
+    <input
+      v-model="val"
+      type="number"
+      step="any"
+      max="99999999999"
+      class="form-control input-sm"
+    >
   </div>
 </template>
 <script>
