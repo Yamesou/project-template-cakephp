@@ -41,7 +41,25 @@
               </pre>
             </div>
           </div>
-          <!-- fh/Boolean.vue -->
+          <!-- fh/Text.vue -->
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <label> Input field handler</label><br>
+              <TextInput
+                guid="text-uuid"
+                field="text_inputfield"
+                value="foobar"
+                label="Real Label"
+                :is-required="true"
+                size="input-sm"
+                @input-value-updated="showTextValue"
+              />
+              <br>
+              <pre>
+                {{ textValue }}
+              </pre>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -50,16 +68,19 @@
 <script>
 import Phone from '@/components/fh/Phone.vue'
 import Url from '@/components/fh/Url.vue'
+import TextInput from '@/components/fh/Text.vue'
 
 export default {
   components: {
     Phone,
-    Url
+    Url,
+    TextInput
   },
   data () {
     return {
       phoneValue: {},
-      urlValue: {}
+      urlValue: {},
+      textValue: {}
     }
   },
   methods: {
@@ -76,6 +97,9 @@ export default {
         'guid': guid,
         'val': val
       }
+    },
+    showTextValue (field, guid, val) {
+      this.textValue = { 'field': field, 'guid': guid, 'val': val }
     }
   }
 }
