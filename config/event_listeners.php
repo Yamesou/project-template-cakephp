@@ -13,6 +13,8 @@
 
 return [
     'EventListeners' => [
-        'blacklist' => [],
+        'blacklist' => [
+            App\Event\Plugin\Menu\View\ModuleIndexRowListener::class,
+        ],
     ],
 ];
