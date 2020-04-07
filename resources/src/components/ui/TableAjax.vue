@@ -1,30 +1,83 @@
 <template>
-    <div>
-        <div class="row">
-            <div class="col-xs-12 text-right">
-                <div v-if="isBatchEnabled" class="btn-group btn-group-sm">
-                <button type="button" :disabled="!selected.length" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i> Actions <span class="caret"></span></button>
-                <ul class="dropdown-menu dropdown-menu-right">
-                    <li v-if="withExport"><a href="#" @click.prevent="batchExport()"><i class="fa fa-download"></i> Export</a></li>
-                    <li v-if="withExport"><a href="#" @click.prevent="batchExport(false)"><i class="fa fa-download"></i> Export (raw)</a></li>
-                    <li v-if="withBatchEdit"><a href="#" @click.prevent="batchEdit()"><i class="fa fa-pencil"></i> Edit</a></li>
-                    <li v-if="withBatchDelete"><a href="#" @click.prevent="batchDelete()"><i class="fa fa-trash"></i> Delete</a></li>
-                </ul>
-                </div>
-            </div>
+  <div>
+    <div class="row">
+      <div class="col-xs-12 text-right">
+        <div
+          v-if="isBatchEnabled"
+          class="btn-group btn-group-sm"
+        >
+          <button
+            :disabled="!selected.length"
+            type="button"
+            class="btn btn-default dropdown-toggle"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="fa fa-bars" />
+            Actions <span class="caret" />
+          </button>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li v-if="withExport">
+              <a
+                href="#"
+                @click.prevent="batchExport()"
+              >
+                <i class="fa fa-download" /> Export
+              </a>
+            </li>
+            <li v-if="withExport">
+              <a
+                href="#"
+                @click.prevent="batchExport(false)"
+              >
+                <i class="fa fa-download" /> Export (raw)
+              </a>
+            </li>
+            <li v-if="withBatchEdit">
+              <a
+                href="#"
+                @click.prevent="batchEdit()"
+              >
+                <i class="fa fa-pencil" /> Edit
+              </a>
+            </li>
+            <li v-if="withBatchDelete">
+              <a
+                href="#"
+                @click.prevent="batchDelete()"
+              >
+                <i class="fa fa-trash" /> Delete
+              </a>
+            </li>
+          </ul>
         </div>
-        <div class="table-responsive">
-            <table class="table table-hover table-condensed table-vertical-align" width="100%">
-                <thead>
-                    <tr>
-                        <th v-if="isBatchEnabled" class="dt-select-column"></th>
-                        <th v-for="header in headers">{{ header.text }}</th>
-                        <th v-if="withActions">Actions</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
+      </div>
     </div>
+    <div class="table-responsive">
+      <table
+        class="table table-hover table-condensed table-vertical-align"
+        width="100%"
+      >
+        <thead>
+          <tr>
+            <th
+              v-if="isBatchEnabled"
+              class="dt-select-column"
+            />
+            <th
+              v-for="header in headers"
+            >
+              {{ header.text }}
+            </th>
+            <th v-if="withActions">
+              Actions
+            </th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -39,6 +92,7 @@ import dataTablesSelectBootstrap from 'datatables.net-select-bs'
 
 export default {
   props: {
+    // eslint-disable-next-line vue/require-default-prop
     data: {
       type: Object
     },
@@ -87,20 +141,18 @@ export default {
       default: true
     }
   },
-
   data () {
     return {
       selected: []
     }
   },
-
-  mounted () {
-    this.initialize()
-  },
   computed: {
     isBatchEnabled () {
       return this.withBatchEdit || this.withBatchDelete || this.withExport
     }
+  },
+  mounted () {
+    this.initialize()
   },
   methods: {
     initialize () {
