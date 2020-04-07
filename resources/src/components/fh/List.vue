@@ -11,13 +11,13 @@
         slot="option"
         slot-scope="option"
       >
-        <div v-html="option.label"></div>
+        <div v-html="option.label" />
       </template>
       <template
         slot="selected-option"
         scope="option"
       >
-        <div v-html="option.label"></div>
+        <div v-html="option.label" />
       </template>
     </v-select>
   </div>

@@ -173,10 +173,18 @@
 import RRule from 'rrule'
 
 export default {
-  props: [
-    'name',
-    'recurrenceData'
-  ],
+  props: {
+    name: {
+      type: String,
+      default: '',
+      required: false
+    },
+    recurrenceData: {
+      type: String,
+      default: '',
+      required: false
+    }
+  },
   data () {
     return {
       rruleString: null,
