@@ -1,5 +1,8 @@
 <template>
-  <div class="form-group">
+  <div
+    :class="{'required': isRequired}"
+    class="form-group"
+  >
     <div class="input-group input-group-sm">
       <div class="input-group-addon">
         <i class="fa fa-calendar" />
@@ -7,6 +10,7 @@
       <input
         type="text"
         autocomplete="off"
+        :class="[size]"
         class="form-control"
       >
     </div>
@@ -31,6 +35,21 @@ export default {
     value: {
       type: String,
       default: ''
+    },
+    label: {
+      type: String,
+      default: '',
+      required: false
+    },
+    size: {
+      type: String,
+      default: '',
+      required: false
+    },
+    isRequired: {
+      type: Boolean,
+      default: false,
+      required: false
     }
   },
   data () {

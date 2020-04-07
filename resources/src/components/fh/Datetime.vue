@@ -7,6 +7,7 @@
       <input
         type="text"
         autocomplete="off"
+        :class="[size]"
         class="form-control"
       >
     </div>
@@ -32,6 +33,21 @@ export default {
     value: {
       type: String,
       default: ''
+    },
+    label: {
+      type: String,
+      default: '',
+      required: false
+    },
+    size: {
+      type: String,
+      default: '',
+      required: false
+    },
+    isRequired: {
+      type: Boolean,
+      default: false,
+      required: false
     }
   },
   data () {

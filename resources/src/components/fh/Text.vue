@@ -13,7 +13,7 @@
     <input
       :id="guid"
       v-model="val"
-      :class="size"
+      :class="[size]"
       type="text"
       class="form-control"
     >

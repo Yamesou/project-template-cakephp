@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils'
-import Phone from '@/components/fh/Url.vue'
+import Component from '@/components/fh/Url.vue'
 
-const wrapper = shallowMount(Phone, {
+const wrapper = shallowMount(Component, {
   propsData: {
     guid: '123-uuid',
     field: 'urlfield',
@@ -9,7 +9,7 @@ const wrapper = shallowMount(Phone, {
   }
 })
 
-describe('Uel fh component tests', () => {
+describe('URL fh component tests', () => {
   it('should properly set props', () => {
     expect(wrapper.props('guid')).toBe('123-uuid')
     expect(wrapper.props('field')).toBe('urlfield')

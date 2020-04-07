@@ -3,7 +3,8 @@
     <input
       v-model="val"
       type="url"
-      class="form-control input-sm"
+      :class="[size]"
+      class="form-control"
     >
   </div>
 </template>
@@ -23,6 +24,21 @@ export default {
     value: {
       type: String,
       default: ''
+    },
+    label: {
+      type: String,
+      default: '',
+      required: false
+    },
+    size: {
+      type: String,
+      default: '',
+      required: false
+    },
+    isRequired: {
+      type: Boolean,
+      default: false,
+      required: false
     }
   },
   data () {

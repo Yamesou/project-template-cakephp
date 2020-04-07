@@ -51,7 +51,7 @@
           <div class="col-sm-2 col-md-1">
             <button
               type="button"
-              class="btn btn-default btn-xs"
+              class="btn btn-default btn-sm"
               @click="remove(guid)"
             >
               <i
