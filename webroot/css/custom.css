@@ -138,3 +138,7 @@ hr.separator {
 .tooltip-inner {
     text-align: left;
 }
+
+.badgeLeft {
+    margin-left: 0.7em;
+}
