@@ -7,8 +7,11 @@
       label="label"
       :multiple="multiple"
       :filterable="false"
-      @search="onSearch">
-      <template slot="no-options">type to search..</template>
+      @search="onSearch"
+    >
+      <template slot="no-options">
+        type to search..
+      </template>
       <template
         slot="option"
         slot-scope="option"
@@ -17,8 +20,13 @@
           {{ option.label }}
         </div>
       </template>
-      <template slot="selected-option" scope="option">
-        <div class="selected d-center">{{ option.label }}</div>
+      <template
+        slot="selected-option"
+        scope="option"
+      >
+        <div class="selected d-center">
+          {{ option.label }}
+        </div>
       </template>
     </v-select>
   </div>
