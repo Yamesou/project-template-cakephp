@@ -3,7 +3,17 @@
     :class="{'required': isRequired}"
     class="form-group"
   >
-    <div class="input-group input-group-sm">
+    <label
+      v-if="label !== ''"
+      :for="guid"
+      class="control-label"
+    >
+      {{ label }}
+    </label>
+    <div
+      :class="[sizeClass]"
+      class="input-group"
+    >
       <div class="input-group-addon">
         <i class="fa fa-calendar" />
       </div>
@@ -57,6 +67,15 @@ export default {
       val: this.value,
       magicValueClass: 'datepicker-magic-value',
       magicValues: ['Today', 'Yesterday', 'Tomorrow']
+    }
+  },
+  computed: {
+    sizeClass () {
+      if (this.size === 'input-sm') {
+        return 'input-group-sm'
+      }
+
+      return this.size
     }
   },
   watch: {
