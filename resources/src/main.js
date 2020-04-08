@@ -4,11 +4,17 @@ import axios from 'axios'
 import Search from '@/components/Search/Search.vue'
 import TableAjax from '@/components/ui/TableAjax.vue'
 import Notifications from 'vue-notification'
+import inputs from '@/components/fh'
 
 Vue.use(Notifications)
 
 const TOKEN_JWT = 'token_jwt'
 const TOKEN_CSRF = 'token_csrf'
+
+const components = Object.assign({
+  'search': Search,
+  'tableAjax': TableAjax
+}, inputs)
 
 axios.defaults.headers.common['Accept'] = 'application/json'
 axios.defaults.headers.common['Content-Type'] = 'application/json'
@@ -19,8 +25,5 @@ axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getIte
 new Vue({
   el: '#app',
   store,
-  components: {
-    'search': Search,
-    'tableAjax': TableAjax
-  }
+  'components': components
 })
