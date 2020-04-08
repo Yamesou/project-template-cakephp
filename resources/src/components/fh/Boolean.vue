@@ -76,6 +76,6 @@ export default {
   }
 }
 </script>
-<style>
-  @import '~icheck/skins/square/square.css';
+<style lang="css">
+  @import '~icheck/skins/square/_all.css';
 </style>

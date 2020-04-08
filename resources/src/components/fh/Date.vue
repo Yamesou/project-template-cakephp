@@ -20,14 +20,12 @@
       <input
         type="text"
         autocomplete="off"
-        :class="[size]"
         class="form-control"
       >
     </div>
   </div>
 </template>
 <script>
-import 'bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css'
 import * as $ from 'jquery'
 import datepicker from 'bootstrap-datepicker'
 import { MAGIC_VALUE_WRAPPER } from '@/utils/constants.js'
@@ -130,3 +128,6 @@ export default {
   }
 }
 </script>
+<style lang="css">
+  @import '~bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css';
+</style>

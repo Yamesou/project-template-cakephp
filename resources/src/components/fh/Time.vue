@@ -1,6 +1,19 @@
 <template>
-  <div class="form-group">
-    <div class="input-group input-group-sm bootstrap-timepicker timepicker">
+  <div
+    :class="{'required': isRequired}"
+    class="form-group"
+  >
+    <label
+      v-if="label !== ''"
+      :for="guid"
+      class="control-label"
+    >
+      {{ label }}
+    </label>
+    <div
+      :class="[sizeClass]"
+      class="input-group bootstrap-timepicker timepicker"
+    >
       <div class="input-group-addon">
         <i class="fa fa-clock-o" />
       </div>
@@ -8,7 +21,6 @@
         v-model="val"
         type="text"
         autocomplete="off"
-        :class="[size]"
         class="form-control"
       >
     </div>
@@ -16,7 +28,6 @@
 </template>
 
 <script>
-import 'bootstrap-timepicker/css/bootstrap-timepicker.min.css'
 import * as $ from 'jquery'
 import timepicker from 'bootstrap-timepicker'
 
@@ -55,6 +66,15 @@ export default {
       val: this.value
     }
   },
+  computed: {
+    sizeClass () {
+      if (this.size === 'input-sm') {
+        return 'input-group-sm'
+      }
+
+      return this.size
+    }
+  },
   watch: {
     val () {
       this.$emit('input-value-updated', this.field, this.guid, this.val)
@@ -73,9 +93,11 @@ export default {
   }
 }
 </script>
-<style>
-    .bootstrap-timepicker .input-group-addon i {
-        width: auto !important;
-        height: auto !important;
-    }
+<style lang="css">
+  @import '~bootstrap-timepicker/css/bootstrap-timepicker.min.css';
+
+  .bootstrap-timepicker .input-group-addon i {
+      width: auto !important;
+      height: auto !important;
+  }
 </style>

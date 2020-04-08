@@ -1,5 +1,12 @@
 <template>
   <div class="form-group">
+    <label
+      v-if="label !== ''"
+      :for="guid"
+      class="control-label"
+    >
+      {{ label }}
+    </label>
     <input
       v-model="val"
       type="number"

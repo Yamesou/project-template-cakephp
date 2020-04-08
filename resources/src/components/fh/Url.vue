@@ -1,5 +1,15 @@
 <template>
-  <div class="form-group">
+  <div
+    :class="{'required': isRequired}"
+    class="form-group"
+  >
+    <label
+      v-if="label !== ''"
+      :for="guid"
+      class="control-label"
+    >
+      {{ label }}
+    </label>
     <input
       v-model="val"
       type="url"

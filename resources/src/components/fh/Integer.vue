@@ -13,7 +13,7 @@
     <input
       :id="guid"
       v-model="val"
-      :class="size"
+      :class="[size]"
       type="number"
       max="99999999999"
       step="1"

@@ -1,5 +1,15 @@
 <template>
-  <div class="form-group">
+  <div
+    :class="{'required': isRequired}"
+    class="form-group"
+  >
+    <label
+      v-if="label !== ''"
+      :for="guid"
+      class="control-label"
+    >
+      {{ label }}
+    </label>
     <v-select
       v-model="val"
       placeholder="-- Please choose --"
@@ -68,6 +78,21 @@ export default {
     value: {
       type: [String, Array],
       default: ''
+    },
+    label: {
+      type: String,
+      default: '',
+      required: false
+    },
+    size: {
+      type: String,
+      default: '',
+      required: false
+    },
+    isRequired: {
+      type: Boolean,
+      default: false,
+      required: false
     }
   },
   data () {
