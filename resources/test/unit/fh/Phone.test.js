@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils'
-import Phone from '@/components/fh/Phone.vue'
+import Component from '@/components/fh/Phone.vue'
 
-const wrapper = shallowMount(Phone, {
+const wrapper = shallowMount(Component, {
   propsData: {
     guid: '123',
     field: 'phone',

@@ -71,7 +71,9 @@
           v-for="item in displayList"
           :value="item.field"
         >
-          {{ item.label }} <template v-if="item.group !== model"> - {{ item.group }} </template>
+          {{ item.label }} <template v-if="item.group !== model">
+            - {{ item.group }}
+          </template>
         </option>
       </select>
       <div class="row">

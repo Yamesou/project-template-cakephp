@@ -1,89 +1,171 @@
 <template>
   <div>
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="Recurrence Rule" v-model="rruleString" disabled="true">
-      <input type="hidden" v-model="rruleRaw" :name="name">
+      <input
+        v-model="rruleString"
+        type="text"
+        class="form-control"
+        placeholder="Recurrence Rule"
+        disabled="true"
+      >
+      <input
+        v-model="rruleRaw"
+        :name="name"
+        type="hidden"
+      >
       <span class="input-group-btn">
-        <a href="#" class="btn btn-default" data-toggle="modal" data-target="#recurrModal"><i class="fa fa-calendar"></i></a>
+        <a
+          href="#"
+          class="btn btn-default"
+          data-toggle="modal"
+          data-target="#recurrModal"
+        >
+          <i class="fa fa-calendar" />
+        </a>
       </span>
     </div>
-    <div class="recurrence-container modal" id="recurrModal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
+    <div
+      id="recurrModal"
+      class="recurrence-container modal"
+      tabindex="-1"
+      role="dialog"
+    >
+      <div
+        class="modal-dialog"
+        role="document"
+      >
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Configure recurrence</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4
+              id="myModalLabel"
+              class="modal-title"
+            >
+              Configure recurrence
+            </h4>
           </div>
 
           <div class="modal-body">
-           <div class="row">
-            <div class="frequencies-container col-xs-12">
-              <ul class="list-inline">
-                <li v-for="freq in frequencies" :key="freq.value">
-                  <label>
-                    <input type="radio" :value="freq.value" v-model="frequency">
-                    {{freq.name}}
-                  </label>
-                </li>
-              </ul>
-              <hr/>
-            </div>
-          </div>
-          <div class="row">
-            <div class="weekdays col-xs-12">
-              <ul class="list-inline">
-                <li v-for="weekday in weekdays" :key="weekday.value">
-                  <label><input type="checkbox" :value="weekday.value" v-model="byweekday">{{weekday.name}}</label>
-                </li>
-              </ul>
-            </div>
-          </div> <!-- .row -->
-          <hr/>
-
-          <div class="row">
-            <div class="count col-xs-6 col-md-6">
-              <div class="form-group">
-                <label>Number of Times:</label>
-                <input type="text" class="form-control" placeholder="e.g. 3 times" v-model="count">
+            <div class="row">
+              <div class="frequencies-container col-xs-12">
+                <ul class="list-inline">
+                  <li
+                    v-for="freq in frequencies"
+                    :key="freq.value"
+                  >
+                    <label>
+                      <input
+                        v-model="frequency"
+                        :value="freq.value"
+                        type="radio"
+                      >
+                      {{ freq.name }}
+                    </label>
+                  </li>
+                </ul>
+                <hr>
               </div>
             </div>
+            <div class="row">
+              <div class="weekdays col-xs-12">
+                <ul class="list-inline">
+                  <li
+                    v-for="weekday in weekdays"
+                    :key="weekday.value"
+                  >
+                    <label>
+                      <input
+                        v-model="byweekday"
+                        :value="weekday.value"
+                        type="checkbox"
+                      >
+                      {{ weekday.name }}
+                    </label>
+                  </li>
+                </ul>
+              </div>
+            </div> <!-- .row -->
+            <hr>
 
-            <div class="interval col-xs-6 col-md-6">
-               <div class="form-group">
-                <label>Occurrences:</label>
-                <input type="text" class="form-control" placeholder="# of Occurrences" v-model="interval">
+            <div class="row">
+              <div class="count col-xs-6 col-md-6">
+                <div class="form-group">
+                  <label>Number of Times:</label>
+                  <input
+                    v-model="count"
+                    type="text"
+                    class="form-control"
+                    placeholder="e.g. 3 times"
+                  >
+                </div>
+              </div>
+
+              <div class="interval col-xs-6 col-md-6">
+                <div class="form-group">
+                  <label>Occurrences:</label>
+                  <input
+                    v-model="interval"
+                    type="text"
+                    class="form-control"
+                    placeholder="# of Occurrences"
+                  >
+                </div>
               </div>
             </div>
-          </div>
-          <hr/>
-          <div class="row">
-            <div class="col-xs-12">
-              <ul class="list-inline">
-                <li v-for="month in months" :key="month.value">
-                  <label>
-                    <input type="checkbox" :value="month.value" v-model="bymonth">
-                    {{month.name}}
-                  </label>
-                </li>
-              </ul>
+            <hr>
+            <div class="row">
+              <div class="col-xs-12">
+                <ul class="list-inline">
+                  <li
+                    v-for="month in months"
+                    :key="month.value"
+                  >
+                    <label>
+                      <input
+                        v-model="bymonth"
+                        :value="month.value"
+                        type="checkbox"
+                      >
+                      {{ month.name }}
+                    </label>
+                  </li>
+                </ul>
+              </div>
             </div>
-          </div>
-          <hr/>
-          <div class="row">
-            <div class="col-xs-12">
-                <strong>Recurrence:</strong> <em>{{rruleString}}</em><br/>
-                <strong>Rule:</strong> <em>{{rruleRaw}}</em>
+            <hr>
+            <div class="row">
+              <div class="col-xs-12">
+                <strong>Recurrence:</strong> <em>{{ rruleString }}</em><br>
+                <strong>Rule:</strong> <em>{{ rruleRaw }}</em>
+              </div>
             </div>
-          </div>
-
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" @click="clearRRule">Clear</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+            <button
+              type="button"
+              class="btn btn-default"
+              @click="clearRRule"
+            >
+              Clear
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-dismiss="modal"
+            >
+              Save
+            </button>
           </div>
         </div> <!-- modal-content -->
       </div> <!-- modal-dialog -->
-     </div> <!-- recurrence-container -->
+    </div> <!-- recurrence-container -->
   </div> <!-- global container -->
 </template>
 
@@ -91,7 +173,18 @@
 import RRule from 'rrule'
 
 export default {
-  props: ['name', 'recurrenceData'],
+  props: {
+    name: {
+      type: String,
+      default: '',
+      required: false
+    },
+    recurrenceData: {
+      type: String,
+      default: '',
+      required: false
+    }
+  },
   data () {
     return {
       rruleString: null,
@@ -139,14 +232,14 @@ export default {
       return [this.frequency, this.interval, this.count, this.byweekday, this.bymonth].join()
     }
   },
-  mounted: function () {
-    if (this.recurrenceData) {
-      this.setRRule()
-    }
-  },
   watch: {
     recurrenceFields () {
       this.getRRule()
+    }
+  },
+  mounted () {
+    if (this.recurrenceData) {
+      this.setRRule()
     }
   },
   methods: {

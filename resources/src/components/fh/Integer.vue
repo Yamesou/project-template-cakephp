@@ -1,14 +1,24 @@
 <template>
-  <div>
-    <div class="form-group">
-      <input
-        v-model="val"
-        type="number"
-        max="99999999999"
-        step="1"
-        class="form-control input-sm"
-      >
-    </div>
+  <div
+    :class="{'required': isRequired}"
+    class="form-group"
+  >
+    <label
+      v-if="label !== ''"
+      :for="guid"
+      class="control-label"
+    >
+      {{ label }}
+    </label>
+    <input
+      :id="guid"
+      v-model="val"
+      :class="[size]"
+      type="number"
+      max="99999999999"
+      step="1"
+      class="form-control"
+    >
   </div>
 </template>
 <script>
@@ -25,6 +35,21 @@ export default {
     value: {
       type: String,
       default: ''
+    },
+    label: {
+      type: String,
+      default: '',
+      required: false
+    },
+    size: {
+      type: String,
+      default: '',
+      required: false
+    },
+    isRequired: {
+      type: Boolean,
+      default: false,
+      required: false
     }
   },
   data () {

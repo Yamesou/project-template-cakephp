@@ -44,13 +44,14 @@
               :source="filters[field].source"
               :display-field="filters[field].display_field"
               :multiple="true"
+              size="input-sm"
               @input-value-updated="valueUpdated"
             />
           </div>
           <div class="col-sm-2 col-md-1">
             <button
               type="button"
-              class="btn btn-default btn-xs"
+              class="btn btn-default btn-sm"
               @click="remove(guid)"
             >
               <i

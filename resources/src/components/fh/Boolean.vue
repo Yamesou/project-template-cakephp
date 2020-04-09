@@ -1,18 +1,25 @@
 <template>
-  <div>
-    <div class="form-group">
-      <input
-        v-model="val"
-        type="checkbox"
-        class="square"
-      >
-    </div>
+  <div
+    :class="{'required': isRequired}"
+    class="form-group"
+  >
+    <label
+      v-if="label !== ''"
+      :for="guid"
+      class="control-label"
+    >
+      {{ label }}
+    </label>
+    <input
+      v-model="val"
+      type="checkbox"
+      class="square"
+    >
   </div>
 </template>
 
 <script>
-import 'icheck/skins/square/square.css'
-import * as $ from 'jquery'
+import $ from 'jquery'
 import icheck from 'icheck'
 
 export default {
@@ -27,7 +34,17 @@ export default {
     },
     value: {
       type: [String, Number],
-      default : 0
+      default: 0
+    },
+    label: {
+      type: String,
+      default: '',
+      required: false
+    },
+    isRequired: {
+      type: Boolean,
+      default: false,
+      required: false
     }
   },
   data () {
@@ -59,3 +76,6 @@ export default {
   }
 }
 </script>
+<style lang="css">
+  @import '~icheck/skins/square/_all.css';
+</style>

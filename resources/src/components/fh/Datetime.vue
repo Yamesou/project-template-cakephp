@@ -1,21 +1,31 @@
 <template>
-  <div>
-    <div class="form-group">
-      <div class="input-group input-group-sm">
-        <div class="input-group-addon">
-          <i class="fa fa-calendar" />
-        </div>
-        <input
-          type="text"
-          autocomplete="off"
-          class="form-control"
-        >
+  <div
+    :class="{'required': isRequired}"
+    class="form-group"
+  >
+    <label
+      v-if="label !== ''"
+      :for="guid"
+      class="control-label"
+    >
+      {{ label }}
+    </label>
+    <div
+      :class="[sizeClass]"
+      class="input-group"
+    >
+      <div class="input-group-addon">
+        <i class="fa fa-calendar" />
       </div>
+      <input
+        type="text"
+        autocomplete="off"
+        class="form-control"
+      >
     </div>
   </div>
 </template>
 <script>
-import 'daterangepicker/daterangepicker.css'
 import * as $ from 'jquery'
 import daterangepicker from 'daterangepicker'
 import moment from 'moment'
@@ -34,11 +44,35 @@ export default {
     value: {
       type: String,
       default: ''
+    },
+    label: {
+      type: String,
+      default: '',
+      required: false
+    },
+    size: {
+      type: String,
+      default: '',
+      required: false
+    },
+    isRequired: {
+      type: Boolean,
+      default: false,
+      required: false
     }
   },
   data () {
     return {
       val: this.value
+    }
+  },
+  computed: {
+    sizeClass () {
+      if (this.size === 'input-sm') {
+        return 'input-group-sm'
+      }
+
+      return this.size
     }
   },
   watch: {
@@ -105,3 +139,6 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+ @import '~daterangepicker/daterangepicker.scss';
+</style>

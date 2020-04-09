@@ -1,23 +1,33 @@
 <template>
-  <div>
-    <div class="form-group">
-      <div class="input-group input-group-sm bootstrap-timepicker timepicker">
-        <div class="input-group-addon">
-          <i class="fa fa-clock-o" />
-        </div>
-        <input
-          v-model="val"
-          type="text"
-          autocomplete="off"
-          class="form-control"
-        >
+  <div
+    :class="{'required': isRequired}"
+    class="form-group"
+  >
+    <label
+      v-if="label !== ''"
+      :for="guid"
+      class="control-label"
+    >
+      {{ label }}
+    </label>
+    <div
+      :class="[sizeClass]"
+      class="input-group bootstrap-timepicker timepicker"
+    >
+      <div class="input-group-addon">
+        <i class="fa fa-clock-o" />
       </div>
+      <input
+        v-model="val"
+        type="text"
+        autocomplete="off"
+        class="form-control"
+      >
     </div>
   </div>
 </template>
 
 <script>
-import 'bootstrap-timepicker/css/bootstrap-timepicker.min.css'
 import * as $ from 'jquery'
 import timepicker from 'bootstrap-timepicker'
 
@@ -34,11 +44,35 @@ export default {
     value: {
       type: String,
       default: ''
+    },
+    label: {
+      type: String,
+      default: '',
+      required: false
+    },
+    size: {
+      type: String,
+      default: '',
+      required: false
+    },
+    isRequired: {
+      type: Boolean,
+      default: false,
+      required: false
     }
   },
   data () {
     return {
       val: this.value
+    }
+  },
+  computed: {
+    sizeClass () {
+      if (this.size === 'input-sm') {
+        return 'input-group-sm'
+      }
+
+      return this.size
     }
   },
   watch: {
@@ -59,9 +93,11 @@ export default {
   }
 }
 </script>
-<style>
-    .bootstrap-timepicker .input-group-addon i {
-        width: auto !important;
-        height: auto !important;
-    }
+<style lang="css">
+  @import '~bootstrap-timepicker/css/bootstrap-timepicker.min.css';
+
+  .bootstrap-timepicker .input-group-addon i {
+      width: auto !important;
+      height: auto !important;
+  }
 </style>
