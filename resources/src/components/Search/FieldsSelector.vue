@@ -10,7 +10,8 @@
         :disabled="disableSelection"
       >
         <option
-          v-for="item in availableList"
+          v-for="(item, listIndex) in availableList"
+          :key="listIndex"
           :value="item.field"
         >
           {{ item.label }}
@@ -22,7 +23,8 @@
         :disabled="disableSelection"
       >
         <option
-          v-for="item in models"
+          v-for="(item, itemIndex) in models"
+          :key="itemIndex"
           :value="item"
         >
           {{ item }}
@@ -68,7 +70,8 @@
         :disabled="disableSelection"
       >
         <option
-          v-for="item in displayList"
+          v-for="(item, displayIndex) in displayList"
+          :key="displayIndex"
           :value="item.field"
         >
           {{ item.label }} <template v-if="item.group !== model">

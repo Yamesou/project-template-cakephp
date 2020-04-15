@@ -5,7 +5,8 @@
       class="form-control input-sm"
     >
       <option
-        v-for="item in conjunctions"
+        v-for="(item, index) in conjunctions"
+        :key="index"
         :value="item.value"
       >
         {{ item.text }}

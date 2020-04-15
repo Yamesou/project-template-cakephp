@@ -15,7 +15,8 @@
           -- Please choose --
         </option>
         <option
-          v-for="item in savedSearches"
+          v-for="(item, searchIndex) in savedSearches"
+          :key="searchIndex"
           :value="item.id"
         >
           {{ item.name }}
@@ -67,19 +68,19 @@ export default {
       userId: state => state.search.user_id
     })
   },
-  created() {
+  created () {
     this.$store.dispatch('search/savedSearchesGet')
   },
   methods: {
-    copy() {
+    copy () {
       this.$store.dispatch('search/savedSearchCopy', { id: this.selected, user_id: this.userId })
     },
-    get() {
+    get () {
       this.$store.dispatch('search/savedSearchGet', this.selected).then(() => {
         this.$emit('saved-search-fetched')
       })
     },
-    remove() {
+    remove () {
       if (this.selected === this.searchId) {
         return
       }
