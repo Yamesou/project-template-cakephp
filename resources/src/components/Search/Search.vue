@@ -97,7 +97,10 @@
                     role="separator"
                     class="divider"
                   />
-                  <li v-for="set in sets.list">
+                  <li
+                    v-for="(set, setIndex) in sets.list"
+                    :key="setIndex"
+                  >
                     <a
                       href="#"
                       @click.prevent="setsAddTo(set.id)"
