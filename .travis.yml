@@ -59,6 +59,7 @@ script:
   - node --version
   - npm --version
   - npm run test
+  - npm run lint
 
 after_success:
   - if [[ $COVERAGE = 1 ]]; then curl -s https://codecov.io/bash > /tmp/codecov.sh; fi
