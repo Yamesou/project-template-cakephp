@@ -66,7 +66,8 @@
               class="dt-select-column"
             />
             <th
-              v-for="header in headers"
+              v-for="(header, headerIndex) in headers"
+              :key="headerIndex"
             >
               {{ header.text }}
             </th>

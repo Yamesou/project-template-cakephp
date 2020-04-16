@@ -78,7 +78,8 @@
         <div class="col-md-2">
           <ul class="nav nav-tabs nav-stacked">
             <li
-              v-for="type in widgetTypes"
+              v-for="(type, wIndex) in widgetTypes"
+              :key="wIndex"
               :class="getActiveTab(type, widgetTypes[0], '')"
               class="widget-tab"
             >
@@ -94,8 +95,9 @@
         <div class="col-md-10">
           <div class="tab-content">
             <div
-              v-for="type in widgetTypes"
+              v-for="(type, wIndex) in widgetTypes"
               :id="type + '_tab'"
+              :key="wIndex"
               :class="getActiveTab(type, widgetTypes[0], 'tab-pane')"
               role="tabpanel"
             >
@@ -105,7 +107,8 @@
                   class="nav nav-tabs"
                 >
                   <li
-                    v-for="model in searchModules"
+                    v-for="(model, moduleIndex) in searchModules"
+                    :key="moduleIndex"
                     :class="getActiveTab(model, searchModules[0], '')"
                   >
                     <a
@@ -121,22 +124,25 @@
                   class="tab-content"
                 >
                   <div
-                    v-for="model in searchModules"
+                    v-for="(model, moduleIndex) in searchModules"
                     :id="model"
+                    :key="moduleIndex"
                     :class="getActiveTab(model, searchModules[0], 'tab-pane')"
                     role="tabpanel"
                   >
                     <ul class="droppable-area">
-                      <li
-                        v-for="item in elements"
-                        v-if="item.type == type && item.data.model == model"
-                        class="col-lg-3 col-xs-6"
-                      >
-                        <dashboard-widget
-                          :item="item"
-                          @gridItemAdd="addItem"
-                        />
-                      </li>
+                      <template v-for="(item, elementIndex) in elements">
+                        <li
+                          v-if="item.type == type && item.data.model == model"
+                          :key="elementIndex"
+                          class="col-lg-3 col-xs-6"
+                        >
+                          <dashboard-widget
+                            :item="item"
+                            @gridItemAdd="addItem"
+                          />
+                        </li>
+                      </template>
                     </ul>
                   </div>
                 </div>
@@ -144,16 +150,18 @@
                   v-if="type != 'saved_search'"
                   class="droppable-area"
                 >
-                  <li
-                    v-for="item in elements"
-                    v-if="item.type == type"
-                    class="col-lg-3 col-xs-6"
-                  >
-                    <dashboard-widget
-                      :item="item"
-                      @gridItemAdd="addItem"
-                    />
-                  </li>
+                  <template v-for="(item, itemIndex) in elements">
+                    <li
+                      v-if="item.type == type"
+                      :key="itemIndex"
+                      class="col-lg-3 col-xs-6"
+                    >
+                      <dashboard-widget
+                        :item="item"
+                        @gridItemAdd="addItem"
+                      />
+                    </li>
+                  </template>
                 </ul>
               </div>
             </div>

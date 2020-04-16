@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import store from '@/store'
 import axios from 'axios'
+import DashboardGrid from '@/components/Dashboard/DashboardGrid.vue'
 import Search from '@/components/Search/Search.vue'
 import TableAjax from '@/components/ui/TableAjax.vue'
 import Notifications from 'vue-notification'
@@ -13,7 +14,8 @@ const TOKEN_CSRF = 'token_csrf'
 
 const components = Object.assign({
   'search': Search,
-  'tableAjax': TableAjax
+  'tableAjax': TableAjax,
+  'dashboard-grid': DashboardGrid
 }, inputs)
 
 axios.defaults.headers.common['Accept'] = 'application/json'

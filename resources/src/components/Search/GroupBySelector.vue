@@ -7,7 +7,8 @@
           class="form-control input-sm"
         >
           <option
-            v-for="item in models"
+            v-for="(item, modelIndex) in models"
+            :key="modelIndex"
             :value="item"
           >
             {{ item }}
@@ -24,13 +25,15 @@
           <option value="">
             -- Group by --
           </option>
-          <option
-            v-for="item in fieldsList"
-            v-if="item.group === model"
-            :value="item.field"
-          >
-            {{ item.label }}
-          </option>
+          <template v-for="(item, fieldsListIndex) in fieldsList">
+            <option
+              v-if="item.group === model"
+              :key="fieldsListIndex"
+              :value="item.field"
+            >
+              {{ item.label }}
+            </option>
+          </template>
         </select>
       </div>
     </div>
@@ -56,10 +59,10 @@ export default {
       fieldsList: state => state.search.filters
     }),
     groupBy: {
-      get() {
+      get () {
         return this.$store.state.search.group_by
       },
-      set(value) {
+      set (value) {
         this.$store.commit('search/groupBy', value)
 
         let fields = []
@@ -77,7 +80,7 @@ export default {
     }
   },
   watch: {
-    groupBy(value) {
+    groupBy (value) {
       this.model = value ?
         this.fieldsList.find(item => item.field === this.groupBy).group :
         this.$store.state.search.model

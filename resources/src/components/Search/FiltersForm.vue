@@ -1,11 +1,11 @@
 <template>
   <div>
     <template
-      v-for="(field_criteria, field) in criteria"
-      v-if="!isAggregate(field)"
+      v-for="(field_criteria, field) in nonAggregatedCriteria"
     >
       <div
         v-for="(info, guid) in field_criteria"
+        :key="guid"
         class="form-group"
       >
         <div class="row">
@@ -26,7 +26,8 @@
               @change="filterUpdated(field, guid, $event.target.value)"
             >
               <option
-                v-for="item in getFiltersByField(field)"
+                v-for="(item, filterIndex) in getFiltersByField(field)"
+                :key="filterIndex"
                 :value="item.value"
               >
                 {{ item.text }}
@@ -82,11 +83,22 @@ export default {
       criteria: state => state.search.criteria,
       model: state => state.search.model
     }),
-    filtersList() {
+    filtersList () {
       let result = {}
       for (const field in this.criteria) {
         for (const guid in this.criteria[field]) {
           result[guid] = this.criteria[field][guid].operator
+        }
+      }
+
+      return result
+    },
+    nonAggregatedCriteria () {
+      let result = {}
+
+      for (let [field, fieldInfo] of Object.entries(this.criteria)) {
+        if (!Aggregate.isAggregate(field)) {
+          result[field] = fieldInfo
         }
       }
 

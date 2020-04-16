@@ -7,7 +7,8 @@
           class="form-control input-sm"
         >
           <option
-            v-for="item in models"
+            v-for="(item, itemIndex) in models"
+            :key="itemIndex"
             :value="item"
           >
             {{ item }}
@@ -25,13 +26,15 @@
           <option value="">
             -- Add filter --
           </option>
-          <option
-            v-for="item in fields"
-            v-if="item.group === model"
-            :value="item.field"
-          >
-            {{ item.label }}
-          </option>
+          <template v-for="(item, itemIndex) in fields">
+            <option
+              v-if="item.group === model"
+              :key="itemIndex"
+              :value="item.field"
+            >
+              {{ item.label }}
+            </option>
+          </template>
         </select>
       </div>
     </div>
@@ -61,7 +64,7 @@ export default {
     })
   },
   methods: {
-    create() {
+    create () {
       this.$store.commit('search/criteriaCreate', { field: this.field })
       this.field = ''
     }

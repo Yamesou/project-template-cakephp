@@ -8,7 +8,8 @@
         -- Aggregate --
       </option>
       <option
-        v-for="item in aggregates"
+        v-for="(item, index) in aggregates"
+        :key="index"
         :value="item.value"
       >
         {{ item.text }}
@@ -23,7 +24,10 @@
           v-model="model"
           class="form-control input-sm"
         >
-          <option v-for="item in models">
+          <option
+            v-for="(item, modelIndex) in models"
+            :key="modelIndex"
+          >
             {{ item }}
           </option>
         </select>
@@ -36,13 +40,17 @@
           <option value="">
             -- Aggregate field --
           </option>
-          <option
-            v-for="item in fieldsList"
-            v-if="item.group === model"
-            :value="item.field"
+          <template
+            v-for="(item, fieldIndex) in fieldsList"
           >
-            {{ item.label }}
-          </option>
+            <option
+              v-if="item.group === model"
+              :key="fieldIndex"
+              :value="item.field"
+            >
+              {{ item.label }}
+            </option>
+          </template>
         </select>
       </div>
     </div>
@@ -57,7 +65,8 @@
         >
           <option value="" />
           <option
-            v-for="item in filters"
+            v-for="(item, filtersIndex) in filters"
+            :key="filtersIndex"
             :value="item.value"
           >
             {{ item.text }}
@@ -110,7 +119,7 @@ export default {
     }),
   },
   watch: {
-    criteria(value) {
+    criteria (value) {
       const aggregate = Object.keys(value).find(item => Aggregate.isAggregate(item))
       // if criteria include an aggregate, populate guid, filter and value inputs from it
       if (aggregate !== undefined) {
@@ -122,7 +131,7 @@ export default {
         this.filter = ''
       }
     },
-    fields(value) {
+    fields (value) {
       // if fields include an aggregate, populate aggregate and field inputs from it
       if (Aggregate.hasAggregate(value)) {
         this.aggregate = Aggregate.extractAggregateType(Aggregate.getAggregate(value))
@@ -132,7 +141,7 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.$watch(vm => [vm.aggregate, vm.field, vm.filter, vm.model, vm.value], (newValue, oldValue) => {
       this.$store.commit('search/criteriaRemove', this.guid)
       if (this.shouldCreateCriteria()) {
@@ -187,7 +196,7 @@ export default {
     })
   },
   methods: {
-    shouldCreateCriteria() {
+    shouldCreateCriteria () {
       return '' !== this.aggregate && '' !== this.field && '' !== this.filter && '' !== this.value
     }
   }
