@@ -43,6 +43,7 @@ final class DynamicAvatar extends AbstractAvatar
             ->size($this->options['size'])
             ->length($this->options['length'])
             ->background($this->options['background'][$key])
+            ->color($this->options['textColor'])
             ->generate()
             ->stream('data-url');
 
