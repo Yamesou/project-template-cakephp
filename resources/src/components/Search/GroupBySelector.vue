@@ -25,7 +25,7 @@
           <option value="">
             -- Group by --
           </option>
-          <template v-for="(item, fieldsListIndex) in fieldsList">
+          <template v-for="(item, fieldsListIndex) in fieldsList"  v-if="item.searchable">
             <option
               v-if="item.group === model"
               :key="fieldsListIndex"

@@ -26,7 +26,7 @@
           <option value="">
             -- Add filter --
           </option>
-          <template v-for="(item, itemIndex) in fields">
+          <template v-for="(item, itemIndex) in fields"  v-if="item.searchable">
             <option
               v-if="item.group === model"
               :key="itemIndex"
