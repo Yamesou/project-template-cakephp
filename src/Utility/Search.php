@@ -75,7 +75,7 @@ final class Search
         });
 
         // useful when user with limited access initiates the request and result is empty
-        if ([] === $data) {
+        if (empty($data)) {
             Cache::delete($cacheKey);
         }
 
