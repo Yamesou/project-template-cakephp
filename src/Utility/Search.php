@@ -74,6 +74,11 @@ final class Search
             return array_values($result);
         });
 
+        // useful when user with limited access initiates the request and result is empty
+        if ([] === $data) {
+            Cache::delete($cacheKey);
+        }
+
         if ($onlySearchable) {
             return array_values(Hash::remove($data, '{n}[searchable=false]'));
         }
