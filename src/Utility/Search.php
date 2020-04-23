@@ -91,7 +91,7 @@ final class Search
     {
         deprecationWarning((string)__(
             '{0}::{1} method is deprecated. Please use {0}::{2} instead.',
-            __CLASS__,
+            Search::class,
             __FUNCTION__,
             'getFields'
         ));
