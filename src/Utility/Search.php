@@ -48,6 +48,40 @@ final class Search
     ];
 
     /**
+     * Table fields getter
+     *
+     * @param string $tableName Table name
+     * @param bool $onlySearchable Include only searchable fields
+     * @return mixed[]
+     */
+    public static function getFields(string $tableName, bool $onlySearchable = false): array
+    {
+        $cacheKey = 'search_filters_' . md5($tableName);
+        $data = Cache::remember($cacheKey, function () use ($tableName) {
+            $table = TableRegistry::getTableLocator()->get($tableName);
+            $labels = self::getAssociationLabels($table);
+            $result = self::getTableSchema($table);
+            foreach ($result as $index => $options) {
+                unset($result[$index]['input']);
+                unset($result[$index]['operators']);
+
+                list($group, ) = pluginSplit($options['field']);
+                $group = array_key_exists($group, $labels) ? $labels[$group] : $group;
+
+                $result[$index]['group'] = $group;
+            }
+
+            return array_values($result);
+        });
+
+        if ($onlySearchable) {
+            return array_values(Hash::remove($data, '{n}[searchable=false]'));
+        }
+
+        return $data;
+    }
+
+    /**
      * Search filters getter.
      *
      * @param string $tableName Table name
@@ -55,39 +89,9 @@ final class Search
      */
     public static function getFilters(string $tableName): array
     {
-        if (! empty(static::$filters[$tableName])) {
-            return static::$filters[$tableName];
-        }
+        deprecationWarning((string)__('{0}::{1} method is deprecated. Please use {0}::{2} instead.', __CLASS__, __FUNCTION__, 'getFields'));
 
-        $cacheKey = 'search_filters_' . md5($tableName);
-        $cached = Cache::read($cacheKey);
-        if (false !== $cached) {
-            return $cached;
-        }
-
-        $table = TableRegistry::getTableLocator()->get($tableName);
-        $labels = self::getAssociationLabels($table);
-        $result = self::getSearchableFields($table);
-        foreach ($result as $index => $options) {
-            unset($result[$index]['input']);
-            unset($result[$index]['operators']);
-
-            list($group, ) = pluginSplit($options['field']);
-            $group = array_key_exists($group, $labels) ? $labels[$group] : $group;
-
-            $result[$index]['group'] = $group;
-        }
-
-        $result = array_values($result);
-
-        // useful when user with limited access initiates the request and result is empty
-        if ([] !== $result) {
-            Cache::write($cacheKey, $result);
-        }
-
-        static::$filters[$tableName] = $result;
-
-        return $result;
+        return self::getFields($tableName, true);
     }
 
     /**
@@ -252,18 +256,18 @@ final class Search
     }
 
     /**
-     * Method that retrieves target table searchable fields.
+     * Method that retrieves target table schema
      *
      * @param \Cake\ORM\Table $table Table instance
      * @param bool $withAssociated flag for including associations fields
      * @return mixed[]
      */
-    private static function getSearchableFields(Table $table, bool $withAssociated = true): array
+    private static function getTableSchema(Table $table, bool $withAssociated = true): array
     {
         list($plugin, $controller) = pluginSplit(App::shortName(get_class($table), 'Model/Table', 'Table'));
         $url = ['plugin' => $plugin, 'controller' => $controller, 'action' => 'search'];
 
-        $result = self::getSearchableFieldsByTable($table);
+        $result = self::getFieldSchemaByTable($table);
         if ($withAssociated) {
             $result = array_merge($result, self::includeAssociated($table));
         }
@@ -342,12 +346,12 @@ final class Search
     }
 
     /**
-     * Searchable fields getter by Table instance.
+     * Field schema getter by Table instance.
      *
      * @param \Cake\ORM\Table $table Table instance
      * @return mixed[]
      */
-    private static function getSearchableFieldsByTable(Table $table): array
+    private static function getFieldSchemaByTable(Table $table): array
     {
         $moduleName = App::shortName(get_class($table), 'Model/Table', 'Table');
 
@@ -361,13 +365,10 @@ final class Search
                 continue;
             }
 
-            if (in_array('non-searchable', $field['meta'])) {
-                continue;
-            }
-
             $item = [
                 'type' => $field['type'],
                 'label' => $field['label'],
+                'searchable' => !in_array('non-searchable', $field['meta']),
             ];
 
             if (array_key_exists('options', $field)) {
@@ -417,7 +418,7 @@ final class Search
             }
 
             // fetch associated model searchable fields
-            $fields = self::getSearchableFields($targetTable, false);
+            $fields = self::getTableSchema($targetTable, false);
 
             $fields = array_map(function ($item) use ($association) {
                 $item['association'] = $association->type();
