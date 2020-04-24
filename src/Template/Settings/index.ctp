@@ -71,7 +71,7 @@ $(document).ready(function(){
 		<div class="col-md-12">
 			<?= $this->Form->create($settings); ?>
 			<div class="nav-tabs-custom">
-				<ul class="nav nav-tabs hidden">
+				<ul class="nav nav-tabs <?= (1 < count($data)) ? '' : 'hidden' ?>">
 					<?php
 					// Tab
 					$first = true;
