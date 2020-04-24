@@ -138,7 +138,7 @@ final class Search
         }, $result);
 
         $result = array_filter($result, function ($item) use ($tableName) {
-            return false !== array_search($item, array_column(self::getFilters($tableName), 'field'), true);
+            return false !== array_search($item, array_column(self::getFields($tableName), 'field'), true);
         });
 
         return array_values($result);
@@ -183,7 +183,7 @@ final class Search
 
         $rowLabel = sprintf('%s (%s)', $aggregateField, $aggregateType);
         list(, $rowValue) = $savedSearch->get('group_by') ? pluginSplit($savedSearch->get('group_by')) : ['', $aggregateField];
-        $filters = self::getFilters($savedSearch->get('model'));
+        $filters = self::getFields($savedSearch->get('model'));
         $rows = [];
 
         foreach ($query->all() as $entity) {
