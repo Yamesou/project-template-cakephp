@@ -29,7 +29,7 @@ class SearchTest extends TestCase
      */
     public function testGetFilters(string $modelName, array $expected): void
     {
-        $result = Search::getFilters($modelName);
+        $result = Search::getFields($modelName);
 
         usort($result, function (array $a, array $b) {
             return strcmp($a['field'], $b['field']);
@@ -84,7 +84,7 @@ class SearchTest extends TestCase
         $expected = ['Things.name'];
         $this->assertSame(
             current($expected),
-            Search::getFilters('Things')[0]['field'],
+            Search::getFields('Things')[0]['field'],
             'Pre-test assertion, if $expected does not match filters first field, adjust $expected accordingly'
         );
 
