@@ -56,34 +56,43 @@ final class Search
      */
     public static function getFields(string $tableName, bool $onlySearchable = false): array
     {
+        if (! empty(static::$filters[$tableName])) {
+            return static::$filters[$tableName];
+        }
+
         $cacheKey = 'search_filters_' . md5($tableName);
-        $data = Cache::remember($cacheKey, function () use ($tableName) {
-            $table = TableRegistry::getTableLocator()->get($tableName);
-            $labels = self::getAssociationLabels($table);
-            $result = self::getTableSchema($table);
-            foreach ($result as $index => $options) {
-                unset($result[$index]['input']);
-                unset($result[$index]['operators']);
+        $cached = Cache::read($cacheKey);
+        if (false !== $cached) {
+            return $cached;
+        }
 
-                list($group, ) = pluginSplit($options['field']);
-                $group = array_key_exists($group, $labels) ? $labels[$group] : $group;
+        $table = TableRegistry::getTableLocator()->get($tableName);
+        $labels = self::getAssociationLabels($table);
+        $result = self::getTableSchema($table);
+        foreach ($result as $index => $options) {
+            unset($result[$index]['input']);
+            unset($result[$index]['operators']);
 
-                $result[$index]['group'] = $group;
-            }
+            list($group, ) = pluginSplit($options['field']);
+            $group = array_key_exists($group, $labels) ? $labels[$group] : $group;
 
-            return array_values($result);
-        });
+            $result[$index]['group'] = $group;
+        }
+
+        $result = array_values($result);
 
         // useful when user with limited access initiates the request and result is empty
-        if (empty($data)) {
-            Cache::delete($cacheKey);
+        if (!empty($result)) {
+            Cache::write($cacheKey, $result);
         }
+
+        static::$filters[$tableName] = $result;
 
         if ($onlySearchable) {
-            return array_values(Hash::remove($data, '{n}[searchable=false]'));
+            return array_values(Hash::remove($result, '{n}[searchable=false]'));
         }
 
-        return $data;
+        return $result;
     }
 
     /**
