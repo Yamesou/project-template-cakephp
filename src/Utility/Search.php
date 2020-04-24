@@ -56,32 +56,42 @@ final class Search
      */
     public static function getFields(string $tableName, bool $onlySearchable = false): array
     {
-        if (! empty(static::$filters[$tableName])) {
-            return static::$filters[$tableName];
-        }
-
+        $result = [];
         $cacheKey = 'search_filters_' . md5($tableName);
-        $cached = Cache::read($cacheKey);
-        if (false !== $cached) {
-            return $cached;
+
+        // Check local cache
+        if (!empty(static::$filters[$tableName])) {
+            $result = static::$filters[$tableName];
         }
 
-        $table = TableRegistry::getTableLocator()->get($tableName);
-        $labels = self::getAssociationLabels($table);
-        $result = self::getTableSchema($table);
-        foreach ($result as $index => $options) {
-            unset($result[$index]['input']);
-            unset($result[$index]['operators']);
-
-            list($group, ) = pluginSplit($options['field']);
-            $group = array_key_exists($group, $labels) ? $labels[$group] : $group;
-
-            $result[$index]['group'] = $group;
+        // Check file cache
+        if (empty($result)) {
+            $cached = Cache::read($cacheKey);
+            if (false !== $cached) {
+                $result = $cached;
+            }
         }
 
-        $result = array_values($result);
+        // Populate fields data
+        if (empty($result)) {
+            $table = TableRegistry::getTableLocator()->get($tableName);
+            $labels = self::getAssociationLabels($table);
+            $result = self::getTableSchema($table);
+            foreach ($result as $index => $options) {
+                unset($result[$index]['input']);
+                unset($result[$index]['operators']);
+
+                list($group, ) = pluginSplit($options['field']);
+                $group = array_key_exists($group, $labels) ? $labels[$group] : $group;
+
+                $result[$index]['group'] = $group;
+            }
+
+            $result = array_values($result);
+        }
 
         // useful when user with limited access initiates the request and result is empty
+        Assert::isArray($result);
         if (!empty($result)) {
             Cache::write($cacheKey, $result);
         }
