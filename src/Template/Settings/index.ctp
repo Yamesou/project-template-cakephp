@@ -71,7 +71,7 @@ $(document).ready(function(){
 		<div class="col-md-12">
 			<?= $this->Form->create($settings); ?>
 			<div class="nav-tabs-custom">
-				<ul class="nav nav-tabs">
+				<ul class="nav nav-tabs hidden">
 					<?php
 					// Tab
 					$first = true;
@@ -98,15 +98,15 @@ $(document).ready(function(){
 						echo $first ? '<div class="tab-pane active" id="' . $id_tab . '">' : '<div class="tab-pane" id="' . $id_tab . '">';
 						?>
 						<div class="row">
-							<div class="col-md-3">
+							<div class="col-md-2">
 								<ul class="nav nav-pills nav-stacked">
 									<?php
 									$first = true;
 									foreach ($columns as $column => $tab) :
 										$active = $first ? 'class="active"' : '';
-										$id_column = str_replace(' ','_',$column);
+										$id_column = preg_replace('/[^\da-z]/i', '_', $column);
 										?>
-											<li <?= $active ?>><a href="#<?= $id_tab .'_'. $id_column ?>" data-toggle="tab"><?= $column ?></a></li>
+											<li <?=$active?>><a href="#<?= $id_tab .'_'. $id_column ?>" data-toggle="tab"><?= $column ?></a></li>
 										<?php
 										$first = false;
 									endforeach;
@@ -119,17 +119,19 @@ $(document).ready(function(){
 								// Columns
 								foreach ($columns as $column => $sections) :
 									$active = $first ? 'active' : '';
-									$id_column = str_replace(' ','_',$column);
+									$id_column = preg_replace('/[^\da-z]/i', '_', $column);
 									?>
-										<div class="tab-pane <?= $active ?>" id="<?= $id_tab .'_'. $id_column ?>">
+										<div class="tab-pane <?=$active?>" id="<?= $id_tab .'_'. $id_column ?>">
 									<?php
 									// Section
 									foreach ($sections as $section => $fields) :
 										?>
 											<div class="box box-primary">
-											<div class="box-header">
-											<h3 class="box-title"><?= $section ?></h3>
+											<?php if (($column != $section) && 1 != count($sections)) : ?>
+                                            <div class="box-header">
+                                                <h3 class="box-title"><?= $section ?></h3>
 											</div>
+                                            <?php endif ?>
 											<div class="box-body">
 										<?php
 										// Fields

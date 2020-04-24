@@ -19,7 +19,7 @@
 
 return [
     'Settings' => [
-        'Communication' => [
+        'Available Options' => [
             'APIs' => [
                 'Keys' => [
                     'Google Maps' => [
@@ -97,8 +97,6 @@ return [
                     ],
                 ],
             ],
-        ],
-        'Security' => [
             'Authentication' => [
                 'LDAP' => [
                     'Enabled' => [
@@ -175,8 +173,6 @@ return [
                     ],
                 ],
             ],
-        ],
-        'Other' => [
             'Development' => [
                 'Troubleshooting' => [
                     'Debug' => [
@@ -189,8 +185,8 @@ return [
                     ],
                 ],
             ],
-            'Language' => [
-                'Locale' => [
+            'Region & Language' => [
+                'Region & Language' => [
                     'Locale' => [
                         'alias' => 'App.defaultLocale',
                         'type' => 'list',
@@ -198,7 +194,7 @@ return [
                             'en_US' => 'English (US)',
                             'it_IT' => 'Italian',
                         ],
-                        'help' => 'Choose default locale',
+                        'help' => 'Choose system locale',
                         'scope' => [
                             'user',
                             'app',
@@ -206,8 +202,6 @@ return [
                     ],
                 ],
             ],
-        ],
-        'Menu Order' => [
             'Menu' => [
                 'Main Menu' => [
                     'Dashboard Menu Order Value' => [
