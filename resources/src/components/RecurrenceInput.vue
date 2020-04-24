@@ -170,7 +170,7 @@
 </template>
 
 <script>
-import RRule from 'rrule'
+import { RRule, rrulestr } from 'rrule'
 
 export default {
   props: {
@@ -269,6 +269,10 @@ export default {
       const that = this
       const result = []
 
+      if (weekdays == null) {
+        return result
+      }
+
       /* convert numeric indexes to captions */
       if (!weekdays.length) {
         return result
@@ -281,13 +285,15 @@ export default {
       return result
     },
     setRRule (recurrenceData) {
-      const recurrence = RRule.rrulestr(this.recurrenceData)
+      const recurrence = rrulestr(this.recurrenceData)
+
       this.frequency = recurrence.options.freq
       this.interval = recurrence.options.interval
       this.count = recurrence.options.count
       this.bymonth = recurrence.options.bymonth
 
       this.byweekday = this.getWeekdaysFromCaptions(recurrence.options.byweekday)
+
       this.getRRule()
     },
     getRRule () {
