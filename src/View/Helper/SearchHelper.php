@@ -9,6 +9,17 @@ use Search\Model\Entity\SavedSearch;
 final class SearchHelper extends Helper
 {
     /**
+     * Fields getter.
+     *
+     * @param string $tableName Table name
+     * @return mixed[]
+     */
+    public function getFields(string $tableName): array
+    {
+        return Search::getFields($tableName);
+    }
+
+    /**
      * Search filters getter.
      *
      * @param string $tableName Table name

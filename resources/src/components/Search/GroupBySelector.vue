@@ -25,7 +25,7 @@
           <option value="">
             -- Group by --
           </option>
-          <template v-for="(item, fieldsListIndex) in fieldsList">
+          <template v-for="(item, fieldsListIndex) in searchableFieldsList">
             <option
               v-if="item.group === model"
               :key="fieldsListIndex"
@@ -77,6 +77,15 @@ export default {
 
         this.$store.commit('search/fields', fields)
       }
+    },
+    searchableFieldsList () {
+      let result = []
+
+      if (this.fieldsList.length) {
+        result = this.fieldsList.filter( item => item.searchable === true)
+      }
+
+      return result
     }
   },
   watch: {

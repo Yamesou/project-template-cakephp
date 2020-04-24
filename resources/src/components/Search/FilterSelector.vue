@@ -26,7 +26,7 @@
           <option value="">
             -- Add filter --
           </option>
-          <template v-for="(item, itemIndex) in fields">
+          <template v-for="(item, itemIndex) in searchableFields">
             <option
               v-if="item.group === model"
               :key="itemIndex"
@@ -61,7 +61,16 @@ export default {
     }),
     ...mapState({
       fields: state => state.search.filters
-    })
+    }),
+    searchableFields () {
+      let result = []
+
+      if (this.fields.length) {
+        result = this.fields.filter( item => item.searchable === true)
+      }
+
+      return result
+    }
   },
   methods: {
     create () {
