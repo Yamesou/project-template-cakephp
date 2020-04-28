@@ -157,14 +157,14 @@
         "name": "photos",
         "type": "files",
         "required": false,
-        "non-searchable": false,
+        "non-searchable": true,
         "unique": false
     },
     "file": {
         "name": "file",
         "type": "files",
         "required": false,
-        "non-searchable": false,
+        "non-searchable": true,
         "unique": false
     },
     "test_list": {
