@@ -3,16 +3,18 @@
 namespace App\Crud\Action;
 
 use App\Search\Manager as SearchManager;
-use Cake\Datasource\EntityInterface;
-use Cake\ORM\Table;
-use Cake\Routing\Router;
+use App\Utility\Field;
 use Cake\Utility\Hash;
+use Cake\Utility\Inflector;
 use Crud\Action\BaseAction;
 use Crud\Traits\FindMethodTrait;
 use Crud\Traits\ViewVarTrait;
-use CsvMigrations\FieldHandlers\FieldHandlerFactory;
-use Qobo\Utils\Utility\User;
-use RolesCapabilities\Access\AccessFactory;
+use CsvMigrations\Exception\UnsupportedPrimaryKeyException;
+use CsvMigrations\Table as CsvMigrationsTable;
+use InvalidArgumentException;
+use Qobo\Utils\ModuleConfig\ConfigType;
+use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Webmozart\Assert\Assert;
 
 /**
  * Handles 'Search' Crud actions
@@ -61,6 +63,53 @@ class SearchAction extends BaseAction
         if (SearchManager::includePrimaryKey($options)) {
             $options['fields'] = array_merge((array)$this->_table()->getPrimaryKey(), Hash::get($options, 'fields', []));
         }
+
+        // Check order by clause for related Modules
+        $orderBy = $options['order'] ?? [];
+        foreach ($orderBy as $field => $direction) {
+            $newOrder = [];
+            $fieldMeta = $this->getField($field);
+            $state = $fieldMeta->state();
+            if ($state['type'] !== 'related') {
+                continue;
+            }
+
+            $relatedModule = Inflector::camelize($state['source']);
+            $relatedField = $state['display_field'];
+            $associationName = CsvMigrationsTable::generateAssociationName($relatedModule, $state['name']);
+            $config = (new ModuleConfig(ConfigType::MODULE(), $relatedModule))->parseToArray();
+
+            // Virtual fields consisting of concatenation of database fields need to be unpacked into multiple order by clauses.
+            if (isset($config['virtualFields'][$relatedField])) {
+                foreach ($config['virtualFields'][$relatedField] as $virtualRefField) {
+                    $orderClauseName = $associationName . '.' . $virtualRefField;
+                    $newOrder[$orderClauseName] = $direction;
+                }
+            } else {
+                $orderClauseName = $associationName . '.' . $relatedField;
+                $newOrder[$orderClauseName] = $direction;
+            }
+
+            // In order to make the join happen, we need to select atleast one field from the associated table
+            try {
+                $relatedPrimaryKeyField = $this->_table()
+                    ->getAssociation($associationName)
+                    ->getTarget()
+                    ->getPrimaryKey();
+                Assert::string($relatedPrimaryKeyField, (string)__('Primary key must be a string.'));
+                $relatedPrimaryKey = $associationName . '.' . $relatedPrimaryKeyField;
+                if (!in_array($relatedPrimaryKey, $options['fields'])) {
+                    $options['fields'][] = $relatedPrimaryKey;
+                }
+
+                // Remove the old ordering
+                unset($options['order'][$field]);
+                $options['order'] = array_merge($options['order'], $newOrder);
+            } catch (InvalidArgumentException $e) {
+                throw new UnsupportedPrimaryKeyException($e->getMessage(), $e->getCode(), $e);
+            }
+        }
+
         $query = $this->_table()->find($finder, $options);
 
         $subject = $this->_subject(['success' => true, 'query' => $query]);
@@ -84,5 +133,22 @@ class SearchAction extends BaseAction
 
         $this->_trigger('afterPaginate', $subject);
         $this->_trigger('beforeRender', $subject);
+    }
+
+    /**
+     * Returns a field instance.
+     *
+     * @param string $modelField Aliased module field.
+     * @return \App\Utility\Field
+     * @throws \InvalidArgumentException When the module field is not aliased.
+     */
+    protected function getField(string $modelField): Field
+    {
+        if (strpos($modelField, '.') === false) {
+            throw new InvalidArgumentException((string)__('The field name provided is not aliased.'));
+        }
+        list($module, $field) = explode('.', $modelField, 2);
+
+        return new Field($module, $field);
     }
 }
