@@ -48,8 +48,7 @@ class User extends BaseUser
      */
     protected function _getImageSrc(): string
     {
-        $type = Configure::read('Avatar.default');
-        $options = (array)Configure::read('Avatar.options.' . $type);
+        $options = (array)Configure::readOrFail('Avatar.order');
 
         $options = array_merge($options, [
             'id' => $this->get('id'),
