@@ -50,8 +50,7 @@ class ServiceTest extends TestCase
 
     public function testGetImage(): void
     {
-        $type = Configure::readOrFail('Avatar.default');
-        $options = (array)Configure::readOrFail('Avatar.options.' . $type);
+        $options = (array)Configure::readOrFail('Avatar.order');
 
         $options = array_merge($options, [
             'id' => '123',
