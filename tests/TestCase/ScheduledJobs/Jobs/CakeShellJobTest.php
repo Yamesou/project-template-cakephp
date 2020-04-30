@@ -6,7 +6,7 @@ use App\ScheduledJobs\Jobs\CakeShellJob;
 use Cake\Core\Configure;
 use PHPUnit\Framework\TestCase;
 
-class CakeShellJobText extends TestCase
+class CakeShellJobTest extends TestCase
 {
     public function testRunMissingCommand(): void
     {

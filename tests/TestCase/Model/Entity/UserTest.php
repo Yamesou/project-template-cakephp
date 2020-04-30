@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Test\TestCase\Entity;
+namespace App\Test\TestCase\Model\Entity;
 
 use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use Webmozart\Assert\Assert;
 
-class ContactTest extends TestCase
+class UserTest extends TestCase
 {
     public $fixtures = [
         'app.users',
