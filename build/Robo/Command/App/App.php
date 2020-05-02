@@ -182,6 +182,11 @@ class App extends AbstractCommand
         }
         $tasks = [];
 
+        // Execute migration for Database Logs first, so that it's available for logging
+        $tasks[] = $this->taskCakephpMigration()
+            ->connection('test')
+            ->plugin('DatabaseLog');
+
         // get a list of cakephp plugins
         $result = $this->taskCakephpPlugins()->run();
         if (!$result->wasSuccessful()) {
@@ -217,6 +222,10 @@ class App extends AbstractCommand
                 ->hide($this->getValue('DB_ADMIN_PASS', $env))
                 ->host($this->getValue('DB_HOST', $env));
         }
+
+        // Execute migration for Database Logs first, so that it's available for logging
+        $tasks[] = $this->taskCakephpMigration()
+            ->plugin('DatabaseLog');
 
         // cleanup database logs
         $tasks[] = $this->taskCakephpShellScript()->name('database_log')->param('gc');
@@ -323,6 +332,11 @@ class App extends AbstractCommand
         }
         $tasks = [];
 
+        // Execute migration for Database Logs first, so that it's available for logging
+        $tasks[] = $this->taskCakephpMigration()
+            ->connection('test')
+            ->plugin('DatabaseLog');
+
         // get a list of cakephp plugins
         $result = $this->taskCakephpPlugins()->run();
         if (!$result->wasSuccessful()) {
@@ -358,6 +372,10 @@ class App extends AbstractCommand
                 ->hide($this->getValue('DB_ADMIN_PASS', $env))
                 ->host($this->getValue('DB_HOST', $env));
         }
+
+        // Execute migration for Database Logs first, so that it's available for logging
+        $tasks[] = $this->taskCakephpMigration()
+            ->plugin('DatabaseLog');
 
         // cleanup database logs
         $tasks[] = $this->taskCakephpShellScript()->name('database_log')->param('gc');
