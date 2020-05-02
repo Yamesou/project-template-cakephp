@@ -27,14 +27,34 @@
     "repositories": [
         {
             "type": "git",
-            "url": "https://github.com/QoboLtd/cakephp-file-storage.git"
+            "url": "https://github.com/QoboLtd/cakephp-utils"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/QoboLtd/cakephp-csv-migrations"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/QoboLtd/cakephp-menu"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/QoboLtd/cakephp-groups"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/QoboLtd/cakephp-roles-capabilities"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/QoboLtd/cakephp-search"
         }
     ],
     "require": {
         "aws/aws-sdk-php": "^3.52",
         "brainmaestro/composer-git-hooks": "^2.4",
-        "cakedc/users": "~8.1.0",
-        "cakephp/cakephp": "^3.6",
+        "cakedc/users": "~8.5.0",
+        "cakephp/cakephp": "~3.6",
         "cakephp/plugin-installer": "^1.1",
         "composer/composer": "^1.7",
         "dereuromark/cakephp-databaselog": "^2.1",
@@ -42,12 +62,12 @@
         "lasserafn/php-initial-avatar-generator": "^4.0",
         "pelago/emogrifier": "^1.2",
         "pyrech/composer-changelogs": "^1.4",
-        "qobo/cakephp-csv-migrations": "^36.0",
-        "qobo/cakephp-groups": "^11.0",
-        "qobo/cakephp-menu": "^16.0",
-        "qobo/cakephp-roles-capabilities": "^18.0",
-        "qobo/cakephp-search": "^22.0",
-        "qobo/cakephp-utils": "^13.0",
+        "qobo/cakephp-csv-migrations": "dev-cakephp-v38",
+        "qobo/cakephp-groups": "dev-cakephp-v38",
+        "qobo/cakephp-menu": "dev-cakephp-v38",
+        "qobo/cakephp-roles-capabilities": "dev-cakephp-v38",
+        "qobo/cakephp-search": "dev-cakephp-v38",
+        "qobo/cakephp-utils": "dev-cakephp-v38a",
         "qobo/qobo-robo": "^2.0",
         "qobo/qobo-robo-cakephp": "^2.0"
     },
