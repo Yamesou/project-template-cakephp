@@ -11,6 +11,7 @@ use Cake\Console\ConsoleErrorHandler;
 use Cake\Core\Configure;
 use Cake\Log\Log;
 use Cake\Mailer\Email;
+use Cake\Mailer\TransportFactory;
 use Cake\Mailer\Transport\DebugTransport;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
@@ -44,10 +45,11 @@ Configure::write('Error.errorLevel', E_ALL);
 // re-register application error and exception handlers.
 (new ConsoleErrorHandler(Configure::read('Error')))->register();
 
-$config = Email::getConfigTransport('default');
+$config = TransportFactory::getConfig('default');
 $config['className'] = DebugTransport::class;
-Email::dropTransport('default');
-Email::setConfigTransport('default', $config);
+
+TransportFactory::drop('default');
+TransportFactory::setConfig('default', $config);
 
 // Enable table validations in tests
 Configure::write('CsvMigrations.tableValidation', true);

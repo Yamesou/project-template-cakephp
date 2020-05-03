@@ -146,7 +146,7 @@ class SettingsController extends AppController
         $this->configureValue = Hash::merge($this->dataApp, $dataUser);
 
         // get all user dashboards
-        $tableDashboards = TableRegistry::get('Search.Dashboards');
+        $tableDashboards = TableRegistry::getTableLocator()->get('Search.Dashboards');
         $dashboards = $tableDashboards->find('list');
         $dashboards = $dashboards->toArray();
 
@@ -168,7 +168,7 @@ class SettingsController extends AppController
         $this->configureValue = $this->dataApp;
 
         // get all user dashboards
-        $tableDashboards = TableRegistry::get('Search.Dashboards');
+        $tableDashboards = TableRegistry::getTableLocator()->get('Search.Dashboards');
         $dashboards = $tableDashboards->find('list');
         $dashboards = $dashboards->toArray();
 

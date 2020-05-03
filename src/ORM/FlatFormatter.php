@@ -44,7 +44,7 @@ final class FlatFormatter
     private static function flatten(EntityInterface $entity, Table $table): array
     {
         $result = [];
-        foreach (array_diff($entity->visibleProperties(), $entity->getVirtual()) as $field) {
+        foreach (array_diff($entity->getVisible(), $entity->getVirtual()) as $field) {
             if ('_permissions' === $field) {
                 $result[$field] = $entity->get($field);
                 continue;

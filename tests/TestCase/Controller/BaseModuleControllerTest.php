@@ -16,15 +16,15 @@ use Webmozart\Assert\Assert;
 class BaseModuleControllerTest extends IntegrationTestCase
 {
     public $fixtures = [
-        'plugin.CsvMigrations.dblists',
-        'plugin.CsvMigrations.dblist_items',
-        'plugin.Menu.menus',
-        'plugin.Menu.menu_items',
-        'app.file_storage',
-        'app.log_audit',
-        'app.saved_searches',
-        'app.things',
-        'app.users',
+        'plugin.CsvMigrations.Dblists',
+        'plugin.CsvMigrations.DblistItems',
+        'plugin.Menu.Menus',
+        'plugin.Menu.MenuItems',
+        'app.FileStorage',
+        'app.LogAudit',
+        'app.SavedSearches',
+        'app.Things',
+        'app.Users',
     ];
 
     public function setUp()

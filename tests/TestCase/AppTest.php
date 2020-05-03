@@ -16,29 +16,31 @@ class AppTest extends TestCase
     public function testLoadedPlugins(string $plugin, $config): void
     {
         if (empty($config)) {
-            $this->assertTrue((bool)Plugin::loaded($plugin), "Plugin $plugin is not loaded");
-        } else {
-            $enabled = false;
-            switch (gettype($config)) {
-                case 'string':
-                    $enabled = Configure::read($config);
-                    break;
+            $this->assertTrue((bool)Plugin::isLoaded($plugin), "Plugin $plugin is not loaded");
 
-                case 'array':
-                    foreach ($config as $conf) {
-                        if (!Configure::read($conf)) {
-                            $enabled = false;
-                            break;
-                        }
-
-                        $enabled = true;
-                    }
-                    break;
-            }
-
-            $message = "Plugin $plugin is not loaded but [" . implode(' or ', (array)$config) . "] is true";
-            $this->assertEquals($enabled, Plugin::loaded($plugin), $message);
+            return;
         }
+
+        $enabled = false;
+        switch (gettype($config)) {
+            case 'string':
+                $enabled = Configure::read($config);
+                break;
+
+            case 'array':
+                foreach ($config as $conf) {
+                    if (!Configure::read($conf)) {
+                        $enabled = false;
+                        break;
+                    }
+
+                    $enabled = true;
+                }
+                break;
+        }
+
+        $message = "Plugin $plugin is not loaded but [" . implode(' or ', (array)$config) . "] is true";
+        $this->assertEquals($enabled, Plugin::isLoaded($plugin), $message);
     }
 
     /**

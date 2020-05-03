@@ -41,7 +41,7 @@ final class LabeledFormatter
      */
     private static function format(EntityInterface $entity, Table $table): EntityInterface
     {
-        foreach (array_diff($entity->visibleProperties(), $entity->getVirtual()) as $field) {
+        foreach (array_diff($entity->getVisible(), $entity->getVirtual()) as $field) {
             if ('_permissions' === $field) {
                 continue;
             }

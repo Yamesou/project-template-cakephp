@@ -28,12 +28,12 @@ if ('' !== trim($field['name'])) {
             $renderOptions['embeddedModal'] = true;
             $association = $table->getAssociation($field['name']);
             $renderOptions['association'] = $association;
-            $renderOptions['fieldDefinitions']['type'] = 'belongsToMany(' . $association->className() .  ')';
+            $renderOptions['fieldDefinitions']['type'] = 'belongsToMany(' . $association->getClassName() .  ')';
 
             if (array_key_exists($association->getAlias(), $labels)) {
                 $label = __($labels[$association->getAlias()]);
             } else {
-                $label = __($association->className());
+                $label = __($association->getClassName());
             }
         }
     }

@@ -17,9 +17,9 @@ class SwaggerDocsControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'app.users',
-        'plugin.CsvMigrations.dblists',
-        'plugin.CsvMigrations.dblist_items',
+        'app.Users',
+        'plugin.CsvMigrations.Dblists',
+        'plugin.CsvMigrations.DblistItems',
     ];
 
     /**
@@ -29,7 +29,7 @@ class SwaggerDocsControllerTest extends IntegrationTestCase
      */
     public function testIndex(): void
     {
-        if (! Plugin::loaded('Alt3/Swagger')) {
+        if (! Plugin::isLoaded('Alt3/Swagger')) {
             $this->markTestSkipped('Swagger plugin is not loaded.');
         }
 

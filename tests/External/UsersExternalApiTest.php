@@ -14,7 +14,7 @@ use Cake\TestSuite\IntegrationTestCase;
 class UsersExternalApiTest extends IntegrationTestCase
 {
     public $fixtures = [
-        'app.users',
+        'app.Users',
     ];
 
     /**

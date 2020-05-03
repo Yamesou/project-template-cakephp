@@ -16,7 +16,7 @@ use CsvMigrations\FieldHandlers\CsvField;
 use Qobo\Utils\ModuleConfig\ConfigType;
 use Qobo\Utils\ModuleConfig\ModuleConfig;
 
-list(, $module) = pluginSplit($association->className());
+list(, $module) = pluginSplit($association->getClassName());
 $mc = new ModuleConfig(ConfigType::VIEW(), $module, 'index');
 $config = $mc->parse()->items;
 $fields = array_column($config, 0);
@@ -94,7 +94,7 @@ $('#relatedTabs a.$containerId').on('click', function() {
         <thead>
             <tr>
             <?php foreach ($fields as $field) : ?>
-                <th><?= $factory->renderName($association->className(), $field) ?></th>
+                <th><?= $factory->renderName($association->getClassName(), $field) ?></th>
             <?php endforeach; ?>
                 <th><?= __('Actions');?></th>
             </tr>

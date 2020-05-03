@@ -19,12 +19,12 @@ use Qobo\Utils\TestSuite\JsonIntegrationTestCase;
 class ControllerApiTest extends JsonIntegrationTestCase
 {
     public $fixtures = [
-        'plugin.CsvMigrations.dblists',
-        'plugin.CsvMigrations.dblist_items',
-        'app.things',
-        'app.log_audit',
-        'app.users',
-        'app.file_storage',
+        'plugin.CsvMigrations.Dblists',
+        'plugin.CsvMigrations.DblistItems',
+        'app.Things',
+        'app.LogAudit',
+        'app.Users',
+        'app.FileStorage',
     ];
 
     public function setUp()

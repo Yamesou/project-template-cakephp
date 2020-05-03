@@ -24,10 +24,10 @@ class ManagerTest extends TestCase
         'app.SavedSearches',
         'app.Things',
         'app.Users',
-        'plugin.Groups.groups',
-        'plugin.Groups.groups_users',
-        'plugin.RolesCapabilities.groups_roles',
-        'plugin.RolesCapabilities.roles',
+        'plugin.Groups.Groups',
+        'plugin.Groups.GroupsUsers',
+        'plugin.RolesCapabilities.GroupsRoles',
+        'plugin.RolesCapabilities.Roles',
     ];
 
     public function setUp(): void

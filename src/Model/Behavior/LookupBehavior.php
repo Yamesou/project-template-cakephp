@@ -215,7 +215,7 @@ class LookupBehavior extends Behavior
             return false;
         }
 
-        if (empty($association->className())) {
+        if (empty($association->getClassName())) {
             return false;
         }
 
@@ -253,7 +253,7 @@ class LookupBehavior extends Behavior
      */
     private function setRelatedIdByLookupField(Association $association, ArrayObject $data): void
     {
-        $lookupFields = $this->getLookupFields($association->className());
+        $lookupFields = $this->getLookupFields($association->getClassName());
         if (empty($lookupFields)) {
             return;
         }

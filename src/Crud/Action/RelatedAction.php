@@ -204,7 +204,7 @@ class RelatedAction extends BaseAction
                 continue;
             }
 
-            if ($association->className() !== $this->_table()->getAlias()) {
+            if ($association->getClassName() !== $this->_table()->getAlias()) {
                 continue;
             }
 

@@ -27,7 +27,7 @@ final class SearchHelper extends Helper
      */
     public function getFilters(string $tableName): array
     {
-        return Search::getFilters($tableName);
+        return Search::getFields($tableName, true);
     }
 
     /**

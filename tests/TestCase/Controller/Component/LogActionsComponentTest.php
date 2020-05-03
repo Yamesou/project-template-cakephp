@@ -19,12 +19,12 @@ class LogActionsComponentTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'app.things',
-        'app.log_audit',
-        'app.users',
-        'plugin.Menu.menus',
-        'plugin.Menu.menu_items',
-        'plugin.RolesCapabilities.roles',
+        'app.Things',
+        'app.LogAudit',
+        'app.Users',
+        'plugin.Menu.Menus',
+        'plugin.Menu.MenuItems',
+        'plugin.RolesCapabilities.Roles',
     ];
 
     public function setUp(): void

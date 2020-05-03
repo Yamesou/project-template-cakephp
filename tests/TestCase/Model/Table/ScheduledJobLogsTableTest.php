@@ -15,8 +15,8 @@ use Cake\Validation\Validator;
 class ScheduledJobLogsTableTest extends TestCase
 {
     public $fixtures = [
-        'app.scheduled_jobs',
-        'app.scheduled_job_logs',
+        'app.ScheduledJobs',
+        'app.ScheduledJobLogs',
     ];
 
     private $table;

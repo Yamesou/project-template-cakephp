@@ -16,15 +16,15 @@ class UsersControllerTest extends IntegrationTestCase
     private $table;
 
     public $fixtures = [
-        'app.log_audit',
-        'app.users',
-        'plugin.Groups.groups',
-        'plugin.Groups.groups_users',
-        'plugin.RolesCapabilities.groups_roles',
-        'plugin.RolesCapabilities.roles',
-        'plugin.roles_capabilities.capabilities',
-        'plugin.Menu.menus',
-        'plugin.Menu.menu_items',
+        'app.LogAudit',
+        'app.Users',
+        'plugin.Groups.Groups',
+        'plugin.Groups.GroupsUsers',
+        'plugin.RolesCapabilities.GroupsRoles',
+        'plugin.RolesCapabilities.Roles',
+        'plugin.RolesCapabilities.Capabilities',
+        'plugin.Menu.Menus',
+        'plugin.Menu.MenuItems',
     ];
 
     public function setUp()

@@ -13,7 +13,7 @@ $hiddenAssociations = Hash::get($config, 'associations.hide_associations', []);
 
 $associations = [];
 foreach ($table->associations() as $association) {
-    list($plugin, $controller) = pluginSplit($association->className());
+    list($plugin, $controller) = pluginSplit($association->getClassName());
     $url = ['plugin' => $plugin, 'controller' => $controller, 'action' => 'index'];
     // skip associations which current user has no access
     if (!$accessFactory->hasAccess($url, $user)) {
@@ -21,7 +21,7 @@ foreach ($table->associations() as $association) {
     }
 
     // skip association(s) with Burzum/FileStorage, because it is rendered within the respective field handler
-    if ('Burzum/FileStorage.FileStorage' === $association->className()) {
+    if ('Burzum/FileStorage.FileStorage' === $association->getClassName()) {
         continue;
     }
 

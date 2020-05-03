@@ -38,7 +38,7 @@ final class PrettyFormatter
      */
     private static function format(EntityInterface $entity, Table $table): EntityInterface
     {
-        foreach (array_diff($entity->visibleProperties(), $entity->getVirtual()) as $field) {
+        foreach (array_diff($entity->getVisible(), $entity->getVirtual()) as $field) {
             self::formatField($entity, $table, $field);
         }
 

@@ -7,7 +7,7 @@ use Cake\TestSuite\TestCase;
 
 class FieldTest extends TestCase
 {
-    public $fixtures = ['app.things', 'app.users'];
+    public $fixtures = ['app.Things', 'app.Users'];
 
     public function testName(): void
     {

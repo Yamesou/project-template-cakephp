@@ -15,7 +15,7 @@ $setLabels = [];
         <?php
         $containerId = Inflector::underscore($association->getAlias());
 
-        list(, $tableName) = pluginSplit($association->className());
+        list(, $tableName) = pluginSplit($association->getClassName());
         $mc = new ModuleConfig(ConfigType::MODULE(), $tableName);
         $config = $mc->parse();
 
