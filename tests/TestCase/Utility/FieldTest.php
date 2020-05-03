@@ -338,7 +338,9 @@ class FieldTest extends TestCase
             'label' => 'Photos',
             'type' => 'files',
             'db_type' => 'uuid',
-            'meta' => [],
+            'meta' => [
+                'non-searchable',
+            ],
         ];
 
         $this->assertSame($expected, (new Field('Things', 'photos'))->state());

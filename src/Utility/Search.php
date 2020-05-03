@@ -386,7 +386,7 @@ final class Search
 
         $result = [];
         foreach (Model::fields($moduleName) as $field) {
-            if (in_array($field['type'], ['uuid', 'files', 'base64'])) {
+            if (in_array($field['type'], ['uuid', 'base64'])) {
                 continue;
             }
 
