@@ -3,9 +3,20 @@
 
     //Highlight active link in the sidebar.
     var url = window.location;
-    $('.sidebar ul.sidebar-menu a').filter(function () {
+    var activeUrl = $('.sidebar ul.sidebar-menu a').filter(function () {
         return url.href.replace(/\/+$/, '') == this.href.replace(/\/+$/, '');
-    }).parent().addClass('active');
+    });
+
+    if (activeUrl) {
+        var target = $(activeUrl).parent();
+
+        if (target.parent().hasClass('treeview-menu')) {
+            target = $(target).parent().parent();
+            $(activeUrl).parent().addClass('active');
+        }
+
+        $(target).addClass('active');
+    }
 
     /**
      * Store and retrieve active tab, for all nav-tabs, using web browser's local storage.
