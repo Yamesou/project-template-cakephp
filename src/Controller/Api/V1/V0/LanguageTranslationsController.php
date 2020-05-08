@@ -21,18 +21,18 @@ class LanguageTranslationsController extends AppController
 
             $params = $this->request->getQueryParams();
 
-            if (Hash::get($params, 'object_model') && Hash::get($params, 'object_foreign_key')) {
+            if (Hash::get($params, 'model') && Hash::get($params, 'foreign_key')) {
                 /**
                  * @var \App\Model\Table\LanguageTranslationsTable $table
                  */
                 $table = $this->loadModel();
                 $conditions = [
-                    'object_model' => Hash::get($params, 'object_model'),
-                    'object_foreign_key' => Hash::get($params, 'object_foreign_key'),
+                    'model' => Hash::get($params, 'model'),
+                    'foreign_key' => Hash::get($params, 'foreign_key'),
                 ];
 
-                if (Hash::get($params, 'object_field')) {
-                    $conditions['object_field'] = Hash::get($params, 'object_field');
+                if (Hash::get($params, 'field')) {
+                    $conditions['field'] = Hash::get($params, 'field');
                 }
 
                 if (Hash::get($params, 'language')) {
@@ -42,10 +42,10 @@ class LanguageTranslationsController extends AppController
                 $query->applyOptions(['conditions' => $conditions]);
                 $query->applyOptions(['contain' => ['Languages']]);
                 $query->applyOptions(['fields' => [
-                    $table->aliasField('translation'),
-                    $table->aliasField('object_model'),
-                    $table->aliasField('object_foreign_key'),
-                    $table->aliasField('object_field'),
+                    $table->aliasField('content'),
+                    $table->aliasField('model'),
+                    $table->aliasField('foreign_key'),
+                    $table->aliasField('field'),
                     'Languages.code',
                 ]]);
             } else {

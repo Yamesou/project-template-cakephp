@@ -73,9 +73,9 @@ class ThingsControllerTest extends IntegrationTestCase
         $this->assertResponseContains('<a href="#translations_translate_id_modal" data-toggle="modal" data-record="00000000-0000-0000-0000-000000000001" data-model="Things" data-field="description" data-value="Long description goes here">');
         $this->assertResponseContains('<textarea name="orig_for_translate"');
         $this->assertResponseContains(' id="orig_for_translate"');
-        $this->assertResponseContains('<input type="hidden" name="object_model"');
-        $this->assertResponseContains('<input type="hidden" name="object_field"');
-        $this->assertResponseContains('<input type="hidden" name="object_foreign_key"');
+        $this->assertResponseContains('<input type="hidden" name="model"');
+        $this->assertResponseContains('<input type="hidden" name="field"');
+        $this->assertResponseContains('<input type="hidden" name="foreign_key"');
 
         $this->assertResponseContains('id="form_translation_ru"');
         $this->assertResponseContains('<input type="hidden" name="id" id="translation_id_ru"');

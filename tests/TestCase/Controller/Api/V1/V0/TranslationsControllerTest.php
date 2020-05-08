@@ -67,7 +67,7 @@ class TranslationsControllerTest extends BaseIntegrationTestCase
 
     public function testIndexWithModelAndKey(): void
     {
-        $this->get('/api/language-translations?object_model=Leads&object_foreign_key=00000000-0000-0000-0000-100000000001');
+        $this->get('/api/language-translations?model=Leads&foreign_key=00000000-0000-0000-0000-100000000001');
 
         $this->assertResponseOk();
 
@@ -77,7 +77,7 @@ class TranslationsControllerTest extends BaseIntegrationTestCase
 
     public function testIndexWithField(): void
     {
-        $this->get('/api/language-translations?object_model=Leads&object_foreign_key=00000000-0000-0000-0000-100000000001&object_field=description');
+        $this->get('/api/language-translations?model=Leads&foreign_key=00000000-0000-0000-0000-100000000001&field=description');
 
         $this->assertResponseOk();
 
@@ -87,7 +87,7 @@ class TranslationsControllerTest extends BaseIntegrationTestCase
 
     public function testIndexWithLanguage(): void
     {
-        $this->get('/api/language-translations?object_model=Leads&object_foreign_key=00000000-0000-0000-0000-100000000001&language=ru');
+        $this->get('/api/language-translations?model=Leads&foreign_key=00000000-0000-0000-0000-100000000001&language=ru');
 
         $this->assertResponseOk();
 
@@ -97,7 +97,7 @@ class TranslationsControllerTest extends BaseIntegrationTestCase
 
     public function testIndexWithFieldAndLanguage(): void
     {
-        $this->get('/api/language-translations?object_model=Leads&object_foreign_key=00000000-0000-0000-0000-100000000001&object_field=code&language=ru');
+        $this->get('/api/language-translations?model=Leads&foreign_key=00000000-0000-0000-0000-100000000001&field=code&language=ru');
 
         $this->assertResponseOk();
 
