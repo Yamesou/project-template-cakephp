@@ -15,6 +15,17 @@ $associations = [];
 foreach ($table->associations() as $association) {
     list($plugin, $controller) = pluginSplit($association->className());
     $url = ['plugin' => $plugin, 'controller' => $controller, 'action' => 'index'];
+
+    // skip hidden associations
+    if (in_array($association->getName(), $hiddenAssociations)) {
+        continue;
+    }
+    
+    // Skip all generated translations associations
+    if ('Translations.Translations' === $association->className() || '_translation' === substr($association->getName(), -12)) {
+        continue;
+    }
+
     // skip associations which current user has no access
     if (!$accessFactory->hasAccess($url, $user)) {
         continue;
@@ -22,11 +33,6 @@ foreach ($table->associations() as $association) {
 
     // skip association(s) with Burzum/FileStorage, because it is rendered within the respective field handler
     if ('Burzum/FileStorage.FileStorage' === $association->className()) {
-        continue;
-    }
-
-    // skip hidden associations
-    if (in_array($association->getName(), $hiddenAssociations)) {
         continue;
     }
 

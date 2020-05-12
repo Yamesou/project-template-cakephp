@@ -40,6 +40,18 @@ class AppTable extends Table
             ]);
         }
 
+        if (Hash::get($tableConfig, 'table.translatable', false)) {
+            $fieldsConfig = (new ModuleConfig(ConfigType::FIELDS(), $this->getAlias()))->parseToArray();
+            $translate = array_keys(array_filter($fieldsConfig, function ($v) {
+                return !empty($v['translatable']);
+            }));
+            $options = [
+                'fields' => $translate,
+                'translationTable' => 'Translations.Translations',
+            ];
+            empty($translate) ?: $this->addBehavior('Translate', $options);
+        }
+
         $this->addBehavior('Lookup', ['lookupFields' => Hash::get($tableConfig, 'table.lookup_fields', [])]);
     }
 
