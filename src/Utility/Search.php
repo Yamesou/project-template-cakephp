@@ -19,6 +19,7 @@ use Qobo\Utils\ModuleConfig\ModuleConfig;
 use Search\Aggregate\AggregateInterface;
 use Search\Model\Entity\SavedSearch;
 use Search\Service\Search as SearchService;
+use Translations\Model\Table\TranslationsTable;
 use Webmozart\Assert\Assert;
 
 final class Search
@@ -82,7 +83,7 @@ final class Search
                 unset($result[$index]['operators']);
 
                 list($group, ) = pluginSplit($options['field']);
-                $group = array_key_exists($group, $labels) ? $labels[$group] : $group;
+                $group = array_key_exists($group, $labels) ? $labels[$group] : self::getTableLabel($group);
 
                 $result[$index]['group'] = $group;
             }
@@ -103,6 +104,24 @@ final class Search
         }
 
         return $result;
+    }
+
+    /**
+     * Returns the label for the provided table name
+     *
+     * @param string $tableName Table name
+     * @return string
+     */
+    public static function getTableLabel(string $tableName): string
+    {
+        // Load the right alias, if exists
+        $moduleConfig = new ModuleConfig(ConfigType::MODULE(), $tableName);
+
+        return Hash::get(
+            $moduleConfig->parseToArray(),
+            'table.alias',
+            Inflector::humanize(Inflector::underscore($tableName))
+        );
     }
 
     /**
@@ -274,9 +293,19 @@ final class Search
     {
         $result = [];
         foreach ($table->associations() as $association) {
+            $model = App::shortName(get_class($association->getTarget()), 'Model/Table', 'Table');
+
+            // Load the right alias, if exists
+            $moduleConfig = new ModuleConfig(ConfigType::MODULE(), $model, null, ['cacheSkip' => true]);
+            $name = Hash::get(
+                $moduleConfig->parseToArray(),
+                'table.alias',
+                Inflector::humanize(Inflector::underscore($model))
+            );
+
             $result[$association->getName()] = sprintf(
                 '%s (%s)',
-                App::shortName(get_class($association->getTarget()), 'Model/Table', 'Table'),
+                $name,
                 Inflector::humanize(implode(', ', (array)$association->getForeignKey()))
             );
         }
@@ -438,6 +467,10 @@ final class Search
 
             $targetTable = $association->getTarget();
             if ($targetTable instanceof \Burzum\FileStorage\Model\Table\FileStorageTable) {
+                continue;
+            }
+
+            if ($targetTable instanceof TranslationsTable) {
                 continue;
             }
 
