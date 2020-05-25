@@ -28,7 +28,7 @@ if (! $validatePassword) :
                 'type' => 'password',
                 'required' => true,
                 'label' => false,
-                'placeholder' => __('Password Confirm')
+                'placeholder' => __('Confirm Password')
             ]); ?>
         </div>
     </div>
@@ -67,7 +67,7 @@ if ($validatePassword) : ?>
                     <?= $this->Form->control('Users.password_confirm', [
                         'type' => 'password',
                         'required' => true,
-                        'placeholder' => __('Password Confirm')
+                        'placeholder' => __('Confirm Password')
                     ]); ?>
                     <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?>
                 </div>
