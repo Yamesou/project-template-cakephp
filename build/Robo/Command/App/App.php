@@ -236,6 +236,7 @@ class App extends AbstractCommand
             ->email($this->getValue('DEV_EMAIL', $env));
 
         $shellScripts = [
+            'generate_modules -f',
             'upgrade',
             'group import',
             'group assign',
@@ -372,6 +373,7 @@ class App extends AbstractCommand
         $tasks[] = $this->taskCakephpMigration();
 
         $shellScripts = [
+            'generate_modules -f',
             'upgrade',
             'group import',
             'group assign',
