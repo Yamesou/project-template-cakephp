@@ -12,8 +12,6 @@ use Cake\Utility\Hash;
 use Cake\Validation\Validator;
 use CsvMigrations\Model\AssociationsAwareTrait;
 use Qobo\Utils\Module\ModuleRegistry;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
 
 /**
  * Users Model
