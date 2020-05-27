@@ -4,4 +4,6 @@ linters:
     extensions: 'php,ctp'
     exclude: 'Generic.Commenting.Todo'
 files:
-    ignore: ['webroot/plugins/*']
+    ignore:
+      - 'webroot/plugins/*'
+      - 'src/Module/*/
