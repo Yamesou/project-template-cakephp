@@ -6,4 +6,4 @@ linters:
 files:
     ignore:
       - 'webroot/plugins/*'
-      - 'src/Module/*/
+      - 'src/Module/*/'
