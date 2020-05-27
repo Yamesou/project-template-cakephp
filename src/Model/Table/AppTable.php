@@ -3,6 +3,7 @@
 namespace App\Model\Table;
 
 use App\Feature\Factory as FeatureFactory;
+use Cake\Core\App;
 use Cake\Utility\Hash;
 use CsvMigrations\Table;
 use Qobo\Utils\Module\ModuleRegistry;
@@ -26,10 +27,11 @@ class AppTable extends Table
             'blacklist' => ['created', 'modified', 'created_by', 'modified_by'],
         ]);
 
-        $tableConfig = ModuleRegistry::getModule($this->getRegistryAlias())->getConfig();
+        $tableName = App::shortName(get_class($this), 'Model/Table', 'Table');
+        $tableConfig = ModuleRegistry::getModule($tableName)->getConfig();
 
         if (Hash::get($tableConfig, 'table.searchable')) {
-            $fieldsConfig = ModuleRegistry::getModule($this->getRegistryAlias())->getMigration();
+            $fieldsConfig = ModuleRegistry::getModule($tableName)->getMigration();
 
             $this->addBehavior('Search.Searchable', [
                 'fields' => array_keys(array_filter($fieldsConfig, function ($definition) {
@@ -39,7 +41,7 @@ class AppTable extends Table
         }
 
         if (Hash::get($tableConfig, 'table.translatable', false)) {
-            $fieldsConfig = ModuleRegistry::getModule($this->getRegistryAlias())->getFields();
+            $fieldsConfig = ModuleRegistry::getModule($tableName)->getFields();
             $translate = array_keys(array_filter($fieldsConfig, function ($v) {
                 return !empty($v['translatable']);
             }));

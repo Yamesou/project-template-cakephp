@@ -5,8 +5,7 @@ namespace App\Utility;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\ModuleRegistry;
 use Webmozart\Assert\Assert;
 
 final class Field
@@ -87,7 +86,7 @@ final class Field
      */
     public function label(): string
     {
-        $config = (new ModuleConfig(ConfigType::FIELDS(), $this->model))->parseToArray();
+        $config = ModuleRegistry::getModule($this->model)->getFields();
 
         $default = substr($this->field, -3) === '_id' ? substr($this->field, 0, -3) : $this->field;
         $default = Inflector::humanize(Inflector::underscore($default));
@@ -122,7 +121,7 @@ final class Field
     public function meta(): array
     {
         $result = [];
-        $config = (new ModuleConfig(ConfigType::MIGRATION(), $this->model))->parseToArray();
+        $config = ModuleRegistry::getModule($this->model)->getMigration();
 
         foreach ($this->table->getSchema()->constraints() as $item) {
             $constraint = $this->table->getSchema()->getConstraint($item);
@@ -178,7 +177,7 @@ final class Field
      */
     private function getTypeFromFile(): string
     {
-        $config = (new ModuleConfig(ConfigType::MIGRATION(), $this->model))->parseToArray();
+        $config = ModuleRegistry::getModule($this->model)->getMigration();
         if ([] === $config) {
             return '';
         }
@@ -208,7 +207,7 @@ final class Field
      */
     private function getRelatedModelFromFile(): string
     {
-        $config = (new ModuleConfig(ConfigType::MIGRATION(), $this->model))->parseToArray();
+        $config = ModuleRegistry::getModule($this->model)->getConfig();
 
         $type = Hash::get($config, $this->field . '.type');
         Assert::stringNotEmpty($type);
