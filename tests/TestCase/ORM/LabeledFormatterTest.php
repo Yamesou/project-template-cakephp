@@ -36,11 +36,11 @@ class LabeledFormatterTest extends TestCase
             'appointment' => '2019-10-29 15:47:16',
             'area_amount' => 25.74,
             'area_unit' => 'm²',
-            'assigned_to' => 'user-2',
+            'assigned_to' => 'user second',
             'bio' => 'A blob type',
             'country' => 'Cyprus',
             'created' => '2018-01-18 15:47:16',
-            'created_by' => 'user-1',
+            'created_by' => 'first1 last1',
             'currency' => 'GBP',
             'date_of_birth' => '1990-01-17',
             'description' => 'Long description goes here',
@@ -51,7 +51,7 @@ class LabeledFormatterTest extends TestCase
             'language' => 'Ancient Greek',
             'level' => 7,
             'modified' => '2018-01-18 15:47:16',
-            'modified_by' => 'user-1',
+            'modified_by' => 'first1 last1',
             'name' => 'Thing #1',
             'non_searchable' => '',
             'phone' => '+35725123456',
@@ -90,7 +90,7 @@ class LabeledFormatterTest extends TestCase
             'appointment' => '2019-10-29 15:47:16',
             'area_amount' => 25.74,
             'area_unit' => 'm²',
-            'assigned_to' => 'user-2',
+            'assigned_to' => 'user second',
             'assigned_to_user' => [
                 'activation_date' => '2015-06-24 17:33:54',
                 'active' => true,
@@ -132,7 +132,7 @@ class LabeledFormatterTest extends TestCase
             'bio' => 'A blob type',
             'country' => 'Cyprus',
             'created' => '2018-01-18 15:47:16',
-            'created_by' => 'user-1',
+            'created_by' => 'first1 last1',
             'currency' => 'GBP',
             'date_of_birth' => '1990-01-17',
             'description' => 'Long description goes here',
@@ -143,7 +143,7 @@ class LabeledFormatterTest extends TestCase
             'language' => 'Ancient Greek',
             'level' => 7,
             'modified' => '2018-01-18 15:47:16',
-            'modified_by' => 'user-1',
+            'modified_by' => 'first1 last1',
             'name' => 'Thing #1',
             'non_searchable' => '',
             'phone' => '+35725123456',
@@ -229,11 +229,11 @@ class LabeledFormatterTest extends TestCase
             'appointment' => '2019-10-29 15:47:16',
             'area_amount' => 25.74,
             'area_unit' => 'm²',
-            'assigned_to' => 'user-2',
+            'assigned_to' => 'user second',
             'bio' => 'A blob type',
             'country' => 'Cyprus',
             'created' => '2018-01-18 15:47:16',
-            'created_by' => 'user-1',
+            'created_by' => 'first1 last1',
             'currency' => 'GBP',
             'date_of_birth' => '1990-01-17',
             'description' => 'Long description goes here',
@@ -244,7 +244,7 @@ class LabeledFormatterTest extends TestCase
             'language' => 'Ancient Greek',
             'level' => 7,
             'modified' => '2018-01-18 15:47:16',
-            'modified_by' => 'user-1',
+            'modified_by' => 'first1 last1',
             'name' => 'Thing #1',
             'non_searchable' => '',
             'phone' => '+35725123456',
@@ -323,6 +323,6 @@ class LabeledFormatterTest extends TestCase
             ->where(['Things.id' => '00000000-0000-0000-0000-000000000001'])
             ->formatResults(new LabeledFormatter());
 
-        $this->assertSame('user-2', $query->first()->get('primary_thing'));
+        $this->assertSame('user second', $query->first()->get('primary_thing'));
     }
 }

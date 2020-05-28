@@ -4,6 +4,7 @@ namespace App\Model\Table;
 
 use App\Avatar\Service as AvatarService;
 use CakeDC\Users\Model\Table\UsersTable as Table;
+use Cake\Core\App;
 use Cake\Core\Configure;
 use Cake\Database\Schema\TableSchema;
 use Cake\Datasource\EntityInterface;
@@ -36,7 +37,9 @@ class UsersTable extends Table
 
         $this->setAssociations();
 
-        $tableConfig = ModuleRegistry::getModule($this->getRegistryAlias())->getConfig();
+        $tableName = App::shortName(get_class($this), 'Model/Table', 'Table');
+
+        $tableConfig = ModuleRegistry::getModule($tableName)->getConfig();
         if (Hash::get($tableConfig, 'table.searchable')) {
             $this->addBehavior('Search.Searchable', [
                 'fields' => ['first_name', 'last_name', 'username', 'email', 'created', 'modified'],
