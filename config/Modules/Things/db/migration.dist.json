@@ -29,7 +29,7 @@
     },
     "currency": {
         "name": "currency",
-        "type": "currency(currencies)",
+        "type": "currency(Common.currencies)",
         "required": true,
         "non-searchable": false,
         "unique": false
