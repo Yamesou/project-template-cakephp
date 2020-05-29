@@ -226,13 +226,13 @@ class FieldListTest extends TestCase
     {
         return [
             ['test_list', 'Things.test_list'],
-            ['testmetric_unit', 'units_area'],
-            ['testmoney_currency', 'currencies'],
-            ['country', 'countries'],
-            ['gender', 'genders'],
-            ['salary_currency', 'currencies'],
-            ['title', 'titles'],
-            ['language', 'languages'],
+            ['testmetric_unit', 'Common.units_area'],
+            ['testmoney_currency', 'Common.currencies'],
+            ['country', 'Common.countries'],
+            ['gender', 'Common.genders'],
+            ['salary_currency', 'Common.currencies'],
+            ['title', 'Common.titles'],
+            ['language', 'Common.languages'],
         ];
     }
 }

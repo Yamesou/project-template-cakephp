@@ -192,7 +192,7 @@ final class FieldList
     {
         $name = $this->name();
         if (false !== strpos($name, '.')) {
-            list($name) = explode('.', $name, 2);
+            list(, $name) = explode('.', $name, 2);
         }
 
         // handles specific list special case, this needs to be abstracted to
