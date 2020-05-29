@@ -11,6 +11,7 @@ use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
 use CsvMigrations\FieldHandlers\FieldHandlerFactory;
+use Qobo\Utils\Module\Exception\MissingModuleException;
 use Qobo\Utils\Module\ModuleRegistry;
 use Search\Aggregate\AggregateInterface;
 use Search\Model\Entity\SavedSearch;
@@ -328,7 +329,12 @@ final class Search
     private static function getDisplayFieldsFromView(string $tableName): array
     {
         list($plugin, $module) = pluginSplit($tableName);
-        $fields = ModuleRegistry::getModule($module)->getView('index');
+        $fields = [];
+        try {
+            $fields = ModuleRegistry::getModule($module)->getView('index');
+        } catch (MissingModuleException $e) {
+            // @ignoreException
+        }
 
         $columns = TableRegistry::getTableLocator()
             ->get($tableName)
