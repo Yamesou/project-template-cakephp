@@ -26,7 +26,7 @@ $options = [
         'link' => $this->request->getParam('controller')
     ],
     'handlerOptions' => ['entity' => $this->request],
-    'hasPanels' => property_exists($config, 'panels')
+    'hasPanels' => !empty($config['panels'])
 ];
 
 echo $this->fetch('pre_element');

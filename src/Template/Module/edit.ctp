@@ -31,7 +31,7 @@ $options = [
     'fields' => $fields,
     'title' => ['page' => __('Edit {0} ', $displayField), 'alias' => $alias, 'link' => $this->request->getParam('controller')],
     'handlerOptions' => ['entity' => $entity],
-    'hasPanels' => property_exists($config, 'panels')
+    'hasPanels' => !empty($config['panels'])
 ];
 
 echo $this->fetch('pre_element');

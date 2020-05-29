@@ -26,7 +26,7 @@ $options = [
             'disabled' => true
         ]
     ],
-    'hasPanels' => property_exists($config, 'panels')
+    'hasPanels' => !empty($config['panels'])
 ];
 echo $this->element('Module/post', ['options' => $options]);
 
