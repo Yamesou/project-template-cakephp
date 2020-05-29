@@ -13,12 +13,10 @@
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Inflector;
 use CsvMigrations\FieldHandlers\FieldHandlerFactory;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\ModuleRegistry;
 
-$config = (new ModuleConfig(ConfigType::MODULE(), $this->name))->parse();
-
-$alias = isset($config->table->alias) ? $config->table->alias : Inflector::humanize(Inflector::underscore($this->name));
+$config = ModuleRegistry::getModule($this->name)->getConfig();
+$alias = isset($config['table']['alias']) ? $config['table']['alias'] : Inflector::humanize(Inflector::underscore($this->name));
 
 $table = TableRegistry::getTableLocator()->get(empty($this->plugin) ? $this->name : $this->plugin . '.' . $tableName);
 $displayField = (new FieldHandlerFactory($this))->renderValue(

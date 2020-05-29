@@ -1,10 +1,7 @@
 <?php
 use Cake\ORM\TableRegistry;
-use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
-use Qobo\Utils\Utility\User;
+use Qobo\Utils\Module\ModuleRegistry;
 use RolesCapabilities\Access\AccessFactory;
 use Search\Aggregate\AggregateInterface;
 
@@ -36,8 +33,9 @@ list($plugin, $controller) = pluginSplit($savedSearch->get('model'));
 $urlBatch = ['plugin' => $plugin, 'controller' => $controller, 'action' => 'batch'];
 $urlExport = ['plugin' => $plugin, 'controller' => $controller, 'action' => 'exportSearch'];
 
-$config = (new ModuleConfig(ConfigType::MODULE(), $controller))->parse();
-$title = isset($config->table->alias) ? $config->table->alias : Inflector::humanize(Inflector::underscore($controller));
+$config = ModuleRegistry::getModule($controller)->getConfig();
+
+$title = isset($config['table']['alias']) ? $config['table']['alias'] : Inflector::humanize(Inflector::underscore($controller));
 
 echo $this->fetch('pre_element');
 
