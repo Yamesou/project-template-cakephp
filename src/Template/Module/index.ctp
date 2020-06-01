@@ -9,7 +9,7 @@ $this->Html->script(['/dist/vendor', '/dist/app'], ['block' => 'scriptBottom']);
 $this->Html->css('/dist/style', ['block' => 'css']);
 
 $table = TableRegistry::getTableLocator()->get($savedSearch->get('model'));
-$filters = $this->Search->getFilters($savedSearch->get('model'));
+$fields = $this->Search->getFields($savedSearch->get('model'));
 
 $hasAggregate = false;
 $headers = [];
@@ -18,11 +18,11 @@ foreach ((array)$savedSearch->get('fields') as $item) {
         $hasAggregate = true;
         preg_match(AggregateInterface::AGGREGATE_PATTERN, $item, $matches);
         list(, $aggregateField) = pluginSplit($matches[2]);
-        $key = array_search($matches[2], array_column($filters, 'field'), true);
-        $label = sprintf('%s (%s)', $filters[$key]['label'], $matches[1]);
+        $key = array_search($matches[2], array_column($fields, 'field'), true);
+        $label = sprintf('%s (%s)', $fields[$key]['label'], $matches[1]);
     } else {
-        $key = array_search($item, array_column($filters, 'field'), true);
-        $label = false !== $key ? $filters[$key]['label'] : $item;
+        $key = array_search($item, array_column($fields, 'field'), true);
+        $label = false !== $key ? $fields[$key]['label'] : $item;
     }
     $headers[] = ['value' => $item, 'text' => __($label)];
 }
