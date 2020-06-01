@@ -4,8 +4,7 @@ namespace App\Swagger;
 
 use App\Feature\Factory as FeatureFactory;
 use Cake\Core\App;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\ModuleRegistry;
 use Swagger\Context;
 use Swagger\StaticAnalyser;
 
@@ -53,7 +52,7 @@ class Analyser extends StaticAnalyser
             return true;
         }
 
-        $config = (new ModuleConfig(ConfigType::MIGRATION(), $module))->parseToArray();
+        $config = ModuleRegistry::getModule($module)->getMigration();
         if (empty($config)) {
             return false;
         }
