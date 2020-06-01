@@ -5,20 +5,16 @@ namespace App\Utility;
 use App\Search\Manager;
 use Cake\Cache\Cache;
 use Cake\Core\App;
-use Cake\Datasource\EntityInterface;
-use Cake\Log\Log;
 use Cake\ORM\Association;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
 use CsvMigrations\FieldHandlers\FieldHandlerFactory;
-use DatabaseLog\Model\Table\DatabaseLogsTable;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\Exception\MissingModuleException;
+use Qobo\Utils\Module\ModuleRegistry;
 use Search\Aggregate\AggregateInterface;
 use Search\Model\Entity\SavedSearch;
-use Search\Service\Search as SearchService;
 use Webmozart\Assert\Assert;
 
 final class Search
@@ -333,9 +329,12 @@ final class Search
     private static function getDisplayFieldsFromView(string $tableName): array
     {
         list($plugin, $module) = pluginSplit($tableName);
-
-        $config = (new ModuleConfig(ConfigType::VIEW(), $module, 'index'))->parseToArray();
-        $fields = ! empty($config['items']) ? $config['items'] : [];
+        $fields = [];
+        try {
+            $fields = ModuleRegistry::getModule($module)->getView('index');
+        } catch (MissingModuleException $e) {
+            // @ignoreException
+        }
 
         $columns = TableRegistry::getTableLocator()
             ->get($tableName)

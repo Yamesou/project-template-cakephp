@@ -5,8 +5,7 @@ namespace App\Utility;
 use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\ModuleRegistry;
 use Webmozart\Assert\Assert;
 
 final class FieldList
@@ -78,8 +77,7 @@ final class FieldList
             }
         }
 
-        $config = (new ModuleConfig(ConfigType::MIGRATION(), $this->model))->parseToArray();
-
+        $config = ModuleRegistry::getModule($this->model)->getMigration();
         $type = (string)Hash::get($config, $field . '.type');
 
         return 1 === preg_match(self::TYPE_PATTERN, $type, $matches) ? $matches[2] : '';
@@ -141,9 +139,7 @@ final class FieldList
             explode('.', $this->name(), 2) :
             [$this->model, $this->name()];
 
-        $options = (new ModuleConfig(ConfigType::LISTS(), $module, $name))->parseToArray();
-
-        return array_key_exists('items', $options) ? $options['items'] : [];
+        return ModuleRegistry::getModule($module)->getList($name);
     }
 
     /**
@@ -196,7 +192,7 @@ final class FieldList
     {
         $name = $this->name();
         if (false !== strpos($name, '.')) {
-            list($name) = explode('.', $name, 2);
+            list(, $name) = explode('.', $name, 2);
         }
 
         // handles specific list special case, this needs to be abstracted to
