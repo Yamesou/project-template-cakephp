@@ -4,6 +4,7 @@ namespace App\Swagger;
 
 use App\Feature\Factory as FeatureFactory;
 use Cake\Core\App;
+use Qobo\Utils\Module\Exception\MissingModuleException;
 use Qobo\Utils\Module\ModuleRegistry;
 use Swagger\Context;
 use Swagger\StaticAnalyser;
@@ -52,8 +53,12 @@ class Analyser extends StaticAnalyser
             return true;
         }
 
-        $config = ModuleRegistry::getModule($module)->getMigration();
-        if (empty($config)) {
+        try {
+            $config = ModuleRegistry::getModule($module)->getMigration();
+            if (empty($config)) {
+                return false;
+            }
+        } catch (MissingModuleException $e) {
             return false;
         }
 
