@@ -74,6 +74,13 @@ $linkTitle = is_array($options['title']) ? $this->Html->link(
 
     if (!empty($options['fields'])) {
         echo $this->element('Module/Form/fields', ['options' => $options]);
+
+        // Custom redirect parent module.
+        // @see `cakephp-utils` config JSON schema `parentItem` definition
+        if (!empty($this->request->getQuery('_parent'))) {
+            $parent = $this->request->getQuery('_parent');
+            echo $this->Form->hidden('_parent', ['value' => $parent]);
+        }
     }
 
     /**
