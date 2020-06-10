@@ -2,8 +2,6 @@
 use Cake\Core\Configure;
 use Cake\Filesystem\Folder;
 
-//$this->Html->css('login', ['block' => 'css']);
-
 $skinUrl = Configure::read('Theme.skinUrl');
 $skinName = Configure::read('Theme.skin');
 $title = Configure::read('Theme.title.' . $this->name);
