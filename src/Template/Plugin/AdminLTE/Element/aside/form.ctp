@@ -1,10 +1,15 @@
 <?php
 use Cake\Utility\Hash;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\Exception\MissingModuleException;
+use Qobo\Utils\Module\ModuleRegistry;
 use RolesCapabilities\Access\AccessFactory;
 
-$config = (new ModuleConfig(ConfigType::MODULE(), $this->name))->parseToArray();
+$config = [];
+try {
+    $config = ModuleRegistry::getModule($this->name)->getConfig();
+} catch (MissingModuleException $e) {
+    // @ignoreException
+}
 
 if (! Hash::get($config, 'table.searchable')) {
     return;

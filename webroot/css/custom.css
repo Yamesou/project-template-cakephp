@@ -152,6 +152,23 @@ hr.separator {
 }
 
 .main-header .sidebar-toggle:before {
-    /* content: "\f060"; */
     content: "";
+}
+
+/** Improve support for thumbnails in data tables **/
+table.dataTable .caption,
+table.dataTable .thumbnail-controls,
+table.dataTable .thumbnail {
+    display: none;
+}
+table.dataTable .row .thumbnail-0 {
+    width: 100%;
+}
+table.dataTable .row .thumbnail-0 .thumbnail {
+    display: table-cell;
+    border: none;
+}
+table.dataTable .row .thumbnail-0 img {
+    margin: 0;
+    display: inline !important;
 }

@@ -16,8 +16,7 @@ use CsvMigrations\FieldHandlers\CsvField;
 use CsvMigrations\FieldHandlers\FieldHandlerFactory;
 use CsvMigrations\FieldHandlers\RelatedFieldTrait;
 use CsvMigrations\FieldHandlers\Setting;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\ModuleRegistry;
 use Webmozart\Assert\Assert;
 
 class LookupActionListener extends BaseActionListener
@@ -218,11 +217,11 @@ class LookupActionListener extends BaseActionListener
      */
     protected function _getVirtualFields(RepositoryInterface $table): array
     {
-        $config = (new ModuleConfig(ConfigType::MODULE(), $table->getRegistryAlias()))->parse();
-        $config = json_encode($config);
-        $config = false !== $config ? json_decode($config, true) : [];
-
-        return array_key_exists('virtualFields', $config) ? $config['virtualFields'] : [];
+        return Hash::get(
+            ModuleRegistry::getModule($table->getRegistryAlias())->getConfig(),
+            'virtualFields',
+            []
+        );
     }
 
     /**
@@ -257,11 +256,8 @@ class LookupActionListener extends BaseActionListener
      */
     protected function _getTypeaheadFields(Table $table): array
     {
-        $config = (new ModuleConfig(ConfigType::MODULE(), $table->getRegistryAlias()))->parseToArray();
-
-        $fields = ! empty($config['table']['typeahead_fields']) ?
-            $config['table']['typeahead_fields'] :
-            [$table->getDisplayField()];
+        $config = ModuleRegistry::getModule($table->getRegistryAlias())->getConfig();
+        $fields = Hash::get($config, 'table.typeahead_fields', [$table->getDisplayField()]);
 
         // Extract the virtual fields to actual db fields before asking for an alias
         $fields = $this->extractVirtualFields($table, $fields);
@@ -372,9 +368,11 @@ class LookupActionListener extends BaseActionListener
      */
     protected function _getParentModule(RepositoryInterface $table): string
     {
-        $config = (new ModuleConfig(ConfigType::MODULE(), $table->getRegistryAlias()))->parseToArray();
-
-        return isset($config['parent']['module']) ? $config['parent']['module'] : '';
+        return Hash::get(
+            ModuleRegistry::getModule($table->getRegistryAlias())->getConfig(),
+            'parent.module',
+            ''
+        );
     }
 
     /**

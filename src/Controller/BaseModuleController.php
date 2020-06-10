@@ -103,7 +103,6 @@ class BaseModuleController extends AppController
         $table = $this->loadModel();
 
         $entity = $table->newEntity();
-
         if ($this->request->is('post')) {
             $post_data = $this->request->getParam(
                 'data',
@@ -301,8 +300,8 @@ class BaseModuleController extends AppController
             );
 
             $url = [];
-            if ($table instanceof Table) {
-                $url = $table->getParentRedirectUrl($table, $entity);
+            if ($table instanceof Table && !empty($data['_parent'])) {
+                $url = $table->getParentRedirectUrl($table, $entity, $data['_parent']);
             }
             $url = ! empty($url) ? $url : ['action' => 'view', $entity->get($primaryKey)];
 

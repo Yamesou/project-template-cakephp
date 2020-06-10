@@ -162,8 +162,8 @@ final class PrettyFormatter
 
         $mapping = [
             '_amount' => 'decimal',
-            '_currency' => 'currency(currencies)',
-            '_unit' => 'list(units_area)'];
+            '_currency' => 'currency(Common.currencies)',
+            '_unit' => 'list(Common.units_area)'];
 
         $parts = explode('_', $field);
         $index = '_' . end($parts);
