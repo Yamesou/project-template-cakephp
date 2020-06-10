@@ -15,7 +15,7 @@
           -- Please choose --
         </option>
         <option
-          v-for="(item, searchIndex) in savedSearches"
+          v-for="(item, searchIndex) in moduleSavedSearches"
           :key="searchIndex"
           :value="item.id"
         >
@@ -65,8 +65,17 @@ export default {
     ...mapState({
       savedSearches: state => state.search.savedSearches,
       searchId: state => state.search.id,
-      userId: state => state.search.user_id
-    })
+      userId: state => state.search.user_id,
+      currentModel: state => state.search.model
+    }),
+    moduleSavedSearches () {
+      let result = []
+      if (this.savedSearches.length) {
+        result = this.savedSearches.filter(item => item.model == this.currentModel)
+      }
+
+      return result
+    }
   },
   created () {
     this.$store.dispatch('search/savedSearchesGet')
