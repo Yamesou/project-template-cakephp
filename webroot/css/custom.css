@@ -8,6 +8,10 @@
     vertical-align: middle;
 }
 
+#list-themes div[class^='col-'] div{
+    padding: 0px 10px;
+}
+
 /* Highlight required fields */
 .required label::after {
     content: " *";
@@ -141,6 +145,14 @@ hr.separator {
 
 .badgeLeft {
     margin-left: 0.7em;
+}
+
+.select2-search__field {
+    min-width: 200px !important;
+}
+
+.main-header .sidebar-toggle:before {
+    content: "";
 }
 
 /** Improve support for thumbnails in data tables **/
