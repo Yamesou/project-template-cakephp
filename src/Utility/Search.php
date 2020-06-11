@@ -15,7 +15,6 @@ use Qobo\Utils\Module\Exception\MissingModuleException;
 use Qobo\Utils\Module\ModuleRegistry;
 use Search\Aggregate\AggregateInterface;
 use Search\Model\Entity\SavedSearch;
-use Search\Service\Search as SearchService;
 use Translations\Model\Table\TranslationsTable;
 use Webmozart\Assert\Assert;
 
@@ -288,23 +287,37 @@ final class Search
      */
     private static function getAssociationLabels(Table $table): array
     {
+        $tableModel = App::shortName(get_class($table), 'Model/Table', 'Table');
+        $moduleConfig = ModuleRegistry::getModule($tableModel)->getConfig();
+        $skipAssociations = Hash::get($moduleConfig, 'associations.hide_associations', []);
+        $associationLabels = Hash::get($moduleConfig, 'associationLabels', []);
+
+        $fields = ModuleRegistry::getModule($table)->getFields();
+
         $result = [];
         foreach ($table->associations() as $association) {
             $model = App::shortName(get_class($association->getTarget()), 'Model/Table', 'Table');
 
-            // Load the right alias, if exists
-            $moduleConfig = ModuleRegistry::getModule($model)->getConfig();
-            $name = Hash::get(
-                $moduleConfig,
-                'table.alias',
-                Inflector::humanize(Inflector::underscore($model))
-            );
+            // Skip association, if it defined as hidden
+            if (in_array($association->getName(), $skipAssociations)) {
+                continue;
+            }
 
-            $result[$association->getName()] = sprintf(
-                '%s (%s)',
-                $name,
-                Inflector::humanize(implode(', ', (array)$association->getForeignKey()))
-            );
+            // Pick association label
+            if (array_key_exists($association->getName(), $associationLabels)) {
+                $result[$association->getName()] = $associationLabels[$association->getName()];
+
+                continue;
+            }
+
+            // Load custom label from config
+            if (is_string($association->getForeignKey()) && isset($fields[$association->getForeignKey()]['label'])) {
+                $result[$association->getName()] = $fields[$association->getForeignKey()]['label'];
+
+                continue;
+            }
+
+            $result[$association->getName()] = Inflector::humanize(implode(', ', (array)$association->getForeignKey()));
         }
 
         return $result;
@@ -457,11 +470,19 @@ final class Search
      */
     private static function includeAssociated(Table $table): array
     {
-        $result = [];
+        $tableModel = App::shortName(get_class($table), 'Model/Table', 'Table');
+        $moduleConfig = ModuleRegistry::getModule($tableModel)->getConfig();
+        $skipAssociations = Hash::get($moduleConfig, 'associations.hide_associations', []);
 
+        $result = [];
         foreach ($table->associations() as $association) {
             // skip non-supported associations
             if (! in_array($association->type(), self::SUPPORTED_ASSOCIATIONS)) {
+                continue;
+            }
+
+            // skip associations marked as hidden
+            if (in_array($association->getName(), $skipAssociations)) {
                 continue;
             }
 
