@@ -18,6 +18,18 @@
         $(target).addClass('active');
     }
 
+    if ($('body').hasClass('sidebar-collapse')) {
+        $('.sidebar-icon-toggle').attr('class', 'fa sidebar-icon-toggle fa-chevron-left');
+    }
+
+    $('.sidebar-toggle').click(function () {
+        if ($('body').hasClass('sidebar-collapse')) {
+            $('.sidebar-icon-toggle').attr('class', 'fa sidebar-icon-toggle fa-chevron-left');
+        } else {
+            $('.sidebar-icon-toggle').attr('class', 'fa sidebar-icon-toggle fa-chevron-right');
+        }
+    });
+
     /**
      * Store and retrieve active tab, for all nav-tabs, using web browser's local storage.
      *

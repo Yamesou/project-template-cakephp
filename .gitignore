@@ -17,6 +17,8 @@ config/Migrations/schema-dump-test.lock
 config/features_local.php
 logs/
 node_modules/
+!src/Module/
+src/Module/*
 !webroot/uploads/
 webroot/uploads/*
 !webroot/uploads/avatars/

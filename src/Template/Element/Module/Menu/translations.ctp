@@ -2,8 +2,7 @@
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\ModuleRegistry;
 use RolesCapabilities\Access\AccessFactory;
 
 if (! $options['entity']->get($field['name'])) {
@@ -11,12 +10,12 @@ if (! $options['entity']->get($field['name'])) {
 }
 
 $isTranslatable = function ($tableName, $fieldName) {
-    $config = (new ModuleConfig(ConfigType::MODULE(), Inflector::camelize($tableName)))->parseToArray();
+    $config = ModuleRegistry::getModule(Inflector::camelize($tableName))->getConfig();
     if (! Hash::get($config, 'table.translatable', false)) {
         return false;
     }
 
-    $config = (new ModuleConfig(ConfigType::FIELDS(), Inflector::camelize($tableName)))->parseToArray();
+    $config = ModuleRegistry::getModule(Inflector::camelize($tableName))->getFields();
 
     return Hash::get($config, $fieldName . '.translatable', false);
 };

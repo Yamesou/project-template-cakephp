@@ -6,6 +6,7 @@ parameters:
         - webroot
     excludes_analyse:
         - %rootDir%/../../../tests/data/*
+        - %rootDir%/../../../src/Module/*
     autoload_files:
         - tests/bootstrap.php
     earlyTerminatingMethodCalls:

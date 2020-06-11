@@ -11,12 +11,11 @@
  */
 
 use Cake\Utility\Inflector;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\ModuleRegistry;
 
-$config = (new ModuleConfig(ConfigType::MODULE(), $this->name))->parse();
+$config = ModuleRegistry::getModule($this->name)->getConfig();
 
-$alias = isset($config->table->alias) ? $config->table->alias : Inflector::humanize(Inflector::underscore($this->name));
+$alias = isset($config['table']['alias']) ? $config['table']['alias'] : Inflector::humanize(Inflector::underscore($this->name));
 
 $options = [
     'entity' => $entity,
@@ -27,7 +26,7 @@ $options = [
         'link' => $this->request->getParam('controller')
     ],
     'handlerOptions' => ['entity' => $this->request],
-    'hasPanels' => property_exists($config, 'panels')
+    'hasPanels' => !empty($config['panels'])
 ];
 
 echo $this->fetch('pre_element');

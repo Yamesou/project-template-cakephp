@@ -13,8 +13,7 @@
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Inflector;
 use CsvMigrations\FieldHandlers\FieldHandlerFactory;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\ModuleRegistry;
 
 $factory = new FieldHandlerFactory($this);
 
@@ -47,7 +46,6 @@ $table = TableRegistry::getTableLocator()->get($tableName);
 
 // generate title
 if (!$options['title']) {
-    $config = (new ModuleConfig(ConfigType::MODULE(), $this->name))->parse();
     $options['title'] = $this->Html->link(
         __('Scheduled Job'),
         ['controller' => 'ScheduledJobs', 'action' => 'view', $entity->scheduled_job_id]
