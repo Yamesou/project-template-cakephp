@@ -31,7 +31,7 @@ echo $this->Html->script('AdminLTE./bower_components/bootstrap-datepicker/dist/j
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#info" data-toggle="tab"><?= __('Info') ?></a></li>
-                    <li><a href="#settings" data-toggle="tab"><?= __('Settings') ?></a></li>
+                    <li><a href="#settings" data-toggle="tab"><?= __('Edit Profile') ?></a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="active tab-pane" id="info">
@@ -93,7 +93,7 @@ echo $this->Html->script('AdminLTE./bower_components/bootstrap-datepicker/dist/j
                             if($feature->isActive() && $factory->hasAccess(['controller' => 'settings', 'action' => 'my'], $user)):
                         ?>
                             <?= $this->Html->link(
-                                '<i class="fa fa-gears"></i> de' . __d('CakeDC/Users', 'User Settings'),
+                                '<i class="fa fa-gears"></i> ' . __d('CakeDC/Users', 'User Settings'),
                                 ['controller' => 'settings', 'action' => 'my'],
                                 ['class' => 'btn btn-default btn-sm', 'escape' => false]
                             ) ?>

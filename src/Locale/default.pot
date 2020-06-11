@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2020-01-09 14:43+0000\n"
+"POT-Creation-Date: 2020-06-11 11:57+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -14,68 +14,68 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: Controller/BaseModuleController.php:264
+#: Controller/BaseModuleController.php:285
 msgid "The record could not be saved, please try again."
 msgstr ""
 
-#: Controller/BaseModuleController.php:268
-#: Controller/ScheduledJobsController.php:86
+#: Controller/BaseModuleController.php:289
+#: Controller/ScheduledJobsController.php:75
 msgid "The record has been saved."
 msgstr ""
 
-#: Controller/BaseModuleController.php:308
+#: Controller/BaseModuleController.php:329
 msgid "The record has been deleted."
 msgstr ""
 
-#: Controller/BaseModuleController.php:310
+#: Controller/BaseModuleController.php:331
 msgid "The record could not be deleted. Please, try again."
 msgstr ""
 
-#: Controller/BaseModuleController.php:344
+#: Controller/BaseModuleController.php:365
 msgid "The record has been unlinked."
 msgstr ""
 
-#: Controller/BaseModuleController.php:372
+#: Controller/BaseModuleController.php:393
 msgid "No records provided for linking."
 msgstr ""
 
-#: Controller/BaseModuleController.php:386
+#: Controller/BaseModuleController.php:407
 msgid "No records found for linking."
 msgstr ""
 
-#: Controller/BaseModuleController.php:392
+#: Controller/BaseModuleController.php:413
 msgid "Failed to link records."
 msgstr ""
 
-#: Controller/BaseModuleController.php:397
-msgid "({0}) records have been linked."
+#: Controller/BaseModuleController.php:418
+msgid "{0} record(s) have been linked."
 msgstr ""
 
-#: Controller/BaseModuleController.php:419
+#: Controller/BaseModuleController.php:440
 msgid "No records selected."
 msgstr ""
 
-#: Controller/BaseModuleController.php:438
+#: Controller/BaseModuleController.php:459
 msgid "Insufficient permissions to {0} the selected records."
 msgstr ""
 
-#: Controller/BaseModuleController.php:454
+#: Controller/BaseModuleController.php:475
 msgid "{0} of {1} selected records have been deleted."
 msgstr ""
 
-#: Controller/BaseModuleController.php:457
+#: Controller/BaseModuleController.php:478
 msgid "Selected records could not be deleted. Please, try again."
 msgstr ""
 
-#: Controller/BaseModuleController.php:466
+#: Controller/BaseModuleController.php:487
 msgid "Selected records could not be updated. No changes provided."
 msgstr ""
 
-#: Controller/BaseModuleController.php:480
+#: Controller/BaseModuleController.php:501
 msgid "{0} of {1} selected records have been updated."
 msgstr ""
 
-#: Controller/BaseModuleController.php:483
+#: Controller/BaseModuleController.php:504
 msgid "Selected records could not be updated. Please, try again."
 msgstr ""
 
@@ -88,27 +88,27 @@ msgstr ""
 msgid "Max age is not configured."
 msgstr ""
 
-#: Controller/ScheduledJobsController.php:45
+#: Controller/ScheduledJobsController.php:34
 msgid "Scheduled Job has been saved."
 msgstr ""
 
-#: Controller/ScheduledJobsController.php:50
+#: Controller/ScheduledJobsController.php:39
 msgid "Scheduled Job could not be saved. Please, try again"
 msgstr ""
 
-#: Controller/ScheduledJobsController.php:88
+#: Controller/ScheduledJobsController.php:77
 msgid "This record could not be saved."
 msgstr ""
 
-#: Controller/SettingsController.php:186
+#: Controller/SettingsController.php:232
 msgid "Nothing to update"
 msgstr ""
 
-#: Controller/SettingsController.php:196
+#: Controller/SettingsController.php:242
 msgid "Settings successfully updated"
 msgstr ""
 
-#: Controller/SettingsController.php:200
+#: Controller/SettingsController.php:246
 msgid "Failed to update settings, please try again."
 msgstr ""
 
@@ -140,13 +140,21 @@ msgstr ""
 msgid "Failed to update profile data, please try again."
 msgstr ""
 
-#: Event/Plugin/Menu/View/DashboardMenuListener.php:91
+#: Crud/Action/SearchAction.php:98
+msgid "Primary key must be a string."
+msgstr ""
+
+#: Crud/Action/SearchAction.php:147
+msgid "The field name provided is not aliased."
+msgstr ""
+
+#: Event/Plugin/Menu/View/DashboardMenuListener.php:92
 #: Template/Plugin/Search/Dashboards/index.ctp:20
 msgid "Dashboards"
 msgstr ""
 
-#: Event/Plugin/Menu/View/DashboardMenuListener.php:101
-#: Template/Module/add.ctp:25
+#: Event/Plugin/Menu/View/DashboardMenuListener.php:102
+#: Template/Module/add.ctp:24
 msgid "Create"
 msgstr ""
 
@@ -203,6 +211,14 @@ msgstr ""
 #: Event/Plugin/Menu/View/ModuleViewListener.php:124
 #: Template/Element/changelog.ctp:30
 msgid "Changelog"
+msgstr ""
+
+#: Model/Table/UsersTable.php:77
+msgid "The provided value is invalid (alphanumeric, underscore, dot, at, dash)"
+msgstr ""
+
+#: Model/Table/UsersTable.php:84;89
+msgid "The provided value is invalid (letter, dot, dash, space)"
 msgstr ""
 
 #: Shell/DatabaseLogShell.php:150
@@ -269,15 +285,16 @@ msgstr ""
 
 #: Template/Element/modal-permissions.ctp:105
 #: Template/Element/Module/post.ctp:84
-#: Template/Element/Module/Embedded/form.ctp:63
+#: Template/Element/Module/Embedded/form.ctp:62
 #: Template/ScheduledJobs/add.ctp:159
 #: Template/ScheduledJobs/edit.ctp:159
 #: Template/Settings/generator.ctp:340
-#: Template/Settings/index.ctp:179
+#: Template/Settings/index.ctp:184
+#: Template/Settings/menu_items_order.ctp:71
 #: Template/Users/add.ctp:223
 #: Template/Users/change_password.ctp:72
 #: Template/Users/change_user_password.ctp:25
-#: Template/Users/edit.ctp:248
+#: Template/Users/edit.ctp:247
 #: Template/Users/profile.ctp:220
 msgid "Submit"
 msgstr ""
@@ -305,8 +322,7 @@ msgid "Model"
 msgstr ""
 
 #: Template/Element/modal-permissions.ctp:140
-#: Template/Element/Module/Associated/tab-content.ctp:99
-#: Template/ScheduledJobs/index.ctp:64
+#: Template/Element/Module/Associated/tab-content.ctp:95
 #: Template/System/searches.ctp:21
 msgid "Actions"
 msgstr ""
@@ -359,23 +375,14 @@ msgstr ""
 msgid "Context"
 msgstr ""
 
-#: Template/Element/Module/post.ctp:52
-#: Template/Element/Module/view.ctp:44
-#: Template/Element/Module/Associated/tabs-list.ctp:27;37;39
-#: Template/Element/Module/Form/fields.ctp:20
-#: Template/Module/batch.ctp:18
-#: Template/Module/index.ctp:44
-msgid "{0}"
-msgstr ""
-
 #: Template/Element/Module/post.ctp:88
-#: Template/Element/Module/Embedded/form.ctp:68
+#: Template/Element/Module/Embedded/form.ctp:67
 #: Template/ScheduledJobs/add.ctp:161
 #: Template/ScheduledJobs/edit.ctp:161
 msgid "Cancel"
 msgstr ""
 
-#: Template/Element/Module/Embedded/form.ctp:46
+#: Template/Element/Module/Embedded/form.ctp:45
 msgid "{0} &raquo; Create"
 msgstr ""
 
@@ -502,7 +509,6 @@ msgstr ""
 #: Template/Element/System/composer.ctp:59
 #: Template/Module/Translations/Things.ctp:17
 #: Template/Plugin/Groups/Groups/view.ctp:34
-#: Template/ScheduledJobs/index.ctp:57
 #: Template/System/searches.ctp:19
 #: Template/Users/view.ctp:167;194
 msgid "Name"
@@ -644,55 +650,55 @@ msgstr ""
 msgid "Hardware"
 msgstr ""
 
-#: Template/Error/error400.ctp:47
+#: Template/Error/error400.ctp:49
 msgid "The page that you are trying to access requires authorization. Please login and try again."
 msgstr ""
 
-#: Template/Error/error400.ctp:48
+#: Template/Error/error400.ctp:50
 msgid "You do not have sufficient authorization to access this page. Please contact your system administrator."
 msgstr ""
 
-#: Template/Error/error400.ctp:49
+#: Template/Error/error400.ctp:51
 msgid "The page that you are trying to access does not exist. Please adjust your URL and try again."
 msgstr ""
 
-#: Template/Error/error400.ctp:50
+#: Template/Error/error400.ctp:52
 msgid "The method that you are using to access this page is not allowed."
 msgstr ""
 
-#: Template/Error/error400.ctp:51
+#: Template/Error/error400.ctp:53
 msgid "Your browser does not understand how to render the requested page. Please contact your system administrator."
 msgstr ""
 
-#: Template/Error/error400.ctp:52
+#: Template/Error/error400.ctp:54
 msgid "The server took longer than it is allowed to process your request.  Please try again later."
 msgstr ""
 
-#: Template/Error/error400.ctp:53
+#: Template/Error/error400.ctp:55
 msgid "The file that you requested used to be here, but it is gone now.  Please contact your system administrator."
 msgstr ""
 
-#: Template/Error/error400.ctp:54
+#: Template/Error/error400.ctp:56
 msgid "Your request is missing <pre>Content-Length</pre> header. Please contact your system administrator."
 msgstr ""
 
-#: Template/Error/error400.ctp:55
+#: Template/Error/error400.ctp:57
 msgid "The request file was too big to process.  Please try with a smaller file or contact your system administrator."
 msgstr ""
 
-#: Template/Error/error400.ctp:56
+#: Template/Error/error400.ctp:58
 msgid "The request URL is too long.  Please limit the number and/or length of parameters, or contact your system administrator."
 msgstr ""
 
-#: Template/Error/error400.ctp:57
+#: Template/Error/error400.ctp:59
 msgid "The file type of the request is not supported.  Please try with another file or contact your system administrator."
 msgstr ""
 
-#: Template/Error/error400.ctp:58
+#: Template/Error/error400.ctp:60
 msgid "There was a problem with your request. Please try later, adjust your request, or contact your system administrator."
 msgstr ""
 
-#: Template/Error/error500.ctp:50
+#: Template/Error/error500.ctp:52
 #: Template/System/error.ctp:35
 msgid "There was a problem processing your request.  Please notify your system administrator."
 msgstr ""
@@ -720,11 +726,15 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: Template/Module/batch.ctp:21
+#: Template/Module/batch.ctp:17
+msgid "{0}"
+msgstr ""
+
+#: Template/Module/batch.ctp:20
 msgid "Batch Edit"
 msgstr ""
 
-#: Template/Module/edit.ctp:34
+#: Template/Module/edit.ctp:32
 msgid "Edit {0} "
 msgstr ""
 
@@ -758,7 +768,7 @@ msgstr ""
 #: Template/Module/Translations/ScheduledJobs.ctp:12
 #: Template/Module/Translations/Settings.ctp:4;8;11
 #: Template/Settings/index.ctp:64
-#: Template/Users/profile.ctp:34
+#: Template/Settings/menu_items_order.ctp:49
 msgid "Settings"
 msgstr ""
 
@@ -884,7 +894,6 @@ msgid "Response"
 msgstr ""
 
 #: Template/Module/Translations/ScheduledJobs.ctp:4;8;14
-#: Template/ScheduledJobs/index.ctp:40
 msgid "Scheduled Jobs"
 msgstr ""
 
@@ -899,7 +908,6 @@ msgstr ""
 #: Template/Module/Translations/ScheduledJobs.ctp:20;24;28
 #: Template/ScheduledJobs/add.ctp:103
 #: Template/ScheduledJobs/edit.ctp:103
-#: Template/ScheduledJobs/index.ctp:60
 msgid "Recurrence"
 msgstr ""
 
@@ -1066,7 +1074,7 @@ msgstr ""
 msgid "Recent Activity"
 msgstr ""
 
-#: Template/Plugin/AdminLTE/Element/aside-control-sidebar.ctp:75
+#: Template/Plugin/AdminLTE/Element/aside-control-sidebar.ctp:80
 msgid "No recent activity"
 msgstr ""
 
@@ -1123,35 +1131,13 @@ msgstr ""
 msgid "{0} Create Dashboard"
 msgstr ""
 
-#: Template/ScheduledJobLogs/view.ctp:52
+#: Template/ScheduledJobLogs/view.ctp:50
 msgid "Scheduled Job"
 msgstr ""
 
 #: Template/ScheduledJobs/add.ctp:14
 #: Template/ScheduledJobs/edit.ctp:14
 msgid "Edit Scheduled Job"
-msgstr ""
-
-#: Template/ScheduledJobs/index.ctp:58
-#: Template/Users/index.ctp:58
-#: Template/Users/view.ctp:25
-msgid "Active"
-msgstr ""
-
-#: Template/ScheduledJobs/index.ctp:59
-msgid "Job"
-msgstr ""
-
-#: Template/ScheduledJobs/index.ctp:61
-msgid "Start"
-msgstr ""
-
-#: Template/ScheduledJobs/index.ctp:62
-msgid "End"
-msgstr ""
-
-#: Template/ScheduledJobs/index.ctp:63
-msgid "Last Run Date"
 msgstr ""
 
 #: Template/Settings/generator.ctp:204
@@ -1174,6 +1160,10 @@ msgstr ""
 msgid "scope"
 msgstr ""
 
+#: Template/Settings/menu_items_order.ctp:59
+msgid "Order Dashboard Items"
+msgstr ""
+
 #: Template/System/home.ctp:17
 msgid "Homepage"
 msgstr ""
@@ -1191,22 +1181,22 @@ msgid "Create {0}"
 msgstr ""
 
 #: Template/Users/add.ctp:57
-#: Template/Users/edit.ctp:89
+#: Template/Users/edit.ctp:88
 msgid "User Information"
 msgstr ""
 
 #: Template/Users/add.ctp:85
-#: Template/Users/edit.ctp:111
+#: Template/Users/edit.ctp:110
 msgid "Personal Details"
 msgstr ""
 
 #: Template/Users/add.ctp:150
-#: Template/Users/edit.ctp:175
+#: Template/Users/edit.ctp:174
 msgid "Contact Details"
 msgstr ""
 
 #: Template/Users/add.ctp:181
-#: Template/Users/edit.ctp:206
+#: Template/Users/edit.ctp:205
 msgid "Company Details"
 msgstr ""
 
@@ -1215,7 +1205,7 @@ msgid "Password"
 msgstr ""
 
 #: Template/Users/change_password.ctp:31;70
-msgid "Password Confirm"
+msgid "Confirm Password"
 msgstr ""
 
 #: Template/Users/change_password.ctp:60
@@ -1238,7 +1228,7 @@ msgstr ""
 msgid "Upload image"
 msgstr ""
 
-#: Template/Users/edit.ctp:79
+#: Template/Users/edit.ctp:77
 msgid "Upload"
 msgstr ""
 
@@ -1246,6 +1236,11 @@ msgstr ""
 #: Template/Users/profile.ctp:73
 #: Template/Users/view.ctp:65
 msgid "Birthdate"
+msgstr ""
+
+#: Template/Users/index.ctp:58
+#: Template/Users/view.ctp:25
+msgid "Active"
 msgstr ""
 
 #: Template/Users/index.ctp:101
@@ -1278,6 +1273,10 @@ msgstr ""
 
 #: Template/Users/profile.ctp:33
 msgid "Info"
+msgstr ""
+
+#: Template/Users/profile.ctp:34
+msgid "Edit Profile"
 msgstr ""
 
 #: Template/Users/profile.ctp:60;147
