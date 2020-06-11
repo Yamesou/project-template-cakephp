@@ -235,7 +235,7 @@ class AppController extends Controller
         }
 
         $this->viewBuilder()->setTheme('AdminLTE');
-        $this->viewBuilder()->setLayout('adminlte');
+        $this->viewBuilder()->setLayout('AdminLTE/default');
 
         $defaultTitle = Inflector::humanize(Inflector::underscore($this->name));
         try {

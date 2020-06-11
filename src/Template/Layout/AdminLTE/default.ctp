@@ -2,15 +2,16 @@
 
 $skinUrl = Configure::read('Theme.skinUrl');
 $skinName = Configure::read('Theme.skin');
+$title = Configure::read('Theme.title.' . $this->name);
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title><?php echo Configure::read('Theme.title.' . $this->name); ?></title>
+        <title><?= $title ?></title>
         <!-- Tell the browser to be responsive to screen width -->
-        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <?php echo $this->Html->css('AdminLTE./bower_components/bootstrap/dist/css/bootstrap.min'); ?>
         <?php echo $this->Html->css('/plugins/font-awesome/css/font-awesome.min'); ?>
         <?php echo $this->Html->css('/plugins/ionicons/css/ionicons.min'); ?>
@@ -28,7 +29,7 @@ $skinName = Configure::read('Theme.skin');
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body class="hold-transition skin-<?php echo Configure::read('Theme.skin'); ?> sidebar-mini">
+    <body class="hold-transition skin-<?= $skinName ?> sidebar-mini">
         <!-- Site wrapper -->
         <div class="wrapper" id="app">
             <header class="main-header">
@@ -45,8 +46,6 @@ $skinName = Configure::read('Theme.skin');
 
             <!-- Left side column. contains the sidebar -->
             <?php echo $this->element('aside-main-sidebar'); ?>
-
-            <!-- =============================================== -->
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">

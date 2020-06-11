@@ -2,6 +2,7 @@
 namespace App\View\Helper;
 
 use Cake\Core\Configure;
+use Cake\Filesystem\Folder;
 use Cake\Routing\Router;
 use Cake\View\Helper\HtmlHelper;
 use Qobo\Utils\Utility\User;
@@ -99,5 +100,27 @@ class MyHtmlHelper extends HtmlHelper
         return $templater->format('block', [
            'content' => $title,
         ]);
+    }
+
+    /**
+     * Return style tag with random background image for login
+     * page.
+     *
+     * @return string
+     */
+    public function backgroundLogoImage(): string
+    {
+        $result = '';
+        $path = '/img/login/' . (string)Configure::read('Theme.backgroundImages') . '/';
+        $images = (new Folder(WWW_ROOT . $path))->find('.*\.png|jpg|jpeg', true);
+
+        if (! empty($images)) {
+            $result = $this->tag('style', sprintf(
+                '.login-page {%s}',
+                $this->style(['background-image' => 'url(' . $path . '/' . $images[array_rand($images)] . ')'])
+            ));
+        }
+
+        return $result;
     }
 }
