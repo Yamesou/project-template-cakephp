@@ -3,8 +3,7 @@ use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
 use CsvMigrations\Utility\Field;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\ModuleRegistry;
 
 list($plugin, $controller) = pluginSplit($model);
 $table = TableRegistry::getTableLocator()->get($controller);
@@ -31,7 +30,7 @@ if (isset($relatedModel) && $relatedModel && isset($relatedId) && $relatedId) {
     $formOptions['data-embedded-related-id'] = $relatedId;
 }
 
-$config = (new ModuleConfig(ConfigType::MODULE(), $controller))->parseToArray();
+$config = ModuleRegistry::getModule($controller)->getConfig();
 
 if (array_key_exists('panels', $config)) {
     $formOptions['data-panels-url'] = $this->Url->build([

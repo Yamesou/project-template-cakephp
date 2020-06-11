@@ -5,17 +5,14 @@ namespace App\Utility;
 use App\Search\Manager;
 use Cake\Cache\Cache;
 use Cake\Core\App;
-use Cake\Datasource\EntityInterface;
-use Cake\Log\Log;
 use Cake\ORM\Association;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
 use CsvMigrations\FieldHandlers\FieldHandlerFactory;
-use DatabaseLog\Model\Table\DatabaseLogsTable;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\Exception\MissingModuleException;
+use Qobo\Utils\Module\ModuleRegistry;
 use Search\Aggregate\AggregateInterface;
 use Search\Model\Entity\SavedSearch;
 use Search\Service\Search as SearchService;
@@ -115,10 +112,10 @@ final class Search
     public static function getTableLabel(string $tableName): string
     {
         // Load the right alias, if exists
-        $moduleConfig = new ModuleConfig(ConfigType::MODULE(), $tableName);
+        $moduleConfig = ModuleRegistry::getModule($tableName)->getConfig();
 
         return Hash::get(
-            $moduleConfig->parseToArray(),
+            $moduleConfig,
             'table.alias',
             Inflector::humanize(Inflector::underscore($tableName))
         );
@@ -296,9 +293,9 @@ final class Search
             $model = App::shortName(get_class($association->getTarget()), 'Model/Table', 'Table');
 
             // Load the right alias, if exists
-            $moduleConfig = new ModuleConfig(ConfigType::MODULE(), $model, null, ['cacheSkip' => true]);
+            $moduleConfig = ModuleRegistry::getModule($model)->getConfig();
             $name = Hash::get(
-                $moduleConfig->parseToArray(),
+                $moduleConfig,
                 'table.alias',
                 Inflector::humanize(Inflector::underscore($model))
             );
@@ -362,9 +359,12 @@ final class Search
     private static function getDisplayFieldsFromView(string $tableName): array
     {
         list($plugin, $module) = pluginSplit($tableName);
-
-        $config = (new ModuleConfig(ConfigType::VIEW(), $module, 'index'))->parseToArray();
-        $fields = ! empty($config['items']) ? $config['items'] : [];
+        $fields = [];
+        try {
+            $fields = ModuleRegistry::getModule($module)->getView('index');
+        } catch (MissingModuleException $e) {
+            // @ignoreException
+        }
 
         $columns = TableRegistry::getTableLocator()
             ->get($tableName)

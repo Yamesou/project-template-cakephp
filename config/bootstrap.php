@@ -89,7 +89,7 @@ try {
     Configure::load('roles_capabilities', 'default');
     Configure::load('scheduled_log', 'default');
     Configure::load('system_info', 'default');
-    Configure::load('admin_lte', 'default');
+    Configure::load('app_theme', 'default');
     Configure::load('log_actions', 'default');
 } catch (\Exception $e) {
     exit($e->getMessage() . "\n");

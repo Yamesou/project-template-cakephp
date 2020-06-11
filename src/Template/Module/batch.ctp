@@ -11,11 +11,10 @@
  */
 
 use Cake\Utility\Inflector;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\ModuleRegistry;
 
-$config = (new ModuleConfig(ConfigType::MODULE(), $this->name))->parse();
-$alias = __('{0}', isset($config->table->alias) ? $config->table->alias : Inflector::humanize(Inflector::underscore($this->name)));
+$config = ModuleRegistry::getModule($this->name)->getConfig();
+$alias = __('{0}', isset($config['table']['alias']) ? $config['table']['alias'] : Inflector::humanize(Inflector::underscore($this->name)));
 
 $options = [
     'title' => ['page' => __('Batch Edit'), 'alias' => $alias, 'link' => $this->request->getParam('controller')],
@@ -27,7 +26,7 @@ $options = [
             'disabled' => true
         ]
     ],
-    'hasPanels' => property_exists($config, 'panels')
+    'hasPanels' => !empty($config['panels'])
 ];
 echo $this->element('Module/post', ['options' => $options]);
 
