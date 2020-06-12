@@ -14,15 +14,11 @@
 namespace App\Search;
 
 use App\Utility\Search;
-use Cake\Datasource\EntityInterface;
-use Cake\Datasource\ResultSetInterface;
-use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
-use CsvMigrations\FieldHandlers\FieldHandlerFactory;
+use Qobo\Utils\Module\ModuleRegistry;
 use Qobo\Utils\Utility\User;
-use RolesCapabilities\Access\AccessFactory;
 use Search\Aggregate\AggregateInterface;
 use Search\Model\Entity\SavedSearch;
 use Webmozart\Assert\Assert;
@@ -177,10 +173,18 @@ final class Manager
             ->firstOrFail();
         Assert::isInstanceOf($user, \App\Model\Entity\User::class);
 
+        // Load the right alias, if exists
+        $moduleConfig = ModuleRegistry::getModule($model)->getConfig();
+        $name = Hash::get(
+            $moduleConfig,
+            'table.alias',
+            Inflector::humanize(Inflector::underscore($model))
+        );
+
         $table = TableRegistry::getTableLocator()->get('Search.SavedSearches');
         $displayFields = Search::getDisplayFields($model);
         $savedSearch = $table->newEntity([
-            'name' => sprintf('Default %s search', Inflector::humanize(Inflector::underscore($model))),
+            'name' => sprintf('Default %s search', $name),
             'model' => $model,
             'system' => true,
             'user_id' => $user->get('id'),

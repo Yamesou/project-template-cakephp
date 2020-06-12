@@ -17,7 +17,6 @@ use Cake\Core\Configure;
                         <thead>
                             <tr>
                                 <th><?= __('Name') ?></th>
-                                <th><?= __('Model') ?></th>
                                 <th class="actions"><?= __('Actions') ?></th>
                             </tr>
                         </thead>
@@ -26,9 +25,6 @@ use Cake\Core\Configure;
                             <tr>
                                 <td>
                                     <?= h($entity->get('name')) ?>
-                                </td>
-                                <td>
-                                    <?= h($entity->get('model')) ?>
                                 </td>
                                 <td class="actions">
                                     <div class="btn-group btn-group-xs" role="group">
