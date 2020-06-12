@@ -109,10 +109,11 @@ final class Search
      */
     public static function getFilters(string $tableName): array
     {
-        deprecationWarning((string)__(
-            '{0}::{1} method is deprecated. Please use {0}::{2} instead.',
+        deprecationWarning(sprintf(
+            '%s::%s method is deprecated. Please use %s::%s instead.',
             Search::class,
             __FUNCTION__,
+            Search::class,
             'getFields'
         ));
 
