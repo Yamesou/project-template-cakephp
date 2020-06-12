@@ -292,7 +292,7 @@ final class Search
         $skipAssociations = Hash::get($moduleConfig, 'associations.hide_associations', []);
         $associationLabels = Hash::get($moduleConfig, 'associationLabels', []);
 
-        $fields = ModuleRegistry::getModule($table)->getFields();
+        $fields = ModuleRegistry::getModule($tableModel)->getFields();
 
         $result = [];
         foreach ($table->associations() as $association) {
