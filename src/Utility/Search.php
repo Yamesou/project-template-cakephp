@@ -288,7 +288,12 @@ final class Search
     private static function getAssociationLabels(Table $table): array
     {
         $tableModel = App::shortName(get_class($table), 'Model/Table', 'Table');
-        $moduleConfig = ModuleRegistry::getModule($tableModel)->getConfig();
+        try {
+            $moduleConfig = ModuleRegistry::getModule($tableModel)->getConfig();
+        } catch (MissingModuleException $e) {
+            return [];
+        }
+
         $skipAssociations = Hash::get($moduleConfig, 'associations.hide_associations', []);
         $associationLabels = Hash::get($moduleConfig, 'associationLabels', []);
 
@@ -471,7 +476,12 @@ final class Search
     private static function includeAssociated(Table $table): array
     {
         $tableModel = App::shortName(get_class($table), 'Model/Table', 'Table');
-        $moduleConfig = ModuleRegistry::getModule($tableModel)->getConfig();
+        try {
+            $moduleConfig = ModuleRegistry::getModule($tableModel)->getConfig();
+        } catch (MissingModuleException $e) {
+            return [];
+        }
+
         $skipAssociations = Hash::get($moduleConfig, 'associations.hide_associations', []);
 
         $result = [];
