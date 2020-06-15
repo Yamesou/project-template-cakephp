@@ -121,7 +121,7 @@ class DashboardMenuListener implements EventListenerInterface
         $table = TableRegistry::getTableLocator()->get('Search.Dashboards');
         Assert::isInstanceOf($table, DashboardsTable::class);
 
-        $dashboardOrder = Configure::read('dashboard_menu_order_value');
+        $dashboardOrder = Configure::read('Menu.dashboard_menu_order_value');
 
         $query = $table->getUserDashboards($user);
         Assert::isInstanceOf($query, QueryInterface::class);

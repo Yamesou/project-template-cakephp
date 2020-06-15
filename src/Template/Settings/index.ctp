@@ -1,7 +1,4 @@
 <?php
-use Cake\Core\Configure;
-use Cake\Utility\Hash;
-use Cake\Utility\Inflector;
 use CsvMigrations\FieldHandlers\FieldHandlerFactory;
 
 $fhf = new FieldHandlerFactory($this);
@@ -136,6 +133,10 @@ $(document).ready(function(){
 										<?php
 										// Fields
 										foreach ($fields as $field => $fieldValue) :
+											if(isset($fieldValue['view'])) {
+												continue;
+											}
+
 											$value = $configure[$fieldValue['alias']];
 											$alias = 'Settings.' . $fieldValue['alias'];
 											$definition = [

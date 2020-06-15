@@ -35,6 +35,12 @@ class SettingsControllerTest extends IntegrationTestCase
     public $fixtures = [
         'app.settings',
         'app.users',
+        'plugin.Groups.groups_users',
+        'plugin.Groups.groups',
+        'plugin.RolesCapabilities.capabilities',
+        'plugin.RolesCapabilities.groups_roles',
+        'plugin.RolesCapabilities.permissions',
+        'plugin.RolesCapabilities.roles',
         'plugin.search.dashboards',
     ];
 
@@ -67,8 +73,6 @@ class SettingsControllerTest extends IntegrationTestCase
      */
     public function testUserMenuOrder(): void
     {
-        $currentSettings = $this->settings->get(6)->toArray();
-
         $dashboardsOrder = [
             ['id' => '00000000-0000-0000-0000-000000000002', 'order' => 0],
             ['id' => '00000000-0000-0000-0000-000000000001', 'order' => 1],
@@ -76,17 +80,17 @@ class SettingsControllerTest extends IntegrationTestCase
 
         $expected = [
             'id' => 6,
-            'key' => 'dashboard_menu_order_value',
+            'key' => 'Menu.dashboard_menu_order_value',
             'value' => json_encode($dashboardsOrder),
             'scope' => 'user',
             'context' => '00000000-0000-0000-0000-000000000001',
         ];
 
         $data = [
-            'Settings' => ['dashboard_menu_order_value' => json_encode($dashboardsOrder)],
+            'Settings' => ['Menu.dashboard_menu_order_value' => json_encode($dashboardsOrder)],
         ];
 
-        $this->put('/settings/user-menu-order', $data);
+        $this->post('/settings/my/dashboard', $data);
         $settings = $this->settings->get(6)->toArray();
 
         $this->assertEquals($expected, $settings);
@@ -108,17 +112,17 @@ class SettingsControllerTest extends IntegrationTestCase
 
         $expected = [
             'id' => 7,
-            'key' => 'dashboard_menu_order_value',
+            'key' => 'Menu.dashboard_menu_order_value',
             'value' => json_encode($dashboardsOrder),
             'scope' => 'app',
             'context' => 'app',
         ];
 
         $data = [
-            'Settings' => ['dashboard_menu_order_value' => json_encode($dashboardsOrder)],
+            'Settings' => ['Menu.dashboard_menu_order_value' => json_encode($dashboardsOrder)],
         ];
 
-        $this->put('/settings/app-menu-order', $data);
+        $this->post('/settings/app/dashboard', $data);
         $settings = $this->settings->get(7)->toArray();
 
         $this->assertEquals($expected, $settings);
