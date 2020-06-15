@@ -56,7 +56,7 @@ class SearchAction extends BaseAction
         list($finder, ) = $this->_extractFinder();
         $options = SearchManager::getOptionsFromRequest(
             (array)$this->_request()->getData(),
-            $this->_request()->getQueryParams()
+            h($this->_request()->getQueryParams())
         );
 
         if (SearchManager::includePrimaryKey($options)) {

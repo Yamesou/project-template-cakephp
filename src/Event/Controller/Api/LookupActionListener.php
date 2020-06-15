@@ -82,7 +82,7 @@ class LookupActionListener extends BaseActionListener
             return;
         }
 
-        $value = Hash::get($request->getQueryParams(), 'query', false);
+        $value = h(Hash::get($request->getQueryParams(), 'query', false));
 
         if (! $value) {
             return;
