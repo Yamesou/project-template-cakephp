@@ -128,8 +128,8 @@ abstract class BaseActionListener implements EventListenerInterface
      */
     protected function getOrderClause(ServerRequestInterface $request, Table $table): array
     {
-        $sortParam = Hash::get($request->getQueryParams(), 'sort', '');
-        $directionParam = Hash::get($request->getQueryParams(), 'direction', 'ASC');
+        $sortParam = h(Hash::get($request->getQueryParams(), 'sort', ''));
+        $directionParam = h(Hash::get($request->getQueryParams(), 'direction', 'ASC'));
         $directionParam = is_string($directionParam) ? $directionParam : 'ASC';
 
         if (! is_string($sortParam) || '' === $sortParam) {

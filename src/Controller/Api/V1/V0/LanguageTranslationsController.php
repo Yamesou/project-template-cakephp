@@ -19,7 +19,7 @@ class LanguageTranslationsController extends AppController
 
             $query = $event->getSubject()->query;
 
-            $params = $this->request->getQueryParams();
+            $params = h($this->request->getQueryParams());
 
             if (Hash::get($params, 'model') && Hash::get($params, 'foreign_key')) {
                 /**

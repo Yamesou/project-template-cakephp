@@ -247,7 +247,7 @@ class UsersController extends AppController
      */
     protected function _setIframeRendering(): void
     {
-        $embed = Hash::get($this->request->getQueryParams(), 'embed', '');
+        $embed = h(Hash::get($this->request->getQueryParams(), 'embed', ''));
 
         if (empty($embed)) {
             parent::_setIframeRendering();
