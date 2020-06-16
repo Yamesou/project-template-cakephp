@@ -2,13 +2,13 @@
 
 namespace App\Event\Plugin\Menu\View;
 
+use App\Feature\Factory;
 use App\Menu\MenuName;
 use Cake\Core\Configure;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\QueryInterface;
 use Cake\Event\Event;
 use Cake\Event\EventListenerInterface;
-use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
 use Menu\Event\EventName as MenuEventName;
@@ -97,11 +97,21 @@ class DashboardMenuListener implements EventListenerInterface
 
         $this->addDashboardItemsFromTable($link, $user, 10);
 
-        $createUrl = empty($link->getMenuItems()) ? '/search/dashboards/index' : '/search/dashboards/add';
+        $createUrl = '/search/dashboards/add';
+        $createLabel = __('Create');
+        $createIcon = 'plus';
+        if (empty($link->getMenuItems())) {
+            $createUrl = '/search/dashboards/index';
+        } elseif (Factory::get('Settings')->isActive()) {
+            $createUrl = '/settings/my/dashboard';
+            $createLabel = __('Manage Dashboards');
+            $createIcon = 'cog';
+        }
+
         $createLink = MenuItemFactory::createMenuItem([
-            'label' => __('Create'),
+            'label' => $createLabel,
             'url' => $createUrl,
-            'icon' => 'plus',
+            'icon' => $createIcon,
             'order' => PHP_INT_MAX,
         ]);
         $link->addMenuItem($createLink);

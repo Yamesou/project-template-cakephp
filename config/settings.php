@@ -174,6 +174,28 @@ return [
                 ],
             ],
             'Development' => [
+                'Development' => [
+                    'Dashboard Menu Order Value' => [
+                        'alias' => 'Menu.dashboard_menu_order_value',
+                        'view' => 'dashboard',
+                        'type' => 'string',
+                        'help' => '',
+                        'scope' => [
+                            'user',
+                            'app',
+                        ],
+                    ],
+                    'AdminLTE skin color' => [
+                        'alias' => 'Theme.skin',
+                        'view' => 'theme',
+                        'type' => 'string',
+                        'help' => '',
+                        'scope' => [
+                            'user',
+                            'app',
+                        ],
+                    ],
+                ],
                 'Troubleshooting' => [
                     'Debug' => [
                         'alias' => 'debug',
@@ -195,19 +217,6 @@ return [
                             'it_IT' => 'Italian',
                         ],
                         'help' => 'Choose system locale',
-                        'scope' => [
-                            'user',
-                            'app',
-                        ],
-                    ],
-                ],
-            ],
-            'Menu' => [
-                'Main Menu' => [
-                    'Dashboard Menu Order Value' => [
-                        'alias' => 'Menu.dashboard_menu_order_value',
-                        'type' => 'string',
-                        'help' => '',
                         'scope' => [
                             'user',
                             'app',
