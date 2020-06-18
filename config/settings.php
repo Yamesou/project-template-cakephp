@@ -215,6 +215,48 @@ return [
                     ],
                 ],
             ],
+            'File Upload' => [
+                'File Upload' => [
+                    'Theme' => [
+                        'alias' => 'CsvMigrations.BootstrapFileInput.defaults.theme',
+                        'type' => 'list',
+                        'selectOptions' => [
+                            '' => 'Default',
+                            'explorer' => 'Explorer',
+                        ],
+                        'help' => 'Select theme',
+                        'scope' => [
+                            'app',
+                        ],
+                    ],
+                    'Enable Thumbnail Zoom' => [
+                        'alias' => 'CsvMigrations.BootstrapFileInput.defaults.fileActionSettings.showZoom',
+                        'type' => 'boolean',
+                        'help' => '',
+                        'scope' => [
+                            'app',
+                        ],
+                    ],
+                ],
+                'Dropzone Settings' => [
+                    'Enable Dropzone' => [
+                        'alias' => 'CsvMigrations.BootstrapFileInput.defaults.dropZoneEnabled',
+                        'type' => 'boolean',
+                        'help' => 'Enable dropzone area',
+                        'scope' => [
+                            'app',
+                        ],
+                    ],
+                    'Enable dropzone click' => [
+                        'alias' => 'CsvMigrations.BootstrapFileInput.defaults.browseOnZoneClick',
+                        'type' => 'boolean',
+                        'help' => 'Allow uplaod files when clicking dropzone area',
+                        'scope' => [
+                            'app',
+                        ],
+                    ],
+                ],
+            ],
         ],
     ],
 ];
