@@ -5,7 +5,6 @@ namespace App\Model\Table;
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\ORM\Query;
-use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Utility\Hash;
 use Cake\Validation\Validation;
@@ -192,10 +191,11 @@ class SettingsTable extends Table
      *
      * @param mixed[] $dataSettings Data to filter
      * @param mixed[] $userScope list of scope of the user
+     * @param string $view to be filtered
      * @return mixed[] Settings own by the user
      * @throws \RuntimeException when settings.php structure is broke
      */
-    public function filterSettings(array $dataSettings, array $userScope): array
+    public function filterSettings(array $dataSettings, array $userScope, string $view = 'index'): array
     {
         $filter = array_filter(Hash::flatten($dataSettings), function ($value) use ($userScope) {
                 return in_array($value, $userScope);
@@ -210,7 +210,13 @@ class SettingsTable extends Table
                 throw new \RuntimeException("broken configuration in Settings");
             }
             $p = $p[0] . '.' . $p[1] . '.' . $p[2] . '.' . $p[3];
-            $dataFlatten[$p] = Hash::extract($dataSettings, $p);
+
+            $extracted = Hash::extract($dataSettings, $p);
+            if (!empty($extracted['view']) && $extracted['view'] != $view) {
+                continue;
+            }
+
+            $dataFlatten[$p] = $extracted;
         }
         // $dataFiltered has now only fields belonging to the user scope
         $dataFiltered = Hash::expand($dataFlatten);
