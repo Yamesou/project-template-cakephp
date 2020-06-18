@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Controller\AppController;
 use App\Model\Table\SettingsTable;
 use Cake\Core\Configure;
 use Cake\Http\Exception\UnauthorizedException;
@@ -67,116 +66,68 @@ class SettingsController extends AppController
     {
         parent::initialize();
         $this->dataSettings = Configure::read('Settings');
+
         /**
          * @var \App\Model\Table\SettingsTable $table
          */
         $table = TableRegistry::getTableLocator()->get('Settings');
         $this->query = $table;
-        $this->dataApp = (array)$table->find('dataApp', ['scope' => SettingsTable::SCOPE_APP, 'context' => SettingsTable::CONTEXT_APP]);
+        $this->dataApp = (array)$table->find('dataApp', [
+            'scope' => SettingsTable::SCOPE_APP,
+            'context' => SettingsTable::CONTEXT_APP,
+        ]);
     }
 
     /**
      * Give access to edit any user settings.
      * @param string $context uuid of user
+     * @param string $page View template to load
      * @return \Cake\Http\Response|void|null
      */
-    public function user(string $context)
+    public function user(string $context, string $page = 'index')
     {
         $this->scope = SettingsTable::SCOPE_USER;
         $this->context = $context;
-        $dataUser = (array)$this->query->find('dataApp', ['scope' => SettingsTable::SCOPE_USER, 'context' => $this->context]);
 
+        $dataUser = (array)$this->query->find('dataApp', ['scope' => SettingsTable::SCOPE_USER, 'context' => $this->context]);
         $this->configureValue = Hash::merge($this->dataApp, $dataUser);
         $this->dataSettings = Hash::merge($this->dataSettings, Hash::expand($this->dataApp), Hash::expand($dataUser));
-        $this->viewBuilder()->setTemplate('index');
+        $this->viewBuilder()->setTemplate($page);
 
         $userName = TableRegistry::getTableLocator()->get('Users')->find('list')->where(['id' => $context])->toArray();
         $this->set('afterTitle', $userName[$context]);
 
-        return $this->settings();
+        return $this->settings($page);
+    }
+
+    /**
+     * Give access to edit personal settings
+     * @param string $page View template to load
+     * @return \Cake\Http\Response|void|null
+     */
+    public function my(string $page = 'index')
+    {
+        return $this->user($this->Auth->user('id'), $page);
     }
 
     /**
      * Give access to edit app settings
+     * @param string $page View template to load
      * @return \Cake\Http\Response|void|null
      */
-    public function app()
+    public function app(string $page = 'index')
     {
         $this->scope = SettingsTable::SCOPE_APP;
         $this->context = SettingsTable::CONTEXT_APP;
         $this->configureValue = $this->dataApp;
-        $this->viewBuilder()->setTemplate('index');
+        $this->viewBuilder()->setTemplate($page);
         $this->set('afterTitle', 'App');
 
         if ($this->isLocalhost()) {
             $this->set('linkToGenerator', true);
         }
 
-        return $this->settings();
-    }
-
-    /**
-     * Give access to edit personal settings
-     * @return \Cake\Http\Response|void|null
-     */
-    public function my()
-    {
-        $this->scope = SettingsTable::SCOPE_USER;
-        $this->context = $this->Auth->user('id');
-        $dataUser = $this->query->find('dataApp', ['scope' => SettingsTable::SCOPE_USER, 'context' => $this->context]);
-
-        $this->configureValue = Hash::merge($this->dataApp, $dataUser);
-        $this->viewBuilder()->setTemplate('index');
-
-        $this->set('afterTitle', $this->Auth->user('username'));
-
-        return $this->settings();
-    }
-
-    /**
-     * Give access to edit personal sidebar menu order
-     * @return \Cake\Http\Response|void|null
-     */
-    public function userMenuOrder()
-    {
-        $this->scope = SettingsTable::SCOPE_USER;
-        $this->context = $this->Auth->user('id');
-        $dataUser = $this->query->find('dataApp', ['scope' => SettingsTable::SCOPE_USER, 'context' => $this->context]);
-
-        $this->configureValue = Hash::merge($this->dataApp, $dataUser);
-
-        // get all user dashboards
-        $tableDashboards = TableRegistry::get('Search.Dashboards');
-        $dashboards = $tableDashboards->find('list');
-        $dashboards = $dashboards->toArray();
-
-        $this->set('dashboards', $dashboards);
-        $this->set('afterTitle', $this->Auth->user('username'));
-        $this->viewBuilder()->setTemplate('menu_items_order');
-
-        return $this->settings();
-    }
-
-    /**
-     * Give access to edit application sidebar menu order
-     * @return \Cake\Http\Response|void|null
-     */
-    public function appMenuOrder()
-    {
-        $this->scope = SettingsTable::SCOPE_APP;
-        $this->context = SettingsTable::CONTEXT_APP;
-        $this->configureValue = $this->dataApp;
-
-        // get all user dashboards
-        $tableDashboards = TableRegistry::get('Search.Dashboards');
-        $dashboards = $tableDashboards->find('list');
-        $dashboards = $dashboards->toArray();
-
-        $this->set('dashboards', $dashboards);
-        $this->set('afterTitle', 'App');
-        $this->viewBuilder()->setTemplate('menu_items_order');
-
-        return $this->settings();
+        return $this->settings($page);
     }
 
     /**
@@ -191,20 +142,20 @@ class SettingsController extends AppController
     /**
      * Index method
      *
+     * @param string $view Filter settings by the provided view
      * @return \Cake\Http\Response|void|null
      */
-    private function settings()
+    private function settings(string $view = 'index')
     {
-        $dataFiltered = $this->query->filterSettings($this->dataSettings, [$this->scope]);
-        $settings = $this->paginate($this->Settings);
-        $this->set(compact('settings'));
+        $dataFiltered = $this->query->filterSettings($this->dataSettings, [$this->scope], $view);
+
+        $this->set('settings', $this->Settings);
         $this->set('data', $dataFiltered);
         $this->set('configure', $this->configureValue);
 
-        if ($this->request->is('put')) {
+        if ($this->request->is('post')) {
             $dataPut = Hash::flatten((array)$this->request->getData('Settings'));
             $type = Hash::combine($dataFiltered, '{s}.{s}.{s}.{s}.alias', '{s}.{s}.{s}.{s}.type');
-            $scope = Hash::combine($dataFiltered, '{s}.{s}.{s}.{s}.alias', '{s}.{s}.{s}.{s}.scope');
             $links = Hash::filter(Hash::combine($dataFiltered, '{s}.{s}.{s}.{s}.alias', '{s}.{s}.{s}.{s}.links'));
 
             $set = [];
@@ -220,7 +171,7 @@ class SettingsController extends AppController
                     continue;
                 }
 
-                foreach ($links[$key] as $link => $keyLink) {
+                foreach ($links[$key] as $keyLink) {
                     $entity = $this->query->createEntity($keyLink, $value, $type[$key], $this->scope, $this->context);
                     if (!empty($entity)) {
                         $set[] = $entity;
@@ -242,9 +193,9 @@ class SettingsController extends AppController
                 $this->Flash->success((string)__('Settings successfully updated'));
 
                 return $this->redirect($this->request->referer());
-            } else {
-                $this->Flash->error((string)__('Failed to update settings, please try again.'));
             }
+
+            $this->Flash->error((string)__('Failed to update settings, please try again.'));
         }
     }
 
