@@ -238,14 +238,6 @@ return [
                             'app',
                         ],
                     ],
-                    'Enable Thumbnail Zoom' => [
-                        'alias' => 'CsvMigrations.BootstrapFileInput.defaults.fileActionSettings.showZoom',
-                        'type' => 'boolean',
-                        'help' => '',
-                        'scope' => [
-                            'app',
-                        ],
-                    ],
                 ],
                 'Dropzone Settings' => [
                     'Enable Dropzone' => [
