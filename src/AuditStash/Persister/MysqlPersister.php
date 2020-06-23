@@ -1,6 +1,5 @@
 <?php
-
-namespace App\Persister;
+namespace App\AuditStash\Persister;
 
 use AuditStash\PersisterInterface;
 use Cake\ORM\Entity;
