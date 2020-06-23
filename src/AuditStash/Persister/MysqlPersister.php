@@ -1,6 +1,5 @@
 <?php
-
-namespace App\Persister;
+namespace App\AuditStash\Persister;
 
 use AuditStash\PersisterInterface;
 use Cake\ORM\Entity;
@@ -31,7 +30,7 @@ class MysqlPersister implements PersisterInterface
                 'user_id' => !empty($meta['user']) ? $meta['user'] : null,
             ];
             // save audit log
-            TableRegistry::getTableLocator()->get('LogAudit')->save(new Entity($data));
+            TableRegistry::get('LogAudit')->save(new Entity($data));
         }
     }
 }
