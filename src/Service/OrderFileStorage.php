@@ -3,24 +3,22 @@
 namespace App\Service;
 
 use Cake\ORM\TableRegistry;
+use ErrorException;
+use InvalidArgumentException;
 
 final class OrderFileStorage
 {
+
     /**
      * Order files
      * @param  mixed[] $files Files to order
-     * @return mixed[] result
+     * @throws \RuntimeException RuntimeException.
+     * @return void
      */
-    public static function orderFiles(array $files): array
+    public static function orderFiles(array $files): void
     {
-        $result = [
-            'success' => false,
-            'data' => [],
-            'message' => __('There was an error changing file order'),
-        ];
-
-        if (empty($files) || ! is_array($files)) {
-            return $result;
+        if (empty($files)) {
+            throw new InvalidArgumentException("There was an error updating file order");
         }
 
         $table = TableRegistry::getTableLocator()->get('FileStorage');
@@ -33,13 +31,5 @@ final class OrderFileStorage
             $file->set('order', $order);
             $table->saveOrFail($file);
         }
-
-        $result = [
-            'success' => true,
-            'data' => [],
-            'message' => __('File order has been changed'),
-        ];
-
-        return $result;
     }
 }

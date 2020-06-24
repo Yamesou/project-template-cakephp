@@ -18,7 +18,21 @@ class FileStorageController extends AppController
 
         $data = (array)$this->request->getData();
 
-        $result = OrderFileStorage::orderFiles($data);
+        try {
+            OrderFileStorage::orderFiles($data);
+
+            $result = [
+                'success' => true,
+                'data' => [],
+                'message' => __('File order has been changed'),
+            ];
+        } catch (\InvalidArgumentException | \ErrorException $e) {
+            $result = [
+                'success' => false,
+                'data' => [],
+                'message' => __($e->getMessage()),
+            ];
+        }
 
         $this->set('result', $result);
         $this->set('_serialize', 'result');

@@ -54,8 +54,7 @@ class OrderFileStorageTest extends TestCase
             'file-storage-4' => 3,
         ];
 
-        $result = OrderFileStorage::orderFiles($filesToOrder);
-        $this->assertTrue($result['success']);
+        OrderFileStorage::orderFiles($filesToOrder);
 
         $files = $table->find()->all();
         $sortedFiles = [];
@@ -66,6 +65,10 @@ class OrderFileStorageTest extends TestCase
         $this->assertSame($expected, $sortedFiles);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedException \ErrorException
+     */
     public function testOrderFilesFailed(): void
     {
         $table = TableRegistry::getTableLocator()->get('FileStorage');
@@ -74,8 +77,7 @@ class OrderFileStorageTest extends TestCase
 
         $filesToOrder = [];
 
-        $result = OrderFileStorage::orderFiles($filesToOrder);
-        $this->assertFalse($result['success']);
+        OrderFileStorage::orderFiles($filesToOrder);
 
         $files = $table->find()->all();
     }
