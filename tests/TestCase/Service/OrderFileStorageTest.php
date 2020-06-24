@@ -2,11 +2,8 @@
 namespace App\Test\TestCase\Service;
 
 use App\Service\OrderFileStorage;
-use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
-use Cake\Utility\Hash;
-use Webmozart\Assert\Assert;
 
 class OrderFileStorageTest extends TestCase
 {
