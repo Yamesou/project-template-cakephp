@@ -8,9 +8,9 @@ use InvalidArgumentException;
 
 final class OrderFileStorage
 {
-
     /**
      * Order files
+     *
      * @param  mixed[] $files Files to order
      * @throws \RuntimeException RuntimeException.
      * @return void
@@ -18,7 +18,7 @@ final class OrderFileStorage
     public static function orderFiles(array $files): void
     {
         if (empty($files)) {
-            throw new InvalidArgumentException("There was an error updating file order");
+            throw new InvalidArgumentException('There was an error updating file order');
         }
 
         $table = TableRegistry::getTableLocator()->get('FileStorage');

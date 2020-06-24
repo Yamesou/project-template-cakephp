@@ -3,6 +3,8 @@
 namespace App\Controller\Api\V1\V0;
 
 use App\Service\OrderFileStorage;
+use ErrorException;
+use InvalidArgumentException;
 
 class FileStorageController extends AppController
 {
