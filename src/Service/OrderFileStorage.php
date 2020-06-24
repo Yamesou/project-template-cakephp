@@ -25,6 +25,10 @@ final class OrderFileStorage
 
         $table = TableRegistry::getTableLocator()->get('FileStorage');
         foreach ($files as $order => $fileDetails) {
+            if (!isset($fileDetails['key']) || empty($fileDetails['key'])) {
+                continue;
+            }
+
             $file = $table->get($fileDetails['key']);
             $file->set('order', $order);
             $table->saveOrFail($file);
