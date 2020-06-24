@@ -34,7 +34,9 @@
         "help" : "Help Email"
     },
     "file" : {
-        "help" : "Help File"
+        "help" : "Help File",
+        "orderBy": "order",
+        "orderDir": "asc"
     },
     "gender" : {
         "help" : "Help Gender"
@@ -52,7 +54,9 @@
         "help" : "Help Phone"
     },
     "photos" : {
-        "help" : "Help Photos"
+        "help" : "Help Photos",
+        "orderBy": "order",
+        "orderDir": "asc"
     },
     "primary_thing" : {
         "help" : "Help Primary Thing"
