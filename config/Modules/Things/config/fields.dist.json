@@ -56,7 +56,8 @@
     "photos" : {
         "help" : "Help Photos",
         "orderBy": "order",
-        "orderDir": "asc"
+        "orderDir": "asc",
+        "limit": 4
     },
     "primary_thing" : {
         "help" : "Help Primary Thing"
