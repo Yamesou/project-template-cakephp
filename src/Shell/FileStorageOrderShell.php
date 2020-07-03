@@ -7,6 +7,7 @@
 
 namespace App\Shell;
 
+use App\Service\OrderFileStorage;
 use CakeDC\Users\Shell\UsersShell as BaseShell;
 use Cake\Console\ConsoleOptionParser;
 use Cake\ORM\TableRegistry;
@@ -128,27 +129,10 @@ class FileStorageOrderShell extends BaseShell
             /**
              * @var mixed[]
              */
-            $filesIds = Hash::extract($files, '{n}.id');
-
-            self::orderFileStorage($filesIds, self::NEW_ORDER_FIELD, $fileStorageTable);
-        }
-    }
-
-    /**
-     * Array of file Ids
-     *
-     * @param  mixed[] $filesIds File Ids to update
-     * @param  string  $orderField Order field to update
-     * @param  \Cake\ORM\Table $fileStorageTable File Storage table
-     * @return void
-     */
-    public function orderFileStorage(array $filesIds, string $orderField, \Cake\ORM\Table $fileStorageTable): void
-    {
-        $data = [];
-        foreach ($filesIds as $key => $id) {
-            $entity = $fileStorageTable->get($id);
-            $entity->set($orderField, $key);
-            $fileStorageTable->saveOrFail($entity);
+            $filesIds = Hash::map($files, "{n}.id", function ($item) {
+                    return ['key' => $item];
+            });
+            OrderFileStorage::orderFiles($filesIds);
         }
     }
 
