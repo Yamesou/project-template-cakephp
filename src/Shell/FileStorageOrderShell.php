@@ -113,9 +113,15 @@ class FileStorageOrderShell extends BaseShell
         $fileUpload = new FileUpload($table);
 
         foreach ($moduleRecords as $key => $record) {
-            $files = $fileUpload->getFiles($field, $record->get('id'), [$currentOrderField => $currentOrderFieldDirection])->toArray();
+            $files = $fileUpload->getFiles(
+                $field,
+                $record->get('id'),
+                [
+                    $currentOrderField => $currentOrderFieldDirection,
+                ]
+            )->toArray();
 
-            if (!($files)) {
+            if (!$files) {
                 continue;
             }
 
