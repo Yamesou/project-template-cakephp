@@ -83,7 +83,12 @@ class FileStorageOrderShell extends BaseShell
         $this->setCurrentOrderField();
         $this->setCurrentOrderFieldDirection();
 
-        $this->updateFileStorage($this->getModule(), $this->getField(), $this->getCurrentOrderField(), $this->getCurrentOrderFieldDirection());
+        $this->updateFileStorage(
+            $this->getModule(),
+            $this->getField(),
+            $this->getCurrentOrderField(),
+            $this->getCurrentOrderFieldDirection()
+        );
     }
 
     /**
