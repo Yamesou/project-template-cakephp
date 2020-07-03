@@ -9,11 +9,9 @@ namespace App\Shell;
 
 use CakeDC\Users\Shell\UsersShell as BaseShell;
 use Cake\Console\ConsoleOptionParser;
-use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 use CsvMigrations\Utility\FileUpload;
-use Qobo\Utils\ModuleConfig\Parser\Parser;
 use Qobo\Utils\Module\ModuleRegistry;
 
 class FileStorageOrderShell extends BaseShell
@@ -46,7 +44,7 @@ class FileStorageOrderShell extends BaseShell
     /**
      * Set shell description and command line options
      *
-     * @return ConsoleOptionParser
+     * @return \Cake\Console\ConsoleOptionParser
      */
     public function getOptionParser()
     {
@@ -85,7 +83,7 @@ class FileStorageOrderShell extends BaseShell
         $this->setCurrentOrderField();
         $this->setCurrentOrderFieldDirection();
 
-        $this->updateFileStorage($this->module, $this->field, $this->currentOrderField, $this->currentOrderFieldDirection);
+        $this->updateFileStorage($this->getModule(), $this->getField(), $this->getCurrentOrderField(), $this->getCurrentOrderFieldDirection());
     }
 
     /**
@@ -104,7 +102,6 @@ class FileStorageOrderShell extends BaseShell
         $table = TableRegistry::getTableLocator()->get($module);
 
         $fileStorageTable = TableRegistry::getTableLocator()->get('FileStorage');
-        //dd($fileStorageTable);
 
         $moduleRecords = $table->find('all');
         $fileUpload = new FileUpload($table);
@@ -121,18 +118,19 @@ class FileStorageOrderShell extends BaseShell
              */
             $filesIds = Hash::extract($files, '{n}.id');
 
-            self::updateFilesOrder($filesIds, self::NEW_ORDER_FIELD, $fileStorageTable);
+            self::orderFileStorage($filesIds, self::NEW_ORDER_FIELD, $fileStorageTable);
         }
     }
 
     /**
      * Array of file Ids
+     *
      * @param  mixed[] $filesIds File Ids to update
      * @param  string  $orderField Order field to update
      * @param  \Cake\ORM\Table $fileStorageTable File Storage table
      * @return void
      */
-    public function updateFilesOrder(array $filesIds, string $orderField, \Cake\ORM\Table $fileStorageTable): void
+    public function orderFileStorage(array $filesIds, string $orderField, \Cake\ORM\Table $fileStorageTable): void
     {
         $data = [];
         foreach ($filesIds as $key => $id) {
