@@ -38,11 +38,6 @@ class FileStorageOrderShell extends BaseShell
     private $currentOrderFieldDirection;
 
     /**
-     * @var string
-     */
-    private const NEW_ORDER_FIELD = 'order';
-
-    /**
      * Set shell description and command line options
      *
      * @return \Cake\Console\ConsoleOptionParser
