@@ -124,7 +124,7 @@ class FileStorageOrderShell extends BaseShell
             /**
              * @var mixed[]
              */
-            $filesIds = Hash::map($files, "{n}.id", function ($item) {
+            $filesIds = Hash::map($files, '{n}.id', function ($item) {
                     return ['key' => $item];
             });
             OrderFileStorage::orderFiles($filesIds);
