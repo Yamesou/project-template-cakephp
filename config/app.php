@@ -503,7 +503,7 @@ return [
         'timeout' => (int)$sessionTimeout / 60,
     ],
     'AuditStash' => [
-        'persister' => 'App\Persister\MysqlPersister',
+        'persister' => 'App\AuditStash\Persister\MysqlPersister',
     ],
     'Swagger' => [
         'crawl' => env('SWAGGER_CRAWL', true),

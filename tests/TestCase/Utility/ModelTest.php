@@ -86,12 +86,28 @@ class ModelTest extends TestCase
                 'foreign_key' => 'primary_thing',
             ],
             [
+                'name' => 'Things_description_translation',
+                'label' => 'Translations.Translations (Foreign Key)',
+                'model' => 'Translations.Translations',
+                'type' => 'oneToOne',
+                'primary_key' => 'id',
+                'foreign_key' => 'foreign_key',
+            ],
+            [
                 'name' => 'Thingsprimary_thing',
                 'label' => 'Things (Primary Thing)',
                 'model' => 'Things',
                 'type' => 'oneToMany',
                 'primary_key' => 'id',
                 'foreign_key' => 'primary_thing',
+            ],
+            [
+                'name' => 'Translations',
+                'label' => 'Translations.Translations (Foreign Key)',
+                'model' => 'Translations.Translations',
+                'type' => 'oneToMany',
+                'primary_key' => 'id',
+                'foreign_key' => 'foreign_key',
             ],
         ];
 

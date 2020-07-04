@@ -13,10 +13,9 @@
 use CsvMigrations\FieldHandlers\CsvField;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\ModuleRegistry;
 
-$config = (new ModuleConfig(ConfigType::MODULE(), $this->name))->parseToArray();
+$config = ModuleRegistry::getModule($this->name)->getConfig();
 $labels = Hash::get($config, 'associationLabels', []);
 
 $value = '&nbsp;';

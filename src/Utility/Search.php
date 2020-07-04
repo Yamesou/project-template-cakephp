@@ -5,20 +5,16 @@ namespace App\Utility;
 use App\Search\Manager;
 use Cake\Cache\Cache;
 use Cake\Core\App;
-use Cake\Datasource\EntityInterface;
-use Cake\Log\Log;
 use Cake\ORM\Association;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
 use CsvMigrations\FieldHandlers\FieldHandlerFactory;
-use DatabaseLog\Model\Table\DatabaseLogsTable;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\Exception\MissingModuleException;
+use Qobo\Utils\Module\ModuleRegistry;
 use Search\Aggregate\AggregateInterface;
 use Search\Model\Entity\SavedSearch;
-use Search\Service\Search as SearchService;
 use Webmozart\Assert\Assert;
 
 final class Search
@@ -113,10 +109,11 @@ final class Search
      */
     public static function getFilters(string $tableName): array
     {
-        deprecationWarning((string)__(
-            '{0}::{1} method is deprecated. Please use {0}::{2} instead.',
+        deprecationWarning(sprintf(
+            '%s::%s method is deprecated. Please use %s::%s instead.',
             Search::class,
             __FUNCTION__,
+            Search::class,
             'getFields'
         ));
 
@@ -333,9 +330,12 @@ final class Search
     private static function getDisplayFieldsFromView(string $tableName): array
     {
         list($plugin, $module) = pluginSplit($tableName);
-
-        $config = (new ModuleConfig(ConfigType::VIEW(), $module, 'index'))->parseToArray();
-        $fields = ! empty($config['items']) ? $config['items'] : [];
+        $fields = [];
+        try {
+            $fields = ModuleRegistry::getModule($module)->getView('index');
+        } catch (MissingModuleException $e) {
+            // @ignoreException
+        }
 
         $columns = TableRegistry::getTableLocator()
             ->get($tableName)
@@ -386,7 +386,7 @@ final class Search
 
         $result = [];
         foreach (Model::fields($moduleName) as $field) {
-            if (in_array($field['type'], ['uuid', 'files', 'base64'])) {
+            if (in_array($field['type'], ['uuid', 'base64'])) {
                 continue;
             }
 

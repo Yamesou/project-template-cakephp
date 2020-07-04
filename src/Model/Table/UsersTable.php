@@ -4,6 +4,7 @@ namespace App\Model\Table;
 
 use App\Avatar\Service as AvatarService;
 use CakeDC\Users\Model\Table\UsersTable as Table;
+use Cake\Core\App;
 use Cake\Core\Configure;
 use Cake\Database\Schema\TableSchema;
 use Cake\Datasource\EntityInterface;
@@ -11,8 +12,7 @@ use Cake\Datasource\QueryInterface;
 use Cake\Utility\Hash;
 use Cake\Validation\Validator;
 use CsvMigrations\Model\AssociationsAwareTrait;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\ModuleRegistry;
 
 /**
  * Users Model
@@ -37,7 +37,9 @@ class UsersTable extends Table
 
         $this->setAssociations();
 
-        $tableConfig = (new ModuleConfig(ConfigType::MODULE(), $this->getAlias()))->parseToArray();
+        $tableName = App::shortName(get_class($this), 'Model/Table', 'Table');
+
+        $tableConfig = ModuleRegistry::getModule($tableName)->getConfig();
         if (Hash::get($tableConfig, 'table.searchable')) {
             $this->addBehavior('Search.Searchable', [
                 'fields' => ['first_name', 'last_name', 'username', 'email', 'created', 'modified'],

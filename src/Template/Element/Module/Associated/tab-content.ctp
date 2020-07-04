@@ -13,13 +13,11 @@
 use Cake\Core\Configure;
 use Cake\Utility\Inflector;
 use CsvMigrations\FieldHandlers\CsvField;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\ModuleRegistry;
 
-list(, $module) = pluginSplit($association->getClassName());
-$mc = new ModuleConfig(ConfigType::VIEW(), $module, 'index');
-$config = $mc->parse()->items;
-$fields = array_column($config, 0);
+list(, $module) = pluginSplit($association->className());
+$viewConfig = ModuleRegistry::getModule($module)->getView('index');
+$fields = array_column($viewConfig, 0);
 
 $options = [
     'associationName' => $association->getName(),
@@ -44,22 +42,20 @@ $dtOptions = [
             return $fields;
         }),
         'virtualColumns' => call_user_func(function () use ($module) {
-            $mc = new ModuleConfig(ConfigType::MODULE(), $module);
-            $config = $mc->parse();
+            $config = ModuleRegistry::getModule($module)->getConfig();
 
-            return property_exists($config, 'virtualFields') ? (array)$config->virtualFields : [];
+            return !empty($config['virtualFields']) ? $config['virtualFields'] : [];
         }),
         'combinedColumns' => call_user_func(function () use ($fields, $factory, $module) {
-            $mc = new ModuleConfig(ConfigType::MIGRATION(), $module);
-            $config = $mc->parse();
+            $config = ModuleRegistry::getModule($module)->getMigration();
 
             $result = [];
             foreach ($fields as $field) {
-                if (!property_exists($config, $field)) {
+                if (empty($config[$field])) {
                     continue;
                 }
 
-                $csvField = new CsvField((array)$config->{$field});
+                $csvField = new CsvField((array)$config[$field]);
                 // convert CSV field to DB field(s)
                 $dbFields = $factory->fieldToDb($csvField, $module, $field);
                 // non-combined field

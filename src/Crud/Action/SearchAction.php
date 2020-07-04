@@ -12,8 +12,7 @@ use Crud\Traits\ViewVarTrait;
 use CsvMigrations\Exception\UnsupportedPrimaryKeyException;
 use CsvMigrations\Table as CsvMigrationsTable;
 use InvalidArgumentException;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\ModuleRegistry;
 use Webmozart\Assert\Assert;
 
 /**
@@ -57,7 +56,7 @@ class SearchAction extends BaseAction
         list($finder, ) = $this->_extractFinder();
         $options = SearchManager::getOptionsFromRequest(
             (array)$this->_request()->getData(),
-            $this->_request()->getQueryParams()
+            h($this->_request()->getQueryParams())
         );
 
         if (SearchManager::includePrimaryKey($options)) {
@@ -77,7 +76,7 @@ class SearchAction extends BaseAction
             $relatedModule = Inflector::camelize($state['source']);
             $relatedField = $state['display_field'];
             $associationName = CsvMigrationsTable::generateAssociationName($relatedModule, $state['name']);
-            $config = (new ModuleConfig(ConfigType::MODULE(), $relatedModule))->parseToArray();
+            $config = ModuleRegistry::getModule($relatedModule)->getConfig();
 
             // Virtual fields consisting of concatenation of database fields need to be unpacked into multiple order by clauses.
             if (isset($config['virtualFields'][$relatedField])) {

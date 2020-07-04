@@ -2,8 +2,7 @@
 use Cake\ORM\TableRegistry;
 use CsvMigrations\FieldHandlers\CsvField;
 use Cake\Utility\Hash;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\ModuleRegistry;
 
 $tableName = $field['model'];
 if ($field['plugin']) {
@@ -14,7 +13,7 @@ $renderOptions = ['entity' => $options['entity']];
 
 $label = $factory->renderName($tableName, $field['name'], $renderOptions);
 
-$config = (new ModuleConfig(ConfigType::MODULE(), $this->name))->parseToArray();
+$config = ModuleRegistry::getModule($this->name)->getConfig();
 $labels = Hash::get($config, 'associationLabels', []);
 
 if ('' !== trim($field['name'])) {

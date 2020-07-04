@@ -3,9 +3,32 @@
 
     //Highlight active link in the sidebar.
     var url = window.location;
-    $('.sidebar ul.sidebar-menu a').filter(function () {
+    var activeUrl = $('.sidebar ul.sidebar-menu a').filter(function () {
         return url.href.replace(/\/+$/, '') == this.href.replace(/\/+$/, '');
-    }).parent().addClass('active');
+    });
+
+    if (activeUrl) {
+        var target = $(activeUrl).parent();
+
+        if (target.parent().hasClass('treeview-menu')) {
+            target = $(target).parent().parent();
+            $(activeUrl).parent().addClass('active');
+        }
+
+        $(target).addClass('active');
+    }
+
+    if ($('body').hasClass('sidebar-collapse')) {
+        $('.sidebar-icon-toggle').attr('class', 'fa sidebar-icon-toggle fa-chevron-left');
+    }
+
+    $('.sidebar-toggle').click(function () {
+        if ($('body').hasClass('sidebar-collapse')) {
+            $('.sidebar-icon-toggle').attr('class', 'fa sidebar-icon-toggle fa-chevron-left');
+        } else {
+            $('.sidebar-icon-toggle').attr('class', 'fa sidebar-icon-toggle fa-chevron-right');
+        }
+    });
 
     /**
      * Store and retrieve active tab, for all nav-tabs, using web browser's local storage.

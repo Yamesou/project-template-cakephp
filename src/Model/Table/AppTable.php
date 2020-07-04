@@ -6,8 +6,7 @@ use App\Feature\Factory as FeatureFactory;
 use Cake\Core\App;
 use Cake\Utility\Hash;
 use CsvMigrations\Table;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\ModuleRegistry;
 
 /**
  * App Model
@@ -28,16 +27,29 @@ class AppTable extends Table
             'blacklist' => ['created', 'modified', 'created_by', 'modified_by'],
         ]);
 
-        $tableConfig = (new ModuleConfig(ConfigType::MODULE(), App::shortName(get_class($this), 'Model/Table', 'Table')))->parseToArray();
+        $tableName = App::shortName(get_class($this), 'Model/Table', 'Table');
+        $tableConfig = ModuleRegistry::getModule($tableName)->getConfig();
 
         if (Hash::get($tableConfig, 'table.searchable')) {
-            $fieldsConfig = (new ModuleConfig(ConfigType::MIGRATION(), $this->getAlias()))->parseToArray();
+            $fieldsConfig = ModuleRegistry::getModule($tableName)->getMigration();
 
             $this->addBehavior('Search.Searchable', [
                 'fields' => array_keys(array_filter($fieldsConfig, function ($definition) {
                     return ! (bool)$definition['non-searchable'];
                 })),
             ]);
+        }
+
+        if (Hash::get($tableConfig, 'table.translatable', false)) {
+            $fieldsConfig = ModuleRegistry::getModule($tableName)->getFields();
+            $translate = array_keys(array_filter($fieldsConfig, function ($v) {
+                return !empty($v['translatable']);
+            }));
+            $options = [
+                'fields' => $translate,
+                'translationTable' => 'Translations.Translations',
+            ];
+            empty($translate) ?: $this->addBehavior('Translate', $options);
         }
 
         $this->addBehavior('Lookup', ['lookupFields' => Hash::get($tableConfig, 'table.lookup_fields', [])]);

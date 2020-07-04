@@ -1,20 +1,27 @@
 <?php
 use Cake\ORM\Association;
-use Cake\Utility\Hash;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\ModuleRegistry;
 use RolesCapabilities\Access\AccessFactory;
 
 $accessFactory = new AccessFactory();
 
-$config = (new ModuleConfig(ConfigType::MODULE(), $this->name))->parseToArray();
-
-$hiddenAssociations = Hash::get($config, 'associations.hide_associations', []);
+$hiddenAssociations = ModuleRegistry::getModule($this->name)->getConfig('associations.hide_associations');
 
 $associations = [];
 foreach ($table->associations() as $association) {
     list($plugin, $controller) = pluginSplit($association->getClassName());
     $url = ['plugin' => $plugin, 'controller' => $controller, 'action' => 'index'];
+
+    // skip hidden associations
+    if (in_array($association->getName(), $hiddenAssociations)) {
+        continue;
+    }
+
+    // Skip all generated translations associations
+    if ('Translations.Translations' === $association->className() || '_translation' === substr($association->getName(), -12)) {
+        continue;
+    }
+
     // skip associations which current user has no access
     if (!$accessFactory->hasAccess($url, $user)) {
         continue;
@@ -22,11 +29,6 @@ foreach ($table->associations() as $association) {
 
     // skip association(s) with Burzum/FileStorage, because it is rendered within the respective field handler
     if ('Burzum/FileStorage.FileStorage' === $association->getClassName()) {
-        continue;
-    }
-
-    // skip hidden associations
-    if (in_array($association->getName(), $hiddenAssociations)) {
         continue;
     }
 

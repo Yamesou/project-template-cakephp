@@ -5,8 +5,8 @@ namespace App\Utility;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\Exception\MissingModuleException;
+use Qobo\Utils\Module\ModuleRegistry;
 use Webmozart\Assert\Assert;
 
 final class Field
@@ -18,6 +18,11 @@ final class Field
      * @var string
      */
     private $model;
+
+    /**
+     * @var string
+     */
+    private $moduleName;
 
     /**
      * @var string
@@ -42,6 +47,7 @@ final class Field
         $this->table = TableRegistry::getTableLocator()->get($model);
         Assert::true($this->table->getSchema()->hasColumn($field));
 
+        list($plugin, $this->moduleName) = pluginSplit($this->model);
         $this->field = $field;
     }
 
@@ -87,7 +93,12 @@ final class Field
      */
     public function label(): string
     {
-        $config = (new ModuleConfig(ConfigType::FIELDS(), $this->model))->parseToArray();
+        $config = [];
+        try {
+            $config = ModuleRegistry::getModule($this->moduleName)->getFields();
+        } catch (MissingModuleException $e) {
+            // @ignoreException
+        }
 
         $default = substr($this->field, -3) === '_id' ? substr($this->field, 0, -3) : $this->field;
         $default = Inflector::humanize(Inflector::underscore($default));
@@ -121,8 +132,12 @@ final class Field
      */
     public function meta(): array
     {
-        $result = [];
-        $config = (new ModuleConfig(ConfigType::MIGRATION(), $this->model))->parseToArray();
+        $config = $result = [];
+        try {
+            $config = ModuleRegistry::getModule($this->moduleName)->getMigration();
+        } catch (MissingModuleException $e) {
+            // @ignoreException
+        }
 
         foreach ($this->table->getSchema()->constraints() as $item) {
             $constraint = $this->table->getSchema()->getConstraint($item);
@@ -178,7 +193,12 @@ final class Field
      */
     private function getTypeFromFile(): string
     {
-        $config = (new ModuleConfig(ConfigType::MIGRATION(), $this->model))->parseToArray();
+        $config = [];
+        try {
+            $config = ModuleRegistry::getModule($this->moduleName)->getMigration();
+        } catch (MissingModuleException $e) {
+            // @ignoreException
+        }
         if ([] === $config) {
             return '';
         }
@@ -208,7 +228,7 @@ final class Field
      */
     private function getRelatedModelFromFile(): string
     {
-        $config = (new ModuleConfig(ConfigType::MIGRATION(), $this->model))->parseToArray();
+        $config = ModuleRegistry::getModule($this->moduleName)->getMigration();
 
         $type = Hash::get($config, $this->field . '.type');
         Assert::stringNotEmpty($type);

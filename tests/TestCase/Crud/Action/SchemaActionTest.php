@@ -9,6 +9,13 @@ use Cake\Utility\Hash;
 
 class SchemaActionTest extends TestCase
 {
+    /**
+     * {@inheritDoc}
+     */
+    public $fixtures = [
+        'app.things',
+    ];
+
     public function testSchema(): void
     {
         $schema = new SchemaAction(new Controller(null, null, 'Things'));

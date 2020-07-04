@@ -5,8 +5,8 @@ use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Inflector;
 use CsvMigrations\FieldHandlers\FieldHandlerFactory;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\Exception\MissingModuleException;
+use Qobo\Utils\Module\ModuleRegistry;
 
 $factory = new FieldHandlerFactory();
 
@@ -50,11 +50,16 @@ $hasActivity = false;
                     continue;
                 }
 
-                $config = (new ModuleConfig(ConfigType::MODULE(), Inflector::camelize($item['source'])))->parse();
+                $config = [];
+                try {
+                    $config = ModuleRegistry::getModule(Inflector::camelize($item['source']))->getConfig();
+                } catch (MissingModuleException $e) {
+                    // @ignoreException
+                }
 
                 $hasActivity = true;
-                $icon = isset($config->table->icon) ? $config->table->icon : Configure::read('Menu.defaults.icon');
-                $title = isset($config->table->alias) ? $config->table->alias : Inflector::humanize(Inflector::underscore($item['source']));
+                $icon = isset($config['table']['icon']) ? $config['table']['icon'] : Configure::read('Menu.defaults.icon');
+                $title = isset($config['table']['alias']) ? $config['table']['alias'] : Inflector::humanize(Inflector::underscore($item['source']));
                 $heading = $factory->renderValue($table, $table->getDisplayField(), $entity->get($table->getDisplayField()), ['renderAs' => 'plain']);
                 ?>
                 <li>

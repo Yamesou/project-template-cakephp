@@ -106,7 +106,7 @@ class IndexActionListener extends BaseActionListener
         $table = $controller->loadModel();
         Assert::isInstanceOf($table, Table::class);
 
-        $queryParam = Hash::get($request->getQueryParams(), 'conditions', []);
+        $queryParam = h(Hash::get($request->getQueryParams(), 'conditions', []));
         if (empty($queryParam)) {
             return;
         }

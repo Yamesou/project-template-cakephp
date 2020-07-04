@@ -10,14 +10,11 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
-use Cake\Datasource\Exception\RecordNotFoundException;
-use Cake\Http\Exception\ForbiddenException;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
 use CsvMigrations\Utility\Field;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\ModuleRegistry;
 
 // Fetch embedded module(s)
 foreach ($fields as $field) {
@@ -54,7 +51,7 @@ foreach ($fields as $field) {
         continue;
     }
 
-    $config = (new ModuleConfig(ConfigType::MODULE(), $relatedModule))->parseToArray();
+    $config = ModuleRegistry::getModule($relatedModule)->getConfig();
 
     echo $this->element('Module/View/fields', [
         'table' => $relatedTable,

@@ -17,6 +17,7 @@ use RolesCapabilities\Access\AccessFactory;
     <?php if (!empty($user)) : ?>
     <!-- Sidebar toggle button-->
     <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <i class="fa fa-chevron-left sidebar-icon-toggle"></i>
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>

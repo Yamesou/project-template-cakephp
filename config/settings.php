@@ -174,6 +174,28 @@ return [
                 ],
             ],
             'Development' => [
+                'Development' => [
+                    'Dashboard Menu Order Value' => [
+                        'alias' => 'Menu.dashboard_menu_order_value',
+                        'view' => 'dashboard',
+                        'type' => 'string',
+                        'help' => '',
+                        'scope' => [
+                            'user',
+                            'app',
+                        ],
+                    ],
+                    'AdminLTE skin color' => [
+                        'alias' => 'Theme.skin',
+                        'view' => 'theme',
+                        'type' => 'string',
+                        'help' => '',
+                        'scope' => [
+                            'user',
+                            'app',
+                        ],
+                    ],
+                ],
                 'Troubleshooting' => [
                     'Debug' => [
                         'alias' => 'debug',
@@ -202,14 +224,35 @@ return [
                     ],
                 ],
             ],
-            'Menu' => [
-                'Main Menu' => [
-                    'Dashboard Menu Order Value' => [
-                        'alias' => 'dashboard_menu_order_value',
-                        'type' => 'string',
-                        'help' => '',
+            'File Upload' => [
+                'File Upload' => [
+                    'Theme' => [
+                        'alias' => 'CsvMigrations.BootstrapFileInput.defaults.theme',
+                        'type' => 'list',
+                        'selectOptions' => [
+                            '' => 'Default',
+                            'explorer' => 'Explorer',
+                        ],
+                        'help' => 'Select theme',
                         'scope' => [
-                            'user',
+                            'app',
+                        ],
+                    ],
+                ],
+                'Dropzone Settings' => [
+                    'Enable Dropzone' => [
+                        'alias' => 'CsvMigrations.BootstrapFileInput.defaults.dropZoneEnabled',
+                        'type' => 'boolean',
+                        'help' => 'Enable dropzone area',
+                        'scope' => [
+                            'app',
+                        ],
+                    ],
+                    'Enable dropzone click' => [
+                        'alias' => 'CsvMigrations.BootstrapFileInput.defaults.browseOnZoneClick',
+                        'type' => 'boolean',
+                        'help' => 'Allow uplaod files when clicking dropzone area',
+                        'scope' => [
                             'app',
                         ],
                     ],

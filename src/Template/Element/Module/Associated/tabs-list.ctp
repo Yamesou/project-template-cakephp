@@ -1,12 +1,9 @@
 <?php
 use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
-use Qobo\Utils\ModuleConfig\ConfigType;
-use Qobo\Utils\ModuleConfig\ModuleConfig;
+use Qobo\Utils\Module\ModuleRegistry;
 
-$config = (new ModuleConfig(ConfigType::MODULE(), $this->name))->parseToArray();
-
-$labels = Hash::get($config, 'associationLabels', []);
+$labels = Hash::get(ModuleRegistry::getModule($this->name)->getConfig(), 'associationLabels', []);
 $setLabels = [];
 ?>
 <ul id="relatedTabs" class="nav nav-tabs responsive-tabs" role="tablist">
@@ -15,23 +12,21 @@ $setLabels = [];
         <?php
         $containerId = Inflector::underscore($association->getAlias());
 
-        list(, $tableName) = pluginSplit($association->getClassName());
-        $mc = new ModuleConfig(ConfigType::MODULE(), $tableName);
-        $config = $mc->parse();
+        list(, $tableName) = pluginSplit($association->className());
+        $config = ModuleRegistry::getModule($tableName)->getConfig();
 
-        $label = '<span class="fa fa-' . $config->table->icon . '"></span> ';
+        $label = '<span class="fa fa-' . $config['table']['icon'] . '"></span> ';
 
         if (array_key_exists($association->getAlias(), $labels)) {
             $label .= __($labels[$association->getAlias()]);
         } else {
-            $label .= isset($config->table->alias) ?
-                __($config->table->alias) :
+            $label .= isset($config['table']['alias']) ?
+                __($config['table']['alias']) :
                 __(Inflector::humanize(Inflector::delimit($tableName)));
         }
 
         if (in_array($label, $setLabels)) {
-            $mcFields = new ModuleConfig(ConfigType::FIELDS(), $tableName);
-            $configFields = $mcFields->parseToArray();
+            $configFields = ModuleRegistry::getModule($tableName)->getFields();
 
             if (array_key_exists($association->getForeignKey(),$configFields) && array_key_exists('label',$configFields[$association->getForeignKey()]) ) {
                 $label .= ' (' . $configFields[$association->getForeignKey()]['label'] . ')';

@@ -196,7 +196,7 @@ class SearchTest extends TestCase
                 [
                     ['icon' => 'filter', 'chart' => 'funnelChart', 'slug' => 'Things grouped by created date', 'options' => ['resize' => true, 'hideHover' => true, 'labels' => ['Created (COUNT)', 'Created'], 'xkey' => ['created'], 'ykeys' => ['created (COUNT)'], 'dataChart' => ['type' => 'funnelChart', 'data' => [['value' => 3, 'label' => '2018-01-18 15:47']]]]],
                     ['icon' => 'pie-chart', 'chart' => 'pie', 'slug' => 'Things grouped by created date', 'options' => ['resize' => true, 'hideHover' => true, 'dataChart' => ['type' => 'pie', 'data' => ['labels' => ['2018-01-18 15:47'], 'datasets' => [['backgroundColor' => ['#c7004c'], 'data' => [3]]]]]]],
-                    ['icon' => 'bar-chart', 'chart' => 'bar', 'slug' => 'Things grouped by created date', 'options' => ['resize' => true, 'hideHover' => true, 'dataChart' => ['type' => 'bar', 'data' => ['labels' => ['2018-01-18 15:47'], 'datasets' => [['label' => 'Created (COUNT)', 'backgroundColor' => ['#948412'], 'data' => [3]]]], 'options' => ['legend' => ['display' => false], 'scales' => ['yAxes' => [['ticks' => ['beginAtZero' => true]]], 'xAxes' => [['ticks' => ['autoSkip' => false]]]]]]]],
+                    ['icon' => 'bar-chart', 'chart' => 'bar', 'slug' => 'Things grouped by created date', 'options' => ['resize' => true, 'hideHover' => true, 'dataChart' => ['type' => 'bar', 'data' => ['labels' => ['2018-01-18 15:47'], 'datasets' => [['label' => 'Created (COUNT)', 'backgroundColor' => ['#0b8c0d'], 'data' => [3]]]], 'options' => ['legend' => ['display' => false], 'scales' => ['yAxes' => [['ticks' => ['beginAtZero' => true]]], 'xAxes' => [['ticks' => ['autoSkip' => false]]]]]]]],
                 ],
             ],
         ];
@@ -212,7 +212,7 @@ class SearchTest extends TestCase
                 [
                     ['icon' => 'filter', 'chart' => 'funnelChart', 'slug' => 'Things NOT grouped by', 'options' => ['resize' => true, 'hideHover' => true, 'labels' => ['Created (COUNT)', 'Created'], 'xkey' => ['created'], 'ykeys' => ['created (COUNT)'], 'dataChart' => ['type' => 'funnelChart', 'data' => [['value' => 3, 'label' => 'Created']]]]],
                     ['icon' => 'pie-chart', 'chart' => 'pie', 'slug' => 'Things NOT grouped by', 'options' => ['resize' => true, 'hideHover' => true, 'dataChart' => ['type' => 'pie', 'data' => ['labels' => ['Created'], 'datasets' => [['backgroundColor' => ['#a06ee1'], 'data' => [3]]]]]]],
-                    ['icon' => 'bar-chart', 'chart' => 'bar', 'slug' => 'Things NOT grouped by', 'options' => ['resize' => true, 'hideHover' => true, 'dataChart' => ['type' => 'bar', 'data' => ['labels' => ['Created'], 'datasets' => [['label' => 'Created (COUNT)', 'backgroundColor' => ['#5460a5'], 'data' => [3]]]], 'options' => ['legend' => ['display' => false], 'scales' => ['yAxes' => [['ticks' => ['beginAtZero' => true]]], 'xAxes' => [['ticks' => ['autoSkip' => false]]]]]]]],
+                    ['icon' => 'bar-chart', 'chart' => 'bar', 'slug' => 'Things NOT grouped by', 'options' => ['resize' => true, 'hideHover' => true, 'dataChart' => ['type' => 'bar', 'data' => ['labels' => ['Created'], 'datasets' => [['label' => 'Created (COUNT)', 'backgroundColor' => ['#bc1b68'], 'data' => [3]]]], 'options' => ['legend' => ['display' => false], 'scales' => ['yAxes' => [['ticks' => ['beginAtZero' => true]]], 'xAxes' => [['ticks' => ['autoSkip' => false]]]]]]]],
                 ],
             ],
         ];
