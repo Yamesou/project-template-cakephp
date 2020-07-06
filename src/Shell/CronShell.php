@@ -113,7 +113,8 @@ class CronShell extends Shell
             try {
                 $this->info("Starting Scheduled Task [{$entity->get('name')}]");
                 $lock = $this->lock(__FILE__, $entity->get('job'));
-                $state = $instance->run($entity->get('options'));
+                $options = (array)preg_split("/\r\n|\n|\r/", $entity->get('options'));
+                $state = $instance->run($options);
                 $this->info("Finished Scheduled Task [{$entity->get('name')}]");
                 $this->verbose("Scheduled Task [" . $entity->get('name') . "] finished with: " . print_r($state, true));
                 if ($state['state'] > 0) {
