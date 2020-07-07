@@ -39,7 +39,7 @@ class LogActionsComponent extends Component
             return;
         }
 
-        if (!in_array(get_class($this->_registry->getController()), $controllers) || !in_array($request->getParam('action'), $actions)) {
+        if (!in_array(get_class($this->getController()), $controllers) || !in_array($request->getParam('action'), $actions)) {
             return;
         }
 

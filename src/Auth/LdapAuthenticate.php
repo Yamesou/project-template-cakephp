@@ -152,7 +152,7 @@ class LdapAuthenticate extends BaseAuthenticate
      *
      * @param mixed[] $data LDAP user info.
      * @param \Cake\Http\ServerRequest $request Request object.
-     * @return mixed[]|bool User info or false if failed.
+     * @return mixed[]|false User info or false if failed.
      */
     protected function _saveUser(array $data, ServerRequest $request)
     {
