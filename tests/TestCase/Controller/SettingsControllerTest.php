@@ -32,15 +32,15 @@ class SettingsControllerTest extends IntegrationTestCase
     public $settings;
 
     public $fixtures = [
-        'app.settings',
-        'app.users',
-        'plugin.Groups.groups_users',
-        'plugin.Groups.groups',
-        'plugin.RolesCapabilities.capabilities',
-        'plugin.RolesCapabilities.groups_roles',
-        'plugin.RolesCapabilities.permissions',
-        'plugin.RolesCapabilities.roles',
-        'plugin.search.dashboards',
+        'app.Settings',
+        'app.Users',
+        'plugin.Groups.GroupsUsers',
+        'plugin.Groups.Groups',
+        'plugin.RolesCapabilities.Capabilities',
+        'plugin.RolesCapabilities.GroupsRoles',
+        'plugin.RolesCapabilities.Permissions',
+        'plugin.RolesCapabilities.Roles',
+        'plugin.Search.Dashboards',
     ];
 
     public function setUp(): void

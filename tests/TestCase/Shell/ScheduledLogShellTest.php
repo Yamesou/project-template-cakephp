@@ -9,7 +9,7 @@ use Cake\TestSuite\ConsoleIntegrationTestCase;
 
 class ScheduledLogShellTest extends ConsoleIntegrationTestCase
 {
-    public $fixtures = ['app.scheduled_job_logs'];
+    public $fixtures = ['app.ScheduledJobLogs'];
 
     private $table;
 

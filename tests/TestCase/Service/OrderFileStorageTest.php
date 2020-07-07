@@ -8,9 +8,9 @@ use Cake\TestSuite\TestCase;
 class OrderFileStorageTest extends TestCase
 {
     public $fixtures = [
-        'app.things',
-        'app.users',
-        'app.file_storage',
+        'app.Things',
+        'app.Users',
+        'app.FileStorage',
     ];
 
     public function setUp(): void
