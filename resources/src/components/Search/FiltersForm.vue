@@ -10,7 +10,7 @@
       >
         <div class="row">
           <div class="col-xs-12 col-md-4 col-lg-3">
-            <label>{{ filters[field].label }}
+            <label class="filter-label">{{ filters[field].label }}
               <template v-if="filters[field].group !== model">
                 <i
                   class="fa fa-info-circle"
@@ -68,7 +68,7 @@
 </template>
 <script>
 import Aggregate from '@/utils/aggregate'
-import inputs from '@/components/fh'
+import inputs from '@/components/fh/search.js'
 import { mapGetters, mapState } from 'vuex'
 import { FIELD_OPERATOR_TYPES, FIELD_TYPE_MAP } from '@/utils/search'
 
@@ -124,3 +124,8 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.filter-label {
+  padding: 5px;
+}
+</style>
