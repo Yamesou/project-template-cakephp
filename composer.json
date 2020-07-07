@@ -24,32 +24,6 @@
             "php": "7.1"
         }
     },
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/QoboLtd/cakephp-utils"
-        },
-        {
-            "type": "git",
-            "url": "https://github.com/QoboLtd/cakephp-csv-migrations"
-        },
-        {
-            "type": "git",
-            "url": "https://github.com/QoboLtd/cakephp-menu"
-        },
-        {
-            "type": "git",
-            "url": "https://github.com/QoboLtd/cakephp-groups"
-        },
-        {
-            "type": "git",
-            "url": "https://github.com/QoboLtd/cakephp-roles-capabilities"
-        },
-        {
-            "type": "git",
-            "url": "https://github.com/QoboLtd/cakephp-search"
-        }
-    ],
     "require": {
         "aws/aws-sdk-php": "^3.52",
         "brainmaestro/composer-git-hooks": "^2.4",
@@ -62,12 +36,12 @@
         "lasserafn/php-initial-avatar-generator": "^4.0",
         "pelago/emogrifier": "^1.2",
         "pyrech/composer-changelogs": "^1.4",
-        "qobo/cakephp-csv-migrations": "dev-cakephp-v38",
-        "qobo/cakephp-groups": "dev-cakephp-v38",
-        "qobo/cakephp-menu": "dev-cakephp-v38",
-        "qobo/cakephp-roles-capabilities": "dev-cakephp-v38",
-        "qobo/cakephp-search": "dev-cakephp-v38",
-        "qobo/cakephp-utils": "dev-cakephp-v38a",
+        "qobo/cakephp-csv-migrations": "^38.0",
+        "qobo/cakephp-groups": "^11.0",
+        "qobo/cakephp-menu": "^16.0",
+        "qobo/cakephp-roles-capabilities": "^v18.0",
+        "qobo/cakephp-search": "^22.0",
+        "qobo/cakephp-utils": "^13.0",
         "qobo/qobo-robo": "^2.0",
         "qobo/qobo-robo-cakephp": "^2.0"
     },
@@ -122,6 +96,5 @@
             "pre-commit": "PHPCS_FILES=$(git diff-index --name-only --cached --diff-filter=ACMR HEAD 'tests/**.php' 'src/**.php' 'webroot/**.php'); if [ \"$PHPCS_FILES\" ]; then ./vendor/bin/phpcs $PHPCS_FILES && php -d memory_limit=-1 ./vendor/bin/phpstan analyse $PHPCS_FILES; fi;"
         }
     },
-    "prefer-stable": true,
-    "minimum-stability": "dev"
+    "prefer-stable": true
 }
