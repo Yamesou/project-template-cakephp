@@ -12,7 +12,7 @@ $setLabels = [];
         <?php
         $containerId = Inflector::underscore($association->getAlias());
 
-        list(, $tableName) = pluginSplit($association->className());
+        list(, $tableName) = pluginSplit($association->getClassName());
         $config = ModuleRegistry::getModule($tableName)->getConfig();
 
         $label = '<span class="fa fa-' . $config['table']['icon'] . '"></span> ';

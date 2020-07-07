@@ -17,8 +17,8 @@ class CronShellTest extends ConsoleIntegrationTestCase
     public $fixtures = [
         'app.LogAudit',
         'app.Users',
-        'app.scheduled_jobs',
-        'app.scheduled_job_logs',
+        'app.ScheduledJobs',
+        'app.ScheduledJobLogs',
     ];
 
     /**
