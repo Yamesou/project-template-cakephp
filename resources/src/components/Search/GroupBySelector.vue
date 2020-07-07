@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="col-xs-4 col-md-5">
+    <div class="col-xs-4 col-md-6">
       <div class="form-group">
         <select
           v-model="model"
@@ -16,7 +16,7 @@
         </select>
       </div>
     </div>
-    <div class="col-xs-8 col-md-7">
+    <div class="col-xs-8 col-md-6">
       <div class="form-group">
         <select
           v-model="groupBy"

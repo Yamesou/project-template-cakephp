@@ -48,7 +48,9 @@ class CakeShellJob extends AbstractShellJob
             $command = array_merge($command, $parts);
         }
 
-        if (!empty($this->arguments)) {
+        if (is_array($this->arguments)) {
+            $command = array_merge($command, $this->arguments);
+        } elseif (!empty($this->arguments)) {
             array_push($command, $this->arguments);
         }
 

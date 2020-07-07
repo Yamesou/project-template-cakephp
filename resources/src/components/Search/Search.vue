@@ -11,7 +11,7 @@
           @submit.prevent="search"
         >
           <div class="row">
-            <div class="col-lg-3 col-lg-push-9">
+            <div class="col-lg-4 col-lg-push-8">
               <div class="row">
                 <FilterSelector />
                 <GroupBySelector />
@@ -25,18 +25,18 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-9 col-lg-pull-3">
+            <div class="col-lg-8 col-lg-pull-4">
               <fieldset>
                 <FiltersForm />
               </fieldset>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12 col-lg-9">
+            <div class="col-md-12 col-lg-8">
               <hr class="visible-xs visible-sm visible-md">
               <FieldsSelector />
             </div>
-            <div class="col-md-12 col-lg-3">
+            <div class="col-md-12 col-lg-4">
               <hr class="visible-xs visible-sm visible-md">
               <div class="row">
                 <div class="col-md-6 col-lg-12">
@@ -556,8 +556,11 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="css">
 .search-form .form-group {
     margin-bottom: 10px;
+}
+.v-select input[type=search], .v-select input[type=search]:focus {
+  margin: 0 !important;
 }
 </style>
