@@ -15,7 +15,7 @@ use Cake\Utility\Inflector;
 use CsvMigrations\FieldHandlers\CsvField;
 use Qobo\Utils\Module\ModuleRegistry;
 
-list(, $module) = pluginSplit($association->className());
+list(, $module) = pluginSplit($association->getClassName());
 $viewConfig = ModuleRegistry::getModule($module)->getView('index');
 $fields = array_column($viewConfig, 0);
 

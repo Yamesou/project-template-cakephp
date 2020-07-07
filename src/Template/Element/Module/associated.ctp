@@ -18,7 +18,7 @@ foreach ($table->associations() as $association) {
     }
 
     // Skip all generated translations associations
-    if ('Translations.Translations' === $association->className() || '_translation' === substr($association->getName(), -12)) {
+    if ('Translations.Translations' === $association->getClassName() || '_translation' === substr($association->getName(), -12)) {
         continue;
     }
 
