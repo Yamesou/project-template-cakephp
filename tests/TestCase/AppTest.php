@@ -16,7 +16,7 @@ class AppTest extends TestCase
     public function testLoadedPlugins(string $plugin, $config): void
     {
         if (empty($config)) {
-            $this->assertTrue((bool)Plugin::isLoaded($plugin), "Plugin $plugin is not loaded");
+            $this->assertTrue((bool)Plugin::isLoaded($plugin), 'Plugin ' . $plugin . ' is not loaded');
 
             return;
         }
@@ -39,7 +39,7 @@ class AppTest extends TestCase
                 break;
         }
 
-        $message = "Plugin $plugin is not loaded but [" . implode(' or ', (array)$config) . "] is true";
+        $message = 'Plugin ' . $plugin . ' is not loaded but [' . implode(' or ', (array)$config) . '] is true';
         $this->assertEquals($enabled, Plugin::isLoaded($plugin), $message);
     }
 
