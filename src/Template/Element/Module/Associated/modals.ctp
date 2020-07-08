@@ -31,10 +31,10 @@ $fieldName = '';
 
     foreach ($associations as $association) {
         if ($association->getName() == $field['name']) {
-            $fieldName = Inflector::underscore($association->className() . '_' . $association->getForeignKey());
+            $fieldName = Inflector::underscore($association->getClassName() . '_' . $association->getForeignKey());
 
             $modalBody = $this->element('Module/Embedded/form', [
-                'model' => $association->className(),
+                'model' => $association->getClassName(),
                 'field' => $association->getName(),
                 'associationName' => $association->getName(),
                 'relatedModel' => Inflector::delimit($this->request->getParam('controller'), '-'),

@@ -37,7 +37,7 @@ if ('' !== trim($field['name'])) {
         if ($table->hasAssociation($field['name'])) {
             $association = $table->getAssociation($field['name']);
             $handlerOptions['association'] = $association;
-            $handlerOptions['fieldDefinitions']['type'] = 'belongsToMany(' . $association->className() .  ')';
+            $handlerOptions['fieldDefinitions']['type'] = 'belongsToMany(' . $association->getClassName() .  ')';
             if (array_key_exists($association->getAlias(), $labels)) {
                 $handlerOptions['label'] = __($labels[$association->getAlias()]);
             }

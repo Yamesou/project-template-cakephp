@@ -10,8 +10,8 @@ use Webmozart\Assert\Assert;
 class FixDateTimeShellTest extends TestCase
 {
     public $fixtures = [
-        'app.things',
-        'app.log_audit',
+        'app.Things',
+        'app.LogAudit',
         'app.DateTimeFix',
     ];
 

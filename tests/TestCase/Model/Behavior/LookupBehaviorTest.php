@@ -42,9 +42,9 @@ class LookupBehaviorTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.log_audit',
-        'app.things',
-        'app.users',
+        'app.LogAudit',
+        'app.Things',
+        'app.Users',
     ];
 
     /**

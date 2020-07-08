@@ -104,7 +104,7 @@ abstract class BaseActionListener implements EventListenerInterface
     {
         $result = [];
         foreach ($table->associations() as $association) {
-            if (FileUpload::FILE_STORAGE_TABLE_NAME !== $association->className()) {
+            if ($association->getClassName() !== FileUpload::FILE_STORAGE_TABLE_NAME) {
                 continue;
             }
 

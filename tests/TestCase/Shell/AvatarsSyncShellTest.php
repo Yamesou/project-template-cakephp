@@ -8,7 +8,7 @@ use Cake\TestSuite\ConsoleIntegrationTestCase;
 
 class AvatarsSyncShellTest extends ConsoleIntegrationTestCase
 {
-    public $fixtures = ['app.users'];
+    public $fixtures = ['app.Users'];
 
     private $table;
 

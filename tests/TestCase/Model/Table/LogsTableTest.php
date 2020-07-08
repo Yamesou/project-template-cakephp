@@ -9,7 +9,7 @@ use Cake\TestSuite\TestCase;
 class LogsTableTest extends TestCase
 {
     public $fixtures = [
-        'plugin.DatabaseLog.database_logs',
+        'plugin.DatabaseLog.DatabaseLogs',
     ];
 
     private $table;

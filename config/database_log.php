@@ -2,6 +2,7 @@
 // DatabaseLog plugin configuration
 return [
     'DatabaseLog' => [
+        'isSearchEnabled' => false,
         'maxLength' => '-1 month',
         // Display styles for log listing
         'typeStyles' => [

@@ -13,8 +13,8 @@ use Cake\TestSuite\TestCase;
 class SettingsListenerTest extends TestCase
 {
     public $fixtures = [
-        'app.users',
-        'app.settings',
+        'app.Users',
+        'app.Settings',
     ];
 
     public function setUp()

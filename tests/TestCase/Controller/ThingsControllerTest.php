@@ -14,14 +14,14 @@ use Cake\TestSuite\IntegrationTestCase;
 class ThingsControllerTest extends IntegrationTestCase
 {
     public $fixtures = [
-        'app.things',
-        'app.users',
-        'app.log_audit',
-        'app.file_storage',
-        'plugin.Menu.menus',
-        'plugin.Menu.menu_items',
-        'plugin.RolesCapabilities.roles',
-        'plugin.Translations.languages',
+        'app.Things',
+        'app.Users',
+        'app.LogAudit',
+        'app.FileStorage',
+        'plugin.Menu.Menus',
+        'plugin.Menu.MenuItems',
+        'plugin.RolesCapabilities.Roles',
+        'plugin.Translations.Languages',
     ];
 
     public function setUp(): void

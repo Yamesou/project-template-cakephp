@@ -13,7 +13,7 @@ class SchemaActionTest extends TestCase
      * {@inheritDoc}
      */
     public $fixtures = [
-        'app.things',
+        'app.Things',
     ];
 
     public function testSchema(): void

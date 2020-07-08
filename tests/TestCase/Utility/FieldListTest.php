@@ -7,7 +7,7 @@ use Cake\TestSuite\TestCase;
 
 class FieldListTest extends TestCase
 {
-    public $fixtures = ['app.things'];
+    public $fixtures = ['app.Things'];
 
     /**
      * @dataProvider hasProvider

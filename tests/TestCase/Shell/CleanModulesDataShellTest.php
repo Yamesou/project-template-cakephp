@@ -9,8 +9,8 @@ use Cake\TestSuite\ConsoleIntegrationTestCase;
 class CleanModulesDataShellTest extends ConsoleIntegrationTestCase
 {
     public $fixtures = [
-        'app.log_audit',
-        'app.things',
+        'app.LogAudit',
+        'app.Things',
     ];
 
     private $table;

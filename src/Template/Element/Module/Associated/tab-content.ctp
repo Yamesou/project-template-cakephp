@@ -15,7 +15,7 @@ use Cake\Utility\Inflector;
 use CsvMigrations\FieldHandlers\CsvField;
 use Qobo\Utils\Module\ModuleRegistry;
 
-list(, $module) = pluginSplit($association->className());
+list(, $module) = pluginSplit($association->getClassName());
 $viewConfig = ModuleRegistry::getModule($module)->getView('index');
 $fields = array_column($viewConfig, 0);
 
@@ -90,7 +90,7 @@ $('#relatedTabs a.$containerId').on('click', function() {
         <thead>
             <tr>
             <?php foreach ($fields as $field) : ?>
-                <th><?= $factory->renderName($association->className(), $field) ?></th>
+                <th><?= $factory->renderName($association->getClassName(), $field) ?></th>
             <?php endforeach; ?>
                 <th><?= __('Actions');?></th>
             </tr>

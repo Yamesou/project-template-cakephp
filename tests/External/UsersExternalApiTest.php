@@ -14,7 +14,7 @@ use Cake\TestSuite\IntegrationTestCase;
 class UsersExternalApiTest extends IntegrationTestCase
 {
     public $fixtures = [
-        'app.users',
+        'app.Users',
     ];
 
     /**
@@ -61,7 +61,7 @@ class UsersExternalApiTest extends IntegrationTestCase
         $response = $this->sendAuthPost('/api/users/index.json', [], ['token' => $token]);
         $this->assertTrue($response->isOk(), "Couldn't get users from index view");
 
-        $usersResponse = json_decode($response->body(), true);
+        $usersResponse = (array)$response->getJson();
 
         $this->assertTrue($usersResponse['success'], "Failed response on API users index call");
         $this->assertNotEmpty($usersResponse['data'], "No users found in API /users/index.json");
@@ -77,7 +77,7 @@ class UsersExternalApiTest extends IntegrationTestCase
         $response = $this->sendAuthPost('/api/users/add.json', $data, ['token' => $token]);
         $this->assertTrue($response->isOk(), "Couldn't add user [{$data['username']}]");
 
-        $userCreated = json_decode($response->body(), true);
+        $userCreated = (array)$response->getJson();
         unset($response);
 
         $response = $this->sendAuthPost(
@@ -87,7 +87,7 @@ class UsersExternalApiTest extends IntegrationTestCase
         );
         $this->assertTrue($response->isOk(), "Couldn't view created user [{$userCreated['data']['id']}]");
 
-        $userView = json_decode($response->body(), true);
+        $userView = (array)$response->getJson();
 
         $this->assertEquals($userCreated['data']['id'], $userView['data']['id']);
         unset($response);

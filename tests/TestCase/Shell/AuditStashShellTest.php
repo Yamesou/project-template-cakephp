@@ -8,7 +8,7 @@ use Cake\TestSuite\ConsoleIntegrationTestCase;
 
 class AuditStashShellTest extends ConsoleIntegrationTestCase
 {
-    public $fixtures = ['app.log_audit'];
+    public $fixtures = ['app.LogAudit'];
 
     private $table;
 

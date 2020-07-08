@@ -10,7 +10,9 @@ use Psr\Log\LogLevel;
 
 class LevelAwareDatabaseLogTest extends TestCase
 {
-    public $fixtures = ['plugin.DatabaseLog.database_logs'];
+    public $fixtures = [
+        'plugin.DatabaseLog.DatabaseLogs',
+    ];
 
     public function testLog(): void
     {

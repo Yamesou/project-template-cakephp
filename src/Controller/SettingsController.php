@@ -120,7 +120,9 @@ class SettingsController extends AppController
         $this->scope = SettingsTable::SCOPE_APP;
         $this->context = SettingsTable::CONTEXT_APP;
         $this->configureValue = $this->dataApp;
+
         $this->viewBuilder()->setTemplate($page);
+
         $this->set('afterTitle', 'App');
 
         if ($this->isLocalhost()) {

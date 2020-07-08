@@ -136,7 +136,13 @@ class AppController extends Controller
         $authObject = $this->Auth->getAuthenticate('ADmad/JwtAuth.Jwt');
 
         // set auth user from token
-        $user = null === $authObject ? [] : $authObject->getUser($this->request);
+        if ($authObject === null) {
+            $user = [];
+        } else {
+            $authUser = $authObject->getUser($this->request);
+            $user = $authUser === false ? [] : $authUser;
+        }
+
         $this->Auth->setUser($user);
 
         // set current user for access to all MVC layers

@@ -118,7 +118,7 @@ class CsvViewComponent extends Component
      */
     protected function filterBatchFields(Event $event): void
     {
-        $fields = ModuleRegistry::getModule($this->request->getParam('controller'))->getMigration();
+        $fields = ModuleRegistry::getModule($this->getController()->getName())->getMigration();
 
         $batchFields = (array)Configure::read('CsvMigrations.batch.types');
 

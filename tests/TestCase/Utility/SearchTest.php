@@ -10,11 +10,11 @@ use Search\Model\Entity\SavedSearch;
 class SearchTest extends TestCase
 {
     public $fixtures = [
-        'app.saved_searches',
-        'app.things',
-        'app.users',
-        'plugin.CakeDC/Users.social_accounts',
-        'plugin.CsvMigrations.dblists',
+        'app.SavedSearches',
+        'app.Things',
+        'app.Users',
+        'plugin.CakeDC/Users.SocialAccounts',
+        'plugin.CsvMigrations.Dblists',
     ];
 
     public function setUp(): void

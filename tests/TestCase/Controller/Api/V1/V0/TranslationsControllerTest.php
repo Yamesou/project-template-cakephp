@@ -22,9 +22,9 @@ class TranslationsControllerTest extends BaseIntegrationTestCase
     private $Translations;
 
     public $fixtures = [
-        'app.users',
-        'plugin.translations.languages',
-        'plugin.translations.language_translations',
+        'app.Users',
+        'plugin.Translations.Languages',
+        'plugin.Translations.LanguageTranslations',
     ];
 
     public function setUp()

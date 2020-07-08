@@ -13,10 +13,10 @@ use Qobo\Utils\TestSuite\JsonIntegrationTestCase;
 class ThingsControllerTest extends JsonIntegrationTestCase
 {
     public $fixtures = [
-        'app.things',
-        'app.log_audit',
-        'app.users',
-        'app.file_storage',
+        'app.FileStorage',
+        'app.LogAudit',
+        'app.Things',
+        'app.Users',
     ];
 
     private $moduleName = 'Things';

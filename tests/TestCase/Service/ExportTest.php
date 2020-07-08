@@ -10,8 +10,8 @@ use Webmozart\Assert\Assert;
 class ExportTest extends TestCase
 {
     public $fixtures = [
-        'app.things',
-        'app.users',
+        'app.Things',
+        'app.Users',
     ];
 
     private $path;

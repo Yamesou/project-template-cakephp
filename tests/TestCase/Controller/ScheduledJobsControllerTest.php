@@ -24,10 +24,10 @@ class ScheduledJobsControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'app.scheduled_jobs',
-        'app.scheduled_job_logs',
-        'app.users',
-        'app.log_audit',
+        'app.ScheduledJobs',
+        'app.ScheduledJobLogs',
+        'app.Users',
+        'app.LogAudit',
     ];
 
     public function setUp()

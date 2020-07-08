@@ -25,9 +25,9 @@ class UsersControllerTest extends IntegrationTestCase
     private $Users;
 
     public $fixtures = [
-        'app.users',
-        'plugin.Groups.groups',
-        'plugin.Groups.groups_users',
+        'app.Users',
+        'plugin.Groups.Groups',
+        'plugin.Groups.GroupsUsers',
     ];
 
     /**

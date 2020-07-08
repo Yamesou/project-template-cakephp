@@ -9,7 +9,7 @@ $hiddenAssociations = ModuleRegistry::getModule($this->name)->getConfig('associa
 
 $associations = [];
 foreach ($table->associations() as $association) {
-    list($plugin, $controller) = pluginSplit($association->className());
+    list($plugin, $controller) = pluginSplit($association->getClassName());
     $url = ['plugin' => $plugin, 'controller' => $controller, 'action' => 'index'];
 
     // skip hidden associations
@@ -18,7 +18,7 @@ foreach ($table->associations() as $association) {
     }
 
     // Skip all generated translations associations
-    if ('Translations.Translations' === $association->className() || '_translation' === substr($association->getName(), -12)) {
+    if ('Translations.Translations' === $association->getClassName() || '_translation' === substr($association->getName(), -12)) {
         continue;
     }
 
@@ -28,7 +28,7 @@ foreach ($table->associations() as $association) {
     }
 
     // skip association(s) with Burzum/FileStorage, because it is rendered within the respective field handler
-    if ('Burzum/FileStorage.FileStorage' === $association->className()) {
+    if ('Burzum/FileStorage.FileStorage' === $association->getClassName()) {
         continue;
     }
 

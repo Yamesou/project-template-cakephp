@@ -69,7 +69,7 @@ class LdapAuthenticateTest extends TestCase
             new Response()
         );
 
-        $this->assertFalse($result);
+        $this->assertSame(false, $result);
     }
 
     public function testGetUserWithoutUsername(): void
@@ -79,7 +79,7 @@ class LdapAuthenticateTest extends TestCase
         Configure::write('Ldap.host', 'foobar');
         $ldapAuthentication = new LdapAuthenticate($this->registry);
 
-        $this->assertFalse($ldapAuthentication->getUser(new ServerRequest(['post' => $data])));
+        $this->assertSame(false, $ldapAuthentication->getUser(new ServerRequest(['post' => $data])));
     }
 
     public function testGetUserWithoutPassword(): void
@@ -89,6 +89,6 @@ class LdapAuthenticateTest extends TestCase
         Configure::write('Ldap.host', 'foobar');
         $ldapAuthentication = new LdapAuthenticate($this->registry);
 
-        $this->assertFalse($ldapAuthentication->getUser(new ServerRequest(['post' => $data])));
+        $this->assertSame(false, $ldapAuthentication->getUser(new ServerRequest(['post' => $data])));
     }
 }

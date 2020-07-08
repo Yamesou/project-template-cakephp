@@ -25,7 +25,7 @@ class UsersShellTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.users',
+        'app.Users',
     ];
 
     /**

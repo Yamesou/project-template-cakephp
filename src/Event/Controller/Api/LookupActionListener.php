@@ -289,7 +289,7 @@ class LookupActionListener extends BaseActionListener
          */
         $table = $table;
         foreach ($table->associations() as $association) {
-            if ($association->className() !== $parentModule) {
+            if ($association->getClassName() !== $parentModule) {
                 continue;
             }
             $parentAssociation = $association;
@@ -326,7 +326,7 @@ class LookupActionListener extends BaseActionListener
 
         $parentAssociation = null;
         foreach ($table->associations() as $association) {
-            if ($association->className() !== $parentModule) {
+            if ($association->getClassName() !== $parentModule) {
                 continue;
             }
             $parentAssociation = $association;
