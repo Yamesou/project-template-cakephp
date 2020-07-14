@@ -18,12 +18,15 @@ class FieldNameDecorator
             return $data;
         }
 
-        foreach ($data['fields'] as $fieldName => $fieldConfig) {
-            if (!empty($fieldConfig['label'])) {
+        foreach ($data['migration'] as $fieldName => $migrationConfig) {
+            if (!empty($data['fields'][$fieldName]['label'])) {
                 continue;
             }
 
             $label = $this->createFieldLabel($fieldName);
+            if (empty($data['fields'][$fieldName])) {
+                $data['fields'][$fieldName] = [];
+            }
             $data['fields'][$fieldName] = array_merge($data['fields'][$fieldName], ['label' => $label]);
         }
 

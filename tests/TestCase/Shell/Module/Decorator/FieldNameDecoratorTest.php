@@ -17,10 +17,12 @@ class FieldNameDecoratorTest extends TestCase
     public function testInvoke(): void
     {
         $data = [
+            'migration' => [
+                'test_field' => [],
+                'foo_bar' => [],
+            ],
             'fields' => [
-                'name' => [
-                ],
-                'foobar' => [
+                'foo_bar' => [
                     'label' => 'Bar Foo',
                 ],
             ],
@@ -30,12 +32,12 @@ class FieldNameDecoratorTest extends TestCase
         $actual = $decorator('Things', $data);
 
         $this->assertTrue(is_array($actual), 'Invalid return type from the decorator. Expected array.');
-        $this->assertArrayHasKey('name', $actual['fields']);
-        $this->assertArrayHasKey('label', $actual['fields']['name']);
-        $this->assertEquals('Name', $actual['fields']['name']['label']);
+        $this->assertArrayHasKey('test_field', $actual['fields']);
+        $this->assertArrayHasKey('label', $actual['fields']['test_field']);
+        $this->assertEquals('Test Field', $actual['fields']['test_field']['label']);
 
-        $this->assertArrayHasKey('foobar', $actual['fields']);
-        $this->assertArrayHasKey('label', $actual['fields']['foobar']);
-        $this->assertEquals('Bar Foo', $actual['fields']['foobar']['label']);
+        $this->assertArrayHasKey('foo_bar', $actual['fields']);
+        $this->assertArrayHasKey('label', $actual['fields']['foo_bar']);
+        $this->assertEquals('Bar Foo', $actual['fields']['foo_bar']['label']);
     }
 }
