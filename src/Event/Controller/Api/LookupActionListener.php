@@ -257,7 +257,7 @@ class LookupActionListener extends BaseActionListener
     protected function _getTypeaheadFields(Table $table): array
     {
         $config = ModuleRegistry::getModule($table->getRegistryAlias())->getConfig();
-        $fields = Hash::get($config, 'table.typeahead_fields', [$table->getDisplayField()]);
+        $fields = Hash::get($config, 'table.typeahead_fields');
 
         if (empty($fields)) {
             $fields = [$table->getDisplayField()];
