@@ -14,8 +14,11 @@ class LookupActionListenerTest extends TestCase
 {
     private $Users;
 
+    private $Things;
+
     public $fixtures = [
         'app.Users',
+        'app.Things',
         'plugin.Groups.Groups',
         'plugin.Groups.GroupsUsers',
     ];
@@ -25,6 +28,7 @@ class LookupActionListenerTest extends TestCase
         parent::setUp();
 
         $this->Users = TableRegistry::getTableLocator()->get('Users');
+        $this->Things = TableRegistry::getTableLocator()->get('Things');
     }
 
     public function testBeforeLookupEmptyQuery(): void
@@ -39,6 +43,20 @@ class LookupActionListenerTest extends TestCase
         $listener = new LookupActionListener();
         $listener->beforeLookup($event, $query);
         $this->assertFalse($query->isEmpty());
+    }
+
+    public function testBeforeLookupTypeAheadFields(): void
+    {
+        $query = $this->Things->find('all');
+        $controller = new Controller($this->getRequest(['query' => 'Thing #']), null, 'Things');
+        $event = new Event(
+            (string)EventName::API_LOOKUP_BEFORE_FIND(),
+            $controller
+        );
+
+        $listener = new LookupActionListener();
+        $listener->beforeLookup($event, $query);
+        $this->assertEquals(2, $query->count());
     }
 
     public function testBeforeLookupWithQuery(): void

@@ -257,7 +257,11 @@ class LookupActionListener extends BaseActionListener
     protected function _getTypeaheadFields(Table $table): array
     {
         $config = ModuleRegistry::getModule($table->getRegistryAlias())->getConfig();
-        $fields = Hash::get($config, 'table.typeahead_fields', [$table->getDisplayField()]);
+        $fields = Hash::get($config, 'table.typeahead_fields');
+
+        if (empty($fields)) {
+            $fields = [$table->getDisplayField()];
+        }
 
         // Extract the virtual fields to actual db fields before asking for an alias
         $fields = $this->extractVirtualFields($table, $fields);
