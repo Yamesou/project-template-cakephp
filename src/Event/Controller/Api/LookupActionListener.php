@@ -259,6 +259,10 @@ class LookupActionListener extends BaseActionListener
         $config = ModuleRegistry::getModule($table->getRegistryAlias())->getConfig();
         $fields = Hash::get($config, 'table.typeahead_fields', [$table->getDisplayField()]);
 
+        if (empty($fields)) {
+            $fields = [$table->getDisplayField()];
+        }
+
         // Extract the virtual fields to actual db fields before asking for an alias
         $fields = $this->extractVirtualFields($table, $fields);
         foreach ($fields as $k => $v) {
