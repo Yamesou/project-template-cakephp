@@ -26,7 +26,8 @@ $(document).ready(function(){
 	$('#settings-search').on('input',function(){
 		let search = $(this).val();
 		let labels = $('.tab-content').find('label')
-		$('.tab-content').find("input").css("background-color","white")
+		$('.tab-content').find("input").parent().css("background-color","white")
+		$('.tab-content').find("a").css("background-color","white")
 		if(!(search.length > 2)){
 			return
 		}
@@ -34,10 +35,11 @@ $(document).ready(function(){
 			let lab = $(data).text().toUpperCase()
 			if(~lab.indexOf(search.toUpperCase())){
 				let id = $(data).attr('for')
-				$('.tab-content').find('#'+id).css("background-color","aquamarine")
+				$('.tab-content').find('#'+id).parent().css("background-color","SkyBlue")
 				$('form').find('.active').removeClass('active');
 				// active section
 				let col = $('.tab-content').find('#'+id).closest('.tab-pane')
+				$('a[href="#' + $(col).attr('id') + '"]').css("background-color","SkyBlue")
 				col.addClass('active')
 				let panel = $('.tab-content').find('.active').attr('id')
 				let tab = $('#'+panel).parent().closest('.tab-pane')
@@ -68,18 +70,20 @@ $(document).ready(function(){
 		<div class="col-md-12">
 			<?= $this->Form->create($settings); ?>
 			<div class="nav-tabs-custom">
-				<ul class="nav nav-tabs <?= (1 < count($data)) ? '' : 'hidden' ?>">
+				<ul class="nav nav-tabs">
 					<?php
 					// Tab
 					$first = true;
-					foreach ($data as $tab => $columns) :
-						$id_tab = str_replace(' ','_',$tab);
-						echo $first ? '<li class="active">' : '<li>';
-						?>
-						<a href="#<?= $id_tab ?>" data-tab="<?= $id_tab ?>" data-toggle="tab" aria-expanded="true"><?= $tab ?></a></li>
-						<?php
-						$first = false;
-					endforeach;
+					if (count($data) > 1) :
+						foreach ($data as $tab => $columns) :
+							$id_tab = str_replace(' ','_',$tab);
+							echo $first ? '<li class="active ">' : '<li>';
+							?>
+							<a href="#<?= $id_tab ?>" data-tab="<?= $id_tab ?>" data-toggle="tab" aria-expanded="true"><?= $tab ?></a></li>
+							<?php
+							$first = false;
+						endforeach;
+					endif;
 					?>
 					<li class="pull-right">
 						<div class="navbar-form" role="search">
