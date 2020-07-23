@@ -141,7 +141,7 @@ return [
                     ],
                     'Version' => [
                         'alias' => 'Ldap.version',
-                        'type' => 'string',
+                        'type' => 'integer',
                         'help' => '',
                         'scope' => [
                             'app',
