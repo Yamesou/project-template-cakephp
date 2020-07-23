@@ -57,7 +57,7 @@ return [
                     ],
                     'Port' => [
                         'alias' => 'EmailTransport.default.port',
-                        'type' => 'string',
+                        'type' => 'integer',
                         'help' => '',
                         'scope' => [
                             'app',
