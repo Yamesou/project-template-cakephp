@@ -47,7 +47,7 @@ class ModuleHelper extends Helper
      * @param string $default Default value to return if no table alias is present
      * @return string
      */
-    public function getTableAlias(string $moduleName, string $default = ''): string
+    public function tableAlias(string $moduleName, string $default = ''): string
     {
         $formatter = function ($moduleName) {
             return Inflector::humanize(Inflector::underscore($moduleName));

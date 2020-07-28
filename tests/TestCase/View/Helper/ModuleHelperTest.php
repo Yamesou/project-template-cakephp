@@ -46,12 +46,14 @@ class ModuleHelperTest extends TestCase
     }
 
     /**
-     * Test initial setup
+     * Test table alias
      *
      * @return void
      */
-    public function testInitialization(): void
+    public function testTableAlias(): void
     {
+        $label = $this->Module->tableAlias('Things');
+        $this->assertEquals('Things', $label);
     }
 
     /**
