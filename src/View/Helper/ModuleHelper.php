@@ -50,7 +50,7 @@ class ModuleHelper extends Helper
     public function tableAlias(string $moduleName, string $default = ''): string
     {
         $formatter = function ($moduleName) {
-            return Inflector::humanize(Inflector::underscore($moduleName));
+            return (string)__(Inflector::humanize(Inflector::underscore($moduleName)));
         };
 
         try {
@@ -66,7 +66,7 @@ class ModuleHelper extends Helper
                 return $default;
             }
 
-            return $formatter($moduleName);
+            return (string)__($formatter($moduleName));
         }
     }
 
@@ -81,7 +81,7 @@ class ModuleHelper extends Helper
     public function fieldLabel(string $moduleName, string $fieldName, string $default = ''): string
     {
         $formatter = function ($fieldName) {
-            return Inflector::humanize(Inflector::underscore($fieldName));
+            return (string)__(Inflector::humanize(Inflector::underscore($fieldName)));
         };
 
         try {
@@ -98,7 +98,7 @@ class ModuleHelper extends Helper
                 return $default;
             }
 
-            return $formatter($fieldName);
+            return (string)__($formatter($fieldName));
         }
     }
 
@@ -124,7 +124,7 @@ class ModuleHelper extends Helper
             }
             $table = TableRegistry::getTableLocator()->get($moduleName);
 
-            return Hash::get($module->getConfig(), $path, $default);
+            return (string)__(Hash::get($module->getConfig(), $path, $default));
         } catch (MissingModuleException $e) {
             // @ignoreException
             if (!empty($default)) {
@@ -141,7 +141,7 @@ class ModuleHelper extends Helper
             }
             $association = $table->getAssociation($associationName);
 
-            return $formatter($association->getName());
+            return (string)__($formatter($association->getName()));
         }
     }
 }
