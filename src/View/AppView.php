@@ -51,6 +51,7 @@ class AppView extends View
         $this->loadHelper('Search');
         $this->loadHelper('SystemInfo');
         $this->loadHelper('CakeDC/Users.User');
+        $this->loadHelper('Module');
     }
 
     /**
