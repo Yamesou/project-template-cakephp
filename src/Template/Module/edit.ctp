@@ -16,7 +16,7 @@ use CsvMigrations\FieldHandlers\FieldHandlerFactory;
 use Qobo\Utils\Module\ModuleRegistry;
 
 $config = ModuleRegistry::getModule($this->name)->getConfig();
-$alias = isset($config['table']['alias']) ? $config['table']['alias'] : Inflector::humanize(Inflector::underscore($this->name));
+$alias = $this->Module->tableAlias($this->name);
 
 $table = TableRegistry::getTableLocator()->get(empty($this->plugin) ? $this->name : $this->plugin . '.' . $tableName);
 $displayField = (new FieldHandlerFactory($this))->renderValue(
