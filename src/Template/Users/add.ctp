@@ -9,7 +9,8 @@ echo $this->Html->css(
         'AdminLTE./plugins/iCheck/all',
         'AdminLTE./bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min',
         'AdminLTE./bower_components/select2/dist/css/select2.min',
-        'Qobo/Utils.select2-bootstrap.min'
+        'Qobo/Utils.select2-bootstrap.min',
+        'Qobo/Utils./img/icons/flags/css/flag-icon.css',
     ],
     [
         'block' => 'css'
@@ -21,7 +22,8 @@ echo $this->Html->script(
         'AdminLTE./plugins/iCheck/icheck.min',
         'AdminLTE./bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min',
         'AdminLTE./bower_components/select2/dist/js/select2.full.min',
-        'CsvMigrations.select2.init'
+        'CsvMigrations.select2.init',
+        'Qobo/Utils.select2.init',
     ],
     [
         'block' => 'scriptBottom'
@@ -98,7 +100,7 @@ echo $this->Html->scriptBlock(
                             <?php
                                 $definition = [
                                     'name' => 'country',
-                                    'type' => 'list(countries)',
+                                    'type' => 'country(Common.countries)',
                                     'required' => false,
                                 ];
 
@@ -115,7 +117,7 @@ echo $this->Html->scriptBlock(
                             <?php
                                 $definition = [
                                     'name' => 'gender',
-                                    'type' => 'list(genders)',
+                                    'type' => 'list(Common.genders)',
                                     'required' => false,
                                 ];
 

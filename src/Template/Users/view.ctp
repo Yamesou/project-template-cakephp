@@ -2,6 +2,17 @@
 use CsvMigrations\FieldHandlers\FieldHandlerFactory;
 
 $factory = new FieldHandlerFactory($this);
+
+
+echo $this->Html->css(
+    [
+        'Qobo/Utils./img/icons/flags/css/flag-icon.css',
+    ],
+    [
+        'block' => 'css'
+    ]
+);
+
 ?>
 <section class="content-header">
     <h1><?= $this->Html->link(__('Users'), ['action' => 'index']) . ' &raquo; ' . h($Users->username) ?></h1>
@@ -51,7 +62,7 @@ $factory = new FieldHandlerFactory($this);
                         <dt><?= __('Country') ?></dt>
                         <dd><?= $factory->renderValue('Users', 'country', $Users, ['fieldDefinitions' => [
                             'name' => 'country',
-                            'type' => 'list(countries)',
+                            'type' => 'country(Common.countries)',
                             'required' => false
                         ]]) ?></dd>
                         <dt><?= __('Initials') ?></dt>
@@ -59,7 +70,7 @@ $factory = new FieldHandlerFactory($this);
                         <dt><?= __('Gender') ?></dt>
                         <dd><?= $factory->renderValue('Users', 'gender', $Users, ['fieldDefinitions' => [
                             'name' => 'gender',
-                            'type' => 'list(genders)',
+                            'type' => 'list(Common.genders)',
                             'required' => false
                         ]]) ?></dd>
                         <dt><?= __('Birthdate') ?></dt>
