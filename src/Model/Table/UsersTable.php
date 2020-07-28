@@ -12,6 +12,7 @@ use Cake\Datasource\QueryInterface;
 use Cake\Utility\Hash;
 use Cake\Validation\Validator;
 use CsvMigrations\Model\AssociationsAwareTrait;
+use Qobo\Utils\Module\Exception\MissingModuleException;
 use Qobo\Utils\Module\ModuleRegistry;
 
 /**
@@ -39,20 +40,24 @@ class UsersTable extends Table
 
         $tableName = App::shortName(get_class($this), 'Model/Table', 'Table');
 
-        $tableConfig = ModuleRegistry::getModule($tableName)->getConfig();
-        if (Hash::get($tableConfig, 'table.searchable')) {
-            $this->addBehavior('Search.Searchable', [
-                'fields' => ['first_name', 'last_name', 'username', 'email', 'created', 'modified'],
-            ]);
+        try {
+            $tableConfig = ModuleRegistry::getModule($tableName)->getConfig();
+            if (Hash::get($tableConfig, 'table.searchable')) {
+                $this->addBehavior('Search.Searchable', [
+                    'fields' => ['first_name', 'last_name', 'username', 'email', 'created', 'modified'],
+                ]);
+            }
+            $this->addBehavior('Lookup', ['lookupFields' => Hash::get($tableConfig, 'table.lookup_fields', [])]);
+            // set display field from config
+            if (isset($tableConfig['table']['display_field'])) {
+                $this->setDisplayField($tableConfig['table']['display_field']);
+            }
+        } catch (MissingModuleException $e) {
+            // @ignoreException
+            // During installation the modules might not have been generated just yet, so we will skip this
         }
 
-        $this->addBehavior('Lookup', ['lookupFields' => Hash::get($tableConfig, 'table.lookup_fields', [])]);
         $this->addBehavior('Muffin/Trash.Trash', ['field' => 'trashed']);
-
-        // set display field from config
-        if (isset($tableConfig['table']['display_field'])) {
-            $this->setDisplayField($tableConfig['table']['display_field']);
-        }
     }
 
     /**
