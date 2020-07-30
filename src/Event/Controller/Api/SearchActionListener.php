@@ -2,8 +2,6 @@
 
 namespace App\Event\Controller\Api;
 
-use App\Event\EventName;
-use Cake\Datasource\ResultSetInterface;
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
 
