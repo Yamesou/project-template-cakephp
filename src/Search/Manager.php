@@ -49,11 +49,15 @@ final class Manager
         }
 
         if (Hash::get($data, 'sort')) {
-            $result['order'] = [Hash::get($data, 'sort') => Hash::get($data, 'direction', \Search\Criteria\Direction::DEFAULT_DIRECTION)];
+            $result['order'] = self::getOrder($data);
         }
 
         if (Hash::get($data, 'group_by')) {
             $result['group'] = Hash::get($data, 'group_by');
+        }
+
+        if (Hash::get($data, 'format')) {
+            $result['format'] = Hash::get($data, 'format');
         }
 
         return $result;
@@ -115,6 +119,25 @@ final class Manager
         }
 
         return $result;
+    }
+
+    /**
+     * Order getter
+     *
+     * @param mixed[] $data Request data
+     * @return mixed[]
+     */
+    private static function getOrder(array $data): array
+    {
+        $order = [];
+
+        $fields = (array)Hash::get($data, 'sort');
+        $direction = (string)Hash::get($data, 'direction', \Search\Criteria\Direction::DEFAULT_DIRECTION);
+        foreach ($fields as $field) {
+            $order[$field] = $direction;
+        }
+
+        return $order;
     }
 
     /**

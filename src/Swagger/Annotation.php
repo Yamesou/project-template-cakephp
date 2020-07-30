@@ -358,9 +358,12 @@ class Annotation
                         ),
                         @SWG\Property(
                             property="sort",
-                            type="string",
-                            description="Sorting field",
-                            example="{{module_human_plural}}.name"
+                            type="array",
+                            items= {
+                                "type": "string"
+                            },
+                            description="",
+                            example={{search_fields}}
                         ),
                         @SWG\Property(
                             property="criteria",
@@ -405,7 +408,7 @@ class Annotation
                             property="group_by",
                             type="string",
                             description="Group by field",
-                            example=""
+                            example="{{module_human_plural}}.name"
                         ),
                         @SWG\Property(
                             property="conjunction",
