@@ -187,6 +187,14 @@ class App extends AbstractCommand
             ->connection('test')
             ->plugin('DatabaseLog');
 
+        // Execute migration for Database Logs first, so that it's available for logging
+        $tasks[] = $this->taskCakephpMigration()
+            ->plugin('DatabaseLog');
+
+        // Execute module generation without decorators so the migrations can pass.
+        // We don't use cakeShellScript task here because it doesn't allow to pass multiple parameters.
+        $tasks[] = $this->taskExec('./bin/cake generate_modules -q -f --skip-decorators');
+
         // get a list of cakephp plugins
         $result = $this->taskCakephpPlugins()->run();
         if (!$result->wasSuccessful()) {
@@ -222,14 +230,6 @@ class App extends AbstractCommand
                 ->hide($this->getValue('DB_ADMIN_PASS', $env))
                 ->host($this->getValue('DB_HOST', $env));
         }
-
-        // Execute migration for Database Logs first, so that it's available for logging
-        $tasks[] = $this->taskCakephpMigration()
-            ->plugin('DatabaseLog');
-
-        // Execute module generation without decorators so the migrations can pass.
-        // We don't use cakeShellScript task here because it doesn't allow to pass multiple parameters.
-        $tasks[] = $this->taskExec('./bin/cake generate_modules -f --skip-decorators');
 
         // cleanup database logs
         $tasks[] = $this->taskCakephpShellScript()->name('database_log')->param('gc');
