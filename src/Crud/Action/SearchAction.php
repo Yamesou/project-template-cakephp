@@ -119,7 +119,7 @@ class SearchAction extends BaseAction
 
         $this->_trigger('beforePaginate', $subject);
 
-        if ('raw' === $options['format']) {
+        if (isset($options['format']) && 'raw' === $options['format']) {
             $subject->query->formatResults(new \App\ORM\RawFormatter())
                 ->formatResults(new \App\ORM\FlatFormatter());
         } else {
