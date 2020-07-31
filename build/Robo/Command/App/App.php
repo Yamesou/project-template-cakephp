@@ -229,11 +229,7 @@ class App extends AbstractCommand
 
         // Execute module generation without decorators so the migrations can pass.
         // We don't use cakeShellScript task here because it doesn't allow to pass multiple parameters.
-        $generateModulesTask = $this->taskExec('./bin/cake generate_modules -f --skip-decorators');
-        $generateModulesTask->run();
-        if (!$result->wasSuccessful()) {
-            return false;
-        }
+        $tasks[] = $this->taskExec('./bin/cake generate_modules -f --skip-decorators');
 
         // cleanup database logs
         $tasks[] = $this->taskCakephpShellScript()->name('database_log')->param('gc');
