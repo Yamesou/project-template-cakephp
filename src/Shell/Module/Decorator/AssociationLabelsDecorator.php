@@ -17,7 +17,7 @@ class AssociationLabelsDecorator
     {
         $table = TableRegistry::getTableLocator()->get($moduleName);
 
-        /** @var \Cake\ORM\Association */
+        /** @var \Cake\ORM\Association $association */
         foreach ($table->associations()->getIterator() as $association) {
             $name = $association->getName();
             if (!empty($data['config']['associationLabels'][$name])) {
