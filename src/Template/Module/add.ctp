@@ -15,7 +15,7 @@ use Qobo\Utils\Module\ModuleRegistry;
 
 $config = ModuleRegistry::getModule($this->name)->getConfig();
 
-$alias = isset($config['table']['alias']) ? $config['table']['alias'] : Inflector::humanize(Inflector::underscore($this->name));
+$alias = $this->Module->tableAlias($this->name);
 
 $options = [
     'entity' => $entity,

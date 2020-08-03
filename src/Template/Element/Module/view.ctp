@@ -40,7 +40,7 @@ $table = TableRegistry::getTableLocator()->get($tableName);
 if (!$options['title']) {
     $config = ModuleRegistry::getModule($this->name)->getConfig();
     $options['title'] = $this->Html->link(
-        __(isset($config['table']['alias']) ? $config['table']['alias'] : __(Inflector::humanize(Inflector::underscore($this->name)))),
+        $this->Module->tableAlias($this->name),
         ['plugin' => $this->plugin, 'controller' => $this->name, 'action' => 'index']
     );
     $options['title'] .= ' &raquo; ';

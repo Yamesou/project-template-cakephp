@@ -14,7 +14,7 @@ use Cake\Utility\Inflector;
 use Qobo\Utils\Module\ModuleRegistry;
 
 $config = ModuleRegistry::getModule($this->name)->getConfig();
-$alias = __('{0}', isset($config['table']['alias']) ? $config['table']['alias'] : Inflector::humanize(Inflector::underscore($this->name)));
+$alias = $this->Module->tableAlias($this->name);
 
 $options = [
     'title' => ['page' => __('Batch Edit'), 'alias' => $alias, 'link' => $this->request->getParam('controller')],

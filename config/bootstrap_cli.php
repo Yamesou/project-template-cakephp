@@ -32,6 +32,12 @@ use Cake\Core\Plugin;
 //Configure::write('Log.error.file', 'cli-error');
 
 try {
+    Configure::load('modules', 'default');
+} catch (\Exception $e) {
+    exit($e->getMessage() . "\n");
+}
+
+try {
     Plugin::load('Bake');
 } catch (MissingPluginException $e) {
     // Do not halt if the plugin is missing

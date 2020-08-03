@@ -3,7 +3,6 @@ use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
 use Qobo\Utils\Module\ModuleRegistry;
 
-$labels = Hash::get(ModuleRegistry::getModule($this->name)->getConfig(), 'associationLabels', []);
 $setLabels = [];
 ?>
 <ul id="relatedTabs" class="nav nav-tabs responsive-tabs" role="tablist">
@@ -17,22 +16,10 @@ $setLabels = [];
 
         $label = '<span class="fa fa-' . $config['table']['icon'] . '"></span> ';
 
-        if (array_key_exists($association->getAlias(), $labels)) {
-            $label .= __($labels[$association->getAlias()]);
-        } else {
-            $label .= isset($config['table']['alias']) ?
-                __($config['table']['alias']) :
-                __(Inflector::humanize(Inflector::delimit($tableName)));
-        }
+        $label .= $this->Module->associationLabel($tableName, $association->getAlias());
 
         if (in_array($label, $setLabels)) {
-            $configFields = ModuleRegistry::getModule($tableName)->getFields();
-
-            if (array_key_exists($association->getForeignKey(),$configFields) && array_key_exists('label',$configFields[$association->getForeignKey()]) ) {
-                $label .= ' (' . $configFields[$association->getForeignKey()]['label'] . ')';
-            }else{
-                $label .= ' (' . Inflector::humanize(Inflector::delimit($association->getForeignKey())) . ')';
-            }
+            $label .= $this->Module->fieldLabel($tableName, $association->getForeignKey());
         }
 
         $setLabels[] = $label;

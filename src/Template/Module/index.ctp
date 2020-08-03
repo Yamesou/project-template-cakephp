@@ -35,7 +35,7 @@ $urlExport = ['plugin' => $plugin, 'controller' => $controller, 'action' => 'exp
 
 $config = ModuleRegistry::getModule($controller)->getConfig();
 
-$title = isset($config['table']['alias']) ? $config['table']['alias'] : Inflector::humanize(Inflector::underscore($controller));
+$title = $this->Module->tableAlias($controller);
 
 echo $this->fetch('pre_element');
 

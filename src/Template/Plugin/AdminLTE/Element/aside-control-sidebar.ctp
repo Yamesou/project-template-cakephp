@@ -59,7 +59,7 @@ $hasActivity = false;
 
                 $hasActivity = true;
                 $icon = isset($config['table']['icon']) ? $config['table']['icon'] : Configure::read('Menu.defaults.icon');
-                $title = isset($config['table']['alias']) ? $config['table']['alias'] : Inflector::humanize(Inflector::underscore($item['source']));
+                $title = $this->Module->tableAlias($item['source']);
                 $heading = $factory->renderValue($table, $table->getDisplayField(), $entity->get($table->getDisplayField()), ['renderAs' => 'plain']);
                 ?>
                 <li>

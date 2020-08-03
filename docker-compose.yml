@@ -27,7 +27,6 @@ services:
       && ./bin/composer global require hirak/prestissimo
       && ./bin/composer validate --strict
       && ./bin/composer install --no-progress --no-suggest
-      && ./bin/cake generate_modules -f
       && ./bin/build app:install CHOWN_USER=nginx,CHGRP_GROUP=nginx,DB_HOST=mysql,DB_NAME=app,DB_ADMIN_USER=root,DB_ADMIN_PASS=root,DB_USER=root,DB_PASS=root
       && echo 'Firing up PHP+Nginx, please proceed to http://localhost:8000'
       && php-fpm -D
@@ -58,7 +57,6 @@ services:
       && ./bin/composer install --no-progress --no-suggest
       && ./vendor/bin/phpcs
       && ./vendor/bin/phpstan analyse --no-progress
-      && ./bin/cake generate_modules -f
       && ./bin/build app:install CHOWN_USER=root,CHGRP_GROUP=root,DB_HOST=mysql,DB_NAME=app,DB_ADMIN_USER=root,DB_ADMIN_PASS=root,DB_USER=root,DB_PASS=root --skip-test-db
       && ./vendor/bin/phpunit --group example --no-coverage
       && ./vendor/bin/phpunit --exclude-group example,external --no-coverage"
