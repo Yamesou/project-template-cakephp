@@ -5,8 +5,31 @@ use RolesCapabilities\Access\AccessFactory;
 
 $fhf = new FieldHandlerFactory($this);
 
-echo $this->Html->css('AdminLTE./bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min', ['block' => 'css']);
-echo $this->Html->script('AdminLTE./bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min', ['block' => 'scriptBottom']);
+echo $this->Html->css(
+    [
+        'AdminLTE./bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min',
+        'AdminLTE./bower_components/select2/dist/css/select2.min',
+        'Qobo/Utils.select2-bootstrap.min',
+        'Qobo/Utils./img/icons/flags/css/flag-icon.css',
+    ],
+    [
+        'block' => 'css'
+    ]
+);
+
+echo $this->Html->script(
+    [
+        'AdminLTE./bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min',
+        'AdminLTE./bower_components/select2/dist/js/select2.full.min',
+        'CsvMigrations.select2.init',
+        'Qobo/Utils.select2.init',
+    ],
+    [
+        'block' => 'scriptBottom'
+    ]
+);
+
+
 ?>
 <section class="content-header">
     <h1><?=__('User Profile') ?></h1>
@@ -51,7 +74,7 @@ echo $this->Html->script('AdminLTE./bower_components/bootstrap-datepicker/dist/j
                             if (!empty($user['country'])) {
                                 $definition = [
                                     'name' => 'country',
-                                    'type' => 'list(countries)',
+                                    'type' => 'country(Common.countries)',
                                     'required' => false
                                 ];
                                 echo $fhf->renderValue('Users', 'country', $user['country'], ['fieldDefinitions' => $definition]);
@@ -64,7 +87,7 @@ echo $this->Html->script('AdminLTE./bower_components/bootstrap-datepicker/dist/j
                             if (!empty($user['gender'])) {
                                 $definition = [
                                     'name' => 'gender',
-                                    'type' => 'list(genders)',
+                                    'type' => 'list(Common.genders)',
                                     'required' => false
                                 ];
                                 echo $fhf->renderValue('Users', 'gender', $user['gender'], ['fieldDefinitions' => $definition]);
@@ -136,7 +159,7 @@ echo $this->Html->script('AdminLTE./bower_components/bootstrap-datepicker/dist/j
                             <?= $fhf->renderInput('Users', 'country', $user, [
                                 'fieldDefinitions' => [
                                     'name' => 'country',
-                                    'type' => 'list(countries)',
+                                    'type' => 'country(Common.countries)',
                                     'required' => false,
                                 ],
                                 'label' => false
@@ -155,7 +178,7 @@ echo $this->Html->script('AdminLTE./bower_components/bootstrap-datepicker/dist/j
                             <?= $fhf->renderInput('Users', 'gender', $user, [
                                 'fieldDefinitions' => [
                                     'name' => 'gender',
-                                    'type' => 'list(genders)',
+                                    'type' => 'list(Common.genders)',
                                     'required' => false,
                                 ],
                                 'label' => false

@@ -75,7 +75,7 @@ echo $this->Html->scriptBlock(
                         <td><?php
                             $definition = [
                                 'name' => 'gender',
-                                'type' => 'list(genders)',
+                                'type' => 'list(Common.genders)',
                                 'required' => false
                             ];
                             echo $fhf->renderValue('Users', 'gender', $user, ['fieldDefinitions' => $definition]);
