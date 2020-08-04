@@ -87,9 +87,23 @@ abstract class BaseActionListener implements EventListenerInterface
                 continue;
             }
 
+            // We cover the case where the field names include the Table alias as prefix
+            // This happens mainly for the SearchAction
+            $fieldKey = $conditions['model_field'];
+            $id = $entity->get($primaryKey);
+            if (empty($id)) {
+                $prefix = $table->getAlias();
+                $fieldKey = $prefix . '.' . $fieldKey;
+                $id = $entity->get($prefix . '.' . $primaryKey);
+            }
+
+            if ($entity->has($fieldKey)) {
+                continue;
+            }
+
             $entity->set(
-                $conditions['model_field'],
-                $fileUpload->getFiles($conditions['model_field'], $entity->get($primaryKey))
+                $fieldKey,
+                $fileUpload->getFiles($conditions['model_field'], $id)
             );
         }
     }

@@ -119,9 +119,14 @@ class SearchAction extends BaseAction
 
         $this->_trigger('beforePaginate', $subject);
 
-        $subject->query->formatResults(new \App\ORM\PrettyFormatter())
-            ->formatResults(new \App\ORM\PermissionsFormatter())
-            ->formatResults(new \App\ORM\FlatFormatter());
+        if (isset($options['format']) && 'raw' === $options['format']) {
+            $subject->query->formatResults(new \App\ORM\RawFormatter())
+                ->formatResults(new \App\ORM\FlatFormatter());
+        } else {
+            $subject->query->formatResults(new \App\ORM\PrettyFormatter())
+                ->formatResults(new \App\ORM\PermissionsFormatter())
+                ->formatResults(new \App\ORM\FlatFormatter());
+        }
 
         $resultSet = $this->_controller()->paginate($subject->query, [
             'limit' => $this->_request()->getData('limit', 10),
