@@ -20,7 +20,7 @@ final class ExtendDatabaseLogsSelectClauseListener implements EventListenerInter
     /** {@inheritDoc} */
     public function extendSelectClause(Event $event, Query $query, \ArrayObject $options, bool $primary): void
     {
-        if ($primary && $query->repository() instanceof DatabaseLogsTable) {
+        if ($primary && $query->getRepository() instanceof DatabaseLogsTable) {
             $query->select(['context', 'hostname', 'ip', 'message', 'refer', 'uri']);
         }
     }
