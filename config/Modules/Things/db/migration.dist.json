@@ -188,6 +188,13 @@
         "non-searchable": false,
         "unique": false
     },
+    "color": {
+        "name": "color",
+        "type": "color",
+        "required": false,
+        "non-searchable": false,
+        "unique": false
+    },
     "created": {
         "name": "created",
         "type": "datetime",

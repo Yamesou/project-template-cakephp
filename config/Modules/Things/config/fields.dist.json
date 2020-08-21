@@ -91,5 +91,8 @@
     },
     "work_start" : {
         "help" : "Help Work Start"
+    },
+    "color" : {
+        "help" : "Help Color"
     }
 }
