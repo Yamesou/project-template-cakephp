@@ -25,6 +25,10 @@ $log = array_merge($defaultLog, $log->toArray());
         <div class="col-md-2 text-right"><strong><?= __('Referrer'); ?></strong></div>
         <div class="col-md-10"><?= h($log['refer']); ?></div>
     </div>
+    <div class="row">
+        <div class="col-md-2 text-right"><strong><?= __('Summary'); ?></strong></div>
+        <div class="col-md-10"><?= trim(h($log['summary'])); ?></div>
+    </div>
     <div class="row" style="margin-top:20px;">
         <div class="col-md-2 text-right"><strong><?= __('Message'); ?></strong></div>
         <div class="col-md-10"><pre><small><?= trim(h($log['message'])); ?></small></pre></div>

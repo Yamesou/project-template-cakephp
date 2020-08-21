@@ -76,7 +76,6 @@ $age = Configure::read('DatabaseLog.maxLength');
                         }
                         ?>
                     </div>
-                    <?= $this->element('DatabaseLog.admin_filter'); ?>
                 </div>
             </div>
 
